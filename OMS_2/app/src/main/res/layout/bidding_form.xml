@@ -12,12 +12,12 @@
         android:layout_height="40dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
         android:checked="false"
         android:text="ToggleButton"
         android:textOff="CLOSE"
         android:textOn="OPEN"
-        app:layout_constraintBottom_toTopOf="@+id/bidUserID"
+        app:layout_constraintBottom_toTopOf="@+id/confirmCreateBid"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
@@ -26,29 +26,13 @@
         android:layout_height="22dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="44dp"
         android:text="Type of Bid:"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/bidUserID"
+        app:layout_constraintBottom_toTopOf="@+id/confirmCreateBid"
         app:layout_constraintEnd_toStartOf="@+id/toggleBid"
         app:layout_constraintHorizontal_bias="0.024"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/bidUserID"
-        android:layout_width="343dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:hint="Enter user ID"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/confirmCreateBid"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
@@ -81,7 +65,7 @@
         android:id="@+id/confirmCreateBid"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="84dp"
         android:text="Confirm"
         app:backgroundTint="#00BCD4"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -131,27 +115,15 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/day_picker"
-        android:layout_width="164dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="24dp"
-        android:text="Select day"
-        app:backgroundTint="#00BCD4"
-        app:layout_constraintBottom_toTopOf="@+id/toggleBid"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
         android:id="@+id/time_picker"
         android:layout_width="167dp"
         android:layout_height="40dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="80dp"
         android:text="Select time"
         app:backgroundTint="#00BCD4"
-        app:layout_constraintBottom_toTopOf="@+id/day_picker"
+        app:layout_constraintBottom_toTopOf="@+id/toggleBid"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
@@ -164,7 +136,7 @@
         android:text="Time:"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/day_picker"
+        app:layout_constraintBottom_toTopOf="@+id/checkMonday"
         app:layout_constraintEnd_toStartOf="@+id/time_picker"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -180,13 +152,12 @@
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/toggleBid"
-        app:layout_constraintEnd_toStartOf="@+id/day_picker"
-        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintEnd_toStartOf="@+id/checkMonday"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/num_session"
-        android:layout_width="170dp"
+        android:layout_width="140dp"
         android:layout_height="45dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
@@ -216,7 +187,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginBottom="30dp"
-        android:text="Rate per session:"
+        android:text="Rate per session (RM):"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/time_picker"
@@ -226,7 +197,7 @@
 
     <Spinner
         android:id="@+id/rate_per_session"
-        android:layout_width="170dp"
+        android:layout_width="140dp"
         android:layout_height="45dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
@@ -255,5 +226,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
         app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/checkMonday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mon"
+        app:layout_constraintBottom_toTopOf="@+id/toggleBid"
+        app:layout_constraintEnd_toStartOf="@+id/checkTuesday"
+        app:layout_constraintTop_toBottomOf="@+id/time_picker" />
+
+    <CheckBox
+        android:id="@+id/checkTuesday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tue"
+        app:layout_constraintBottom_toTopOf="@+id/toggleBid"
+        app:layout_constraintEnd_toStartOf="@+id/checkWednesday"
+        app:layout_constraintTop_toBottomOf="@+id/time_picker" />
+
+    <CheckBox
+        android:id="@+id/checkWednesday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wed"
+        app:layout_constraintBottom_toTopOf="@+id/toggleBid"
+        app:layout_constraintEnd_toStartOf="@+id/checkThursday"
+        app:layout_constraintTop_toBottomOf="@+id/time_picker" />
+
+    <CheckBox
+        android:id="@+id/checkThursday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thu"
+        app:layout_constraintBottom_toTopOf="@+id/toggleBid"
+        app:layout_constraintEnd_toStartOf="@+id/checkFriday"
+        app:layout_constraintTop_toBottomOf="@+id/time_picker" />
+
+    <CheckBox
+        android:id="@+id/checkFriday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Fri"
+        app:layout_constraintBottom_toTopOf="@+id/toggleBid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_picker" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

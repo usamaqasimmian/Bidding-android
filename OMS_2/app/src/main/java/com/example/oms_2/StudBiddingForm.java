@@ -52,7 +52,7 @@ import java.util.Map;
  */
 public class StudBiddingForm extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
-    private static final String myApiKey = "INSERT-API_KEY_HERE";
+    private static final String myApiKey = "INSERT_API_KEY_HERE";
     private static final String rootUrl = "https://fit3077.com/api/v1";
 
     //constants used to pass data to another activity

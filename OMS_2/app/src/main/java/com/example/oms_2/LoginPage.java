@@ -86,7 +86,6 @@ public class LoginPage extends AppCompatActivity {
                                 JSONObject reader = new JSONObject(response.body().string());
                                 String jwt = reader.getString("jwt");
                                 VerifyToken(jwt);
-                                Error.setText(jwt);
                             } catch (IOException | JSONException e) {
                                 e.printStackTrace();
                             }

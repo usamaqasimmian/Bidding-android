@@ -12,12 +12,14 @@ import android.widget.Button;
  */
 public class StudentLoggedIn extends AppCompatActivity {
 
+    Button createNewBid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.student_logged_in);
 
-        Button createNewBid = findViewById(R.id.createNewBid);
+        createNewBid = findViewById(R.id.createNewBid);
         createNewBid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

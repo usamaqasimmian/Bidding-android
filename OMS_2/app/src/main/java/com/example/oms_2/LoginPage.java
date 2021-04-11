@@ -55,6 +55,10 @@ public class LoginPage extends AppCompatActivity {
             LoginPage.this.startActivity(intent);
 
         }
+        else if (Username.equals("tutor") && (Password.equals("tutor"))){
+            Intent intent = new Intent(com.example.oms_2.LoginPage.this, TutorLoggedIn.class);
+            LoginPage.this.startActivity(intent);
+        }
 
 
         else{

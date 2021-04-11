@@ -20,13 +20,13 @@ public class StudViewOpenBids extends AppCompatActivity {
         setContentView(R.layout.stud_view_open_bids);
 
         Intent intent = getIntent();
-        String text = "";
-        text += intent.getStringExtra(StudBiddingForm.EXTRA_SUBJECT) + "\n";
-        text += intent.getStringExtra(StudBiddingForm.EXTRA_QUALIF) + "\n";
-        text += intent.getStringExtra(StudBiddingForm.EXTRA_SESSION) + "\n";
-        text += intent.getStringExtra(StudBiddingForm.EXTRA_RATE) + "\n";
-        text += intent.getStringExtra(StudBiddingForm.EXTRA_TIME) + "\n";
-        text += intent.getStringExtra(StudBiddingForm.EXTRA_DAYS) + "\n";
+        String text = "", nextln = "\n\n";
+        text += "Lesson needed: " + intent.getStringExtra(StudBiddingForm.EXTRA_SUBJECT) + nextln;
+        text += "Tutor's qualification: " + intent.getStringExtra(StudBiddingForm.EXTRA_QUALIF) + nextln;
+        text += "No. of sessions per week: " + intent.getStringExtra(StudBiddingForm.EXTRA_SESSION) + nextln;
+        text += "Preferred rate per session: RM " + intent.getStringExtra(StudBiddingForm.EXTRA_RATE) + nextln;
+        text += "Preferred time: " + intent.getStringExtra(StudBiddingForm.EXTRA_TIME) + nextln;
+        text += "Preferred day(s): " + intent.getStringExtra(StudBiddingForm.EXTRA_DAYS) + nextln;
 
         textView5 = findViewById(R.id.textView5);
         textView5.setText(text);

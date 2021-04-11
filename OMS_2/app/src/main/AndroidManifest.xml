@@ -21,6 +21,9 @@
         <activity android:name=".StudBiddingForm" />
         <activity android:name=".StudViewCloseBids" />
         <activity android:name=".StudViewOpenBids" />
+        <activity android:name=".TutorLoggedIn" />
+        <activity android:name=".TutorBidOpen" />
+        <activity android:name=".TutorBidClose" />
     </application>
 
 </manifest>

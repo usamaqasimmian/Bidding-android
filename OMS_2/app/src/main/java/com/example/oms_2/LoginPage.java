@@ -39,19 +39,19 @@ public class LoginPage extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void check(String Username, String Password){
         if(Username.equals("admin") && (Password.equals("admin"))){
-            Intent intent = new Intent(com.example.oms_2.LoginPage.this, StudBiddingForm.class);
+            Intent intent = new Intent(com.example.oms_2.LoginPage.this, StudentLoggedIn.class);
             LoginPage.this.startActivity(intent);
 
         }
 
         else if (Username.equals("ted") && (Password.equals("1234"))) {
-            Intent intent = new Intent(com.example.oms_2.LoginPage.this, StudBiddingForm.class);
+            Intent intent = new Intent(com.example.oms_2.LoginPage.this, StudentLoggedIn.class);
             LoginPage.this.startActivity(intent);
 
         }
 
         else if (Username.equals("tom") && (Password.equals("warehouse"))) {
-            Intent intent = new Intent(com.example.oms_2.LoginPage.this, StudBiddingForm.class);
+            Intent intent = new Intent(com.example.oms_2.LoginPage.this, StudentLoggedIn.class);
             LoginPage.this.startActivity(intent);
 
         }

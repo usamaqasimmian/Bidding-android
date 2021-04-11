@@ -50,7 +50,7 @@ import java.util.Map;
  */
 public class StudBiddingForm extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
-    private static final String myApiKey = "<INSERT_YOUR_API_KEY_HERE>";
+    private static final String myApiKey = "INSERT_API_KEY_HERE";
     private static final String rootUrl = "https://fit3077.com/api/v1";
 
     private boolean toggle;                                     //attribute used for open-close toggle button

@@ -48,6 +48,7 @@ public class LoginPage extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Error.setText("");
                 check(UserName.getText().toString().toLowerCase().trim() , Password.getText().toString());
             }
         });

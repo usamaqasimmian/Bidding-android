@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 public class LoginPage extends AppCompatActivity {
 
-    private static final String myApiKey = "bCBkg7BQ9prgzgkWhbmdwh8tBz8WjH";
+    private static final String myApiKey = "";
     private static final String rootUrl = "https://fit3077.com/api/v1";
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     EditText UserName;

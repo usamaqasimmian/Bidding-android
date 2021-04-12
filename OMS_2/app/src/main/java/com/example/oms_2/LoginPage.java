@@ -50,7 +50,7 @@ public class LoginPage extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifyCred(UserName.getText().toString().toLowerCase().trim(), Password.getText().toString());
+                verifyCred(UserName.getText().toString().trim(), Password.getText().toString());
             }
         });
 
@@ -126,8 +126,7 @@ public class LoginPage extends AppCompatActivity {
                     LoginPage.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(com.example.oms_2.LoginPage.this, StudentLoggedIn.class);
-                            LoginPage.this.startActivity(intent);
+                            redirectUser();
                         }
                     });
                 }

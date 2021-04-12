@@ -36,7 +36,6 @@ public class LoginPage extends AppCompatActivity {
     EditText Password;
     Button Login;
     TextView Error;
-    Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,6 @@ public class LoginPage extends AppCompatActivity {
         Password = findViewById(R.id.password);
         Login = findViewById(R.id.login);
         Error = findViewById(R.id.error);
-        Handler mHandler = new Handler();
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override

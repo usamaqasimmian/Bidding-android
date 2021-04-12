@@ -3,6 +3,8 @@ package com.example.oms_2;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,13 +29,14 @@ import okhttp3.Response;
 
 public class LoginPage extends AppCompatActivity {
 
-    private static final String myApiKey = "bwqWHqbR8FmgJGwBHmjHqNdrLNwC6C";
+    private static final String myApiKey = "fKT88QbgGKNWPRnH8RwTGrHQpmmPP6";
     private static final String rootUrl = "https://fit3077.com/api/v1";
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     EditText UserName;
     EditText Password;
     Button Login;
     TextView Error;
+    Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +46,19 @@ public class LoginPage extends AppCompatActivity {
         Password = findViewById(R.id.password);
         Login = findViewById(R.id.login);
         Error = findViewById(R.id.error);
+        Handler mHandler = new Handler();
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(UserName.getText().toString().toLowerCase().trim() , Password.getText().toString());
+                verifyCred(UserName.getText().toString().toLowerCase().trim() , Password.getText().toString());
             }
         });
 
     }
 
     @SuppressLint("SetTextI18n")
-    private void check(String username, String password){
+    private void verifyCred(String username, String password){
         String usersUrl = rootUrl + "/user/login";
         String json = "{" +
                 "\"userName\":\"" + username + "\"," +
@@ -87,16 +91,15 @@ public class LoginPage extends AppCompatActivity {
                                 VerifyToken(jwt);
                             }
 
-                            else if (response.code() != 200){
-                                Error.setText("Invalid username or password");
-                            }
                         } catch (IOException | JSONException e) {
                             e.printStackTrace();
                         }
 
                     });
                 }
-
+                else {
+                    new Handler(Looper.getMainLooper()).post(() -> Error.setText("Invalid Username or Password"));
+                }
             }
         });
     }
@@ -131,6 +134,10 @@ public class LoginPage extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void redirectUser(){
+
     }
 
 }

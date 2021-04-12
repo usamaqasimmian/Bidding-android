@@ -27,8 +27,9 @@ import okhttp3.Response;
 
 public class LoginPage extends AppCompatActivity {
 
-    private static final String myApiKey = "dgcL8ghC8GPGJw9tcHK8fBKQgphtt7";
+    private static final String myApiKey = "bCBkg7BQ9prgzgkWhbmdwh8tBz8WjH";
     private static final String rootUrl = "https://fit3077.com/api/v1";
+    private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     EditText UserName;
     EditText Password;
     Button Login;
@@ -56,7 +57,6 @@ public class LoginPage extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void check(String username, String password){
         String usersUrl = rootUrl + "/user/login";
-        final MediaType JSON = MediaType.get("application/json; charset=utf-8");
         String json = "{" +
                 "\"userName\":\"" + username + "\"," +
                 "\"password\":\"" + password + "\"" +
@@ -83,27 +83,56 @@ public class LoginPage extends AppCompatActivity {
                         @Override
                         public void run() {
                             try {
-                                JSONObject reader = new JSONObject(response.body().string());
-                                String jwt = reader.getString("jwt");
-                                VerifyToken(jwt);
+                                if (response.code() == 200) {
+                                    System.out.println(response.code());
+                                    JSONObject reader = new JSONObject(response.body().string());
+                                    String jwt = reader.getString("jwt");
+                                    VerifyToken(jwt);
+                                }
                             } catch (IOException | JSONException e) {
                                 e.printStackTrace();
                             }
-                            //Intent intent = new Intent(com.example.oms_2.LoginPage.this, VerifyToken.class);
-                            //intent.putExtra("jwd", String.valueOf(request.url()));
-                            //LoginPage.this.startActivity(intent);
 
                         }
                     });
                 }
             }
         });
-
+        Error.setText("Invalid username or credentials");
     }
 
+    @SuppressLint("SetTextI18n")
     private void VerifyToken(String jwt){
-        Intent intent = new Intent(com.example.oms_2.LoginPage.this, StudentLoggedIn.class);
-        LoginPage.this.startActivity(intent);
+        String jsonString = "{\"jwt\":\"" + jwt + "\"}";
+        String usersVerifyTokenUrl = rootUrl + "/user/verify-token";
+        RequestBody body = RequestBody.create(jsonString, JSON);
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(usersVerifyTokenUrl)
+                .header("Authorization",myApiKey)
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if(response.isSuccessful()){
+
+
+                    LoginPage.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(com.example.oms_2.LoginPage.this, StudentLoggedIn.class);
+                            LoginPage.this.startActivity(intent);
+                        }
+                    });
+                }
+            }
+        });
+        Error.setText("Invalid Token");
     }
 }
 

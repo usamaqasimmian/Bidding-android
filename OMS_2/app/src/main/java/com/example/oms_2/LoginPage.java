@@ -13,14 +13,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -53,7 +49,7 @@ public class LoginPage extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifyCred(UserName.getText().toString().trim() , Password.getText().toString());
+                verifyCred(UserName.getText().toString().toLowerCase().trim() , Password.getText().toString());
             }
         });
 
@@ -129,7 +125,8 @@ public class LoginPage extends AppCompatActivity {
                     LoginPage.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            redirectUser();
+                            Intent intent = new Intent(com.example.oms_2.LoginPage.this, StudentLoggedIn.class);
+                            LoginPage.this.startActivity(intent);
                         }
                     });
                 }
@@ -138,48 +135,6 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private void redirectUser(){
-        String getAllUsers = rootUrl + "/user";
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(getAllUsers)
-                .header("Authorization",myApiKey)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if(response.isSuccessful()){
-                    LoginPage.this.runOnUiThread(() -> {
-                        String loggedIn = UserName.getText().toString().trim();
-                        try {
-                            JSONArray array = new JSONArray(response.body().string());
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject row = array.getJSONObject(i);
-                                if(row.getString("userName").equals(loggedIn)){
-                                    if(row.getBoolean("isStudent")){
-                                        Intent intent = new Intent(LoginPage.this, StudentLoggedIn.class);
-                                        LoginPage.this.startActivity(intent);
-                                    }
-                                    else {
-                                        Intent intent = new Intent(LoginPage.this, TutorLoggedIn.class);
-                                        LoginPage.this.startActivity(intent);
-                                    }
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    });
-                }
-            }
-        });
-
 
     }
 

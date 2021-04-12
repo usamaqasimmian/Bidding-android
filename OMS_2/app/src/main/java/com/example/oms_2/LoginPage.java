@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +30,7 @@ import okhttp3.Response;
 
 public class LoginPage extends AppCompatActivity {
 
-    private static final String myApiKey = "fKT88QbgGKNWPRnH8RwTGrHQpmmPP6";
+    private static final String myApiKey = "JzBR7B6GhMFQGNq7dMTpBqHmWKMbND";
     private static final String rootUrl = "https://fit3077.com/api/v1";
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     EditText UserName;
@@ -49,14 +50,14 @@ public class LoginPage extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifyCred(UserName.getText().toString().toLowerCase().trim() , Password.getText().toString());
+                verifyCred(UserName.getText().toString().toLowerCase().trim(), Password.getText().toString());
             }
         });
 
     }
 
     @SuppressLint("SetTextI18n")
-    private void verifyCred(String username, String password){
+    private void verifyCred(String username, String password) {
         String usersUrl = rootUrl + "/user/login";
         String json = "{" +
                 "\"userName\":\"" + username + "\"," +
@@ -67,7 +68,7 @@ public class LoginPage extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(usersUrl + "?jwt=true")
-                .header("Authorization",myApiKey)
+                .header("Authorization", myApiKey)
                 .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -78,7 +79,7 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     LoginPage.this.runOnUiThread(() -> {
                         try {
@@ -94,22 +95,22 @@ public class LoginPage extends AppCompatActivity {
                         }
 
                     });
-                }
-                else {
+                } else {
                     new Handler(Looper.getMainLooper()).post(() -> Error.setText("Invalid Username or Password"));
                 }
             }
         });
     }
+
     @SuppressLint("SetTextI18n")
-    private void VerifyToken(String jwt){
+    private void VerifyToken(String jwt) {
         String jsonString = "{\"jwt\":\"" + jwt + "\"}";
         String usersVerifyTokenUrl = rootUrl + "/user/verify-token";
         RequestBody body = RequestBody.create(jsonString, JSON);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(usersVerifyTokenUrl)
-                .header("Authorization",myApiKey)
+                .header("Authorization", myApiKey)
                 .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -119,7 +120,7 @@ public class LoginPage extends AppCompatActivity {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
 
                     LoginPage.this.runOnUiThread(new Runnable() {
@@ -134,9 +135,49 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
-    private void redirectUser(){
+    private void redirectUser() {
+        String getAllUsers = rootUrl + "/user";
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(getAllUsers)
+                .header("Authorization", myApiKey)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    LoginPage.this.runOnUiThread(() -> {
+                        String loggedIn = UserName.getText().toString().trim();
+                        try {
+                            JSONArray array = new JSONArray(response.body().string());
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject row = array.getJSONObject(i);
+                                if (row.getString("userName").equals(loggedIn)) {
+                                    if (row.getBoolean("isStudent")) {
+                                        Intent intent = new Intent(LoginPage.this, StudentLoggedIn.class);
+                                        LoginPage.this.startActivity(intent);
+                                    } else {
+                                        Intent intent = new Intent(LoginPage.this, TutorLoggedIn.class);
+                                        LoginPage.this.startActivity(intent);
+                                    }
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    });
+                }
+            }
+        });
+
 
     }
-
 }
 

@@ -7,4 +7,7 @@
     <string name="enter_username">Enter Username</string>
     <string name="logout">Logout</string>
     <string name="student_bidding_form">Student Bidding Form</string>
+    <string name="tutor_bidding_form">Tutor Bidding Form</string>
+    <string name="tutor_open_bid">Tutor Open Bid</string>
+    <string name="tutor_close_bid">Tutor Close Bid</string>
 </resources>

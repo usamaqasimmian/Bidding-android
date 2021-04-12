@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 public class LoginPage extends AppCompatActivity {
 
-    private static final String myApiKey = "";
+    private static final String myApiKey = "bwqWHqbR8FmgJGwBHmjHqNdrLNwC6C";
     private static final String rootUrl = "https://fit3077.com/api/v1";
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     EditText UserName;
@@ -44,11 +44,9 @@ public class LoginPage extends AppCompatActivity {
         Login = findViewById(R.id.login);
         Error = findViewById(R.id.error);
 
-
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Error.setText("");
                 check(UserName.getText().toString().toLowerCase().trim() , Password.getText().toString());
             }
         });
@@ -77,31 +75,31 @@ public class LoginPage extends AppCompatActivity {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
                 if(response.isSuccessful()){
 
-
-                    LoginPage.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                if (response.code() == 200) {
-                                    System.out.println(response.code());
-                                    JSONObject reader = new JSONObject(response.body().string());
-                                    String jwt = reader.getString("jwt");
-                                    VerifyToken(jwt);
-                                }
-                            } catch (IOException | JSONException e) {
-                                e.printStackTrace();
+                    LoginPage.this.runOnUiThread(() -> {
+                        try {
+                            if (response.code() == 200) {
+                                System.out.println(response.code());
+                                JSONObject reader = new JSONObject(response.body().string());
+                                String jwt = reader.getString("jwt");
+                                VerifyToken(jwt);
                             }
 
+                            else if (response.code() != 200){
+                                Error.setText("Invalid username or password");
+                            }
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
                         }
+
                     });
                 }
+
             }
         });
-        Error.setText("Invalid username or credentials");
     }
-
     @SuppressLint("SetTextI18n")
     private void VerifyToken(String jwt){
         String jsonString = "{\"jwt\":\"" + jwt + "\"}";
@@ -133,7 +131,7 @@ public class LoginPage extends AppCompatActivity {
                 }
             }
         });
-        Error.setText("Invalid Token");
     }
+
 }
 

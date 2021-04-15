@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,16 +28,21 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static com.example.oms_2.OMSConstants.myApiKey;
+import static com.example.oms_2.OMSConstants.rootUrl;
+
 
 public class LoginPage extends AppCompatActivity {
 
-    private static final String myApiKey = "JzBR7B6GhMFQGNq7dMTpBqHmWKMbND";
-    private static final String rootUrl = "https://fit3077.com/api/v1";
-    private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     EditText UserName;
     EditText Password;
     Button Login;
     TextView Error;
+
+    private static String studId;
+    public static String getStudId(){ return studId; }
+    public void setStudId(String sid){ this.studId = sid; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,12 +128,9 @@ public class LoginPage extends AppCompatActivity {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()) {
 
-
                     LoginPage.this.runOnUiThread(new Runnable() {
                         @Override
-                        public void run() {
-                            redirectUser();
-                        }
+                        public void run() { redirectUser(); }
                     });
                 }
             }
@@ -158,6 +161,8 @@ public class LoginPage extends AppCompatActivity {
                                 if (row.getString("userName").equals(loggedIn)) {
                                     if (row.getBoolean("isStudent")) {
                                         Intent intent = new Intent(LoginPage.this, StudentLoggedIn.class);
+                                        String studId = row.getString("id");
+                                        setStudId(studId);
                                         LoginPage.this.startActivity(intent);
                                     } else {
                                         Intent intent = new Intent(LoginPage.this, TutorLoggedIn.class);

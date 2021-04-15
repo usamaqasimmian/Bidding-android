@@ -21,7 +21,14 @@ public class StudViewCloseBids extends AppCompatActivity {
 
         Intent intent = getIntent();
         String text = "", nextln = "\n\n";
+
+        text += "Student ID: " + LoginPage.getStudId() + nextln;
+
+        text += "Type of bid: " + intent.getStringExtra(StudBiddingForm.EXTRA_TOGGLE) + nextln;
         text += "Lesson needed: " + intent.getStringExtra(StudBiddingForm.EXTRA_SUBJECT) + nextln;
+
+        text += "Lesson ID: " + StudBiddingForm.getTheSubjId() + nextln;
+
         text += "Tutor's qualification: " + intent.getStringExtra(StudBiddingForm.EXTRA_QUALIF) + nextln;
         text += "No. of sessions per week: " + intent.getStringExtra(StudBiddingForm.EXTRA_SESSION) + nextln;
         text += "Preferred rate per session: RM " + intent.getStringExtra(StudBiddingForm.EXTRA_RATE) + nextln;

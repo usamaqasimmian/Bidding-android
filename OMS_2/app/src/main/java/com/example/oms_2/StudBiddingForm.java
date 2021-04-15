@@ -3,8 +3,12 @@ package com.example.oms_2;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 
+import android.os.Build;
 import android.os.Bundle;
+//import android.util.Log;
+import android.util.Log;
 import android.view.View;
+import android.view.textclassifier.TextLinks;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,6 +20,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -27,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,10 +41,21 @@ import org.json.JSONObject;
 //import java.net.http.HttpRequest;
 //import java.net.http.HttpResponse;
 
+import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+
+import static com.example.oms_2.LoginPage.JSON;
+import static com.example.oms_2.OMSConstants.myApiKey;
+import static com.example.oms_2.OMSConstants.rootUrl;
 
 /**
  * This class implements all the operations required for all the selected components in the bidding form.
@@ -46,13 +63,10 @@ import java.util.Map;
  */
 public class StudBiddingForm extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
-    private static final String myApiKey = "INSERT_API_KEY_HERE";
-    private static final String rootUrl = "https://fit3077.com/api/v1";
-
     //constants used to pass data to another activity
     public static final String EXTRA_SUBJECT = "EXTRA_SUBJECT", EXTRA_QUALIF = "EXTRA_QUALIF",
             EXTRA_SESSION = "EXTRA_SESSION", EXTRA_RATE = "EXTRA_RATE", EXTRA_TIME = "EXTRA_TIME",
-            EXTRA_DAYS = "EXTRA_DAYS";
+            EXTRA_DAYS = "EXTRA_DAYS", EXTRA_TOGGLE = "EXTRA_TOGGLE";
 
     //attributes for the xml layout components
     Spinner bidSubject, qualif_dropdown, num_session, rate_per_session;
@@ -62,7 +76,13 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
     CheckBox checkMonday, checkTuesday, checkWednesday, checkThursday, checkFriday;
 
     private boolean toggle;                                     //attribute used for open-close toggle button
+    private String bidType;
+    public String getBidType(){ return bidType; }
+    public void setBidType(String bt){ this.bidType = bt; }
+
     private List<String> subjects = new ArrayList<>();          //attribute for dropdown list of subjects
+    private List<String> subjectsId = new ArrayList<>();        //attribute for the list of subjects ids
+    private static String theSubjId;                            //attribute for the selected subject's id
     private List<String> qualifications = new ArrayList<>();    //attribute for dropdown list of qualifications
     private List<Integer> sessions = new ArrayList<>();         //attribute for dropdown list of number os sessions per week
     private List<Integer> rates = new ArrayList<>();            //attribute for dropdown list of rates per session
@@ -89,9 +109,11 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
 
     //attribute for upon clicking on confirm button
     private final View.OnClickListener confirmCreateBidOnClickListener = new View.OnClickListener() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onClick(View v) {
-            confirmCreateBidClicked();
+//            confirmCreateBidClicked();
+            postBid();
         }
     };
 
@@ -211,9 +233,33 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
 
     /**
      * Setter for the attribute: qualifications
-     * @param subjs
+     * @param subjs list of strings
      */
     public void setSubjects(List<String> subjs){ this.subjects = subjs; }
+
+    /**
+     * Getter for the attribute: subjectsId
+     * @return a list of strings of the subject ids
+     */
+    public List<String> getSubjectsId(){ return subjectsId; }
+
+    /**
+     * Setter for the attribute: subjectsId
+     * @param subjId list of strings
+     */
+    public void setSubjectsId(List<String> subjId){ this.subjectsId = subjId; }
+
+    /**
+     * Getter for the attribute: theSubjId
+     * @return a string of the selected subject's id
+     */
+    public static String getTheSubjId(){ return theSubjId; }
+
+    /**
+     * Setter for the attribute: theSubjId
+     * @param tsid string
+     */
+    public void setTheSubjId(String tsid){ this.theSubjId = tsid;}
 
     /**
      * Getter for the attribute: qualifications
@@ -223,7 +269,7 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
 
     /**
      * Setter for the attribute: qualifications
-     * @param qualifs
+     * @param qualifs list of strings
      */
     public void setQualifications(List<String> qualifs){ this.qualifications = qualifs; }
 
@@ -235,7 +281,7 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
 
     /**
      * Setter for the attribute: sessions
-     * @param sess
+     * @param sess list of integers
      */
     public void setSessions(List<Integer> sess){ this.sessions = sess; }
 
@@ -247,7 +293,7 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
 
     /**
      * Setter for the attribute: rates
-     * @param rts
+     * @param rts list of integers
      */
     public void setRates(List<Integer> rts){ this.rates = rts; }
 
@@ -259,7 +305,7 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
 
     /**
      * Setter for the attribute: toggle
-     * @param tog
+     * @param tog boolean
      */
     public void setToggle(boolean tog){ this.toggle = tog; }
 
@@ -271,7 +317,7 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
 
     /**
      * Setter for the attribute: checkBoxList
-     * @param cbl
+     * @param cbl list of strings
      */
     public void setCheckBoxList(List<String> cbl){ this.checkBoxList = cbl; }
 
@@ -317,15 +363,19 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
                                 //retrieve each json object {} inside the json array
                                 JSONObject eachSubject = response.getJSONObject(i);
                                 String subjectName = eachSubject.getString("name");
-                                if (!(getSubjects().contains(subjectName))){
-                                    subjects.add(subjectName);
-                                }
+                                String subjectDesc = eachSubject.getString("description");
+                                String subjectId = eachSubject.getString("id");
+                                subjects.add(subjectName + ": " + subjectDesc);
+                                subjectsId.add(subjectId);
+
                             }
                             setSubjects(subjects);
+                            setSubjectsId(subjectsId);
                             ArrayAdapter<String> arrayAdapter1 = spinnerAdapterStr(getSubjects());
                             bidSubject = findViewById(R.id.bidSubject);
                             bidSubject.setAdapter(arrayAdapter1);
                             bidSubject.setOnItemSelectedListener(spinnerSelect);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -423,14 +473,72 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
      */
     public void toggleBidChecked(boolean isChecked){ setToggle(isChecked); }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void postBid(){
+        String selectedBid = toggleBid.getText().toString().toLowerCase();
+
+        String initiatorId = LoginPage.getStudId();
+
+        String dateTimeUtc = Instant.now().toString();
+
+        String selectedSubject = bidSubject.getSelectedItem().toString();
+        String selectedSubjId = getSubjectsId().get(getSubjects().indexOf(selectedSubject));
+        setTheSubjId(selectedSubjId);
+
+        String bidPostUrl = rootUrl + "/bid";
+        String jsonString = "{" +
+                "\"type\":\"" + selectedBid + "\"," +
+                "\"initiatorId\":\"" + initiatorId + "\","  +
+                "\"dateCreated\":\"" + dateTimeUtc + "\","  +
+                "\"subjectId\":\"" + selectedSubjId + "\"," +
+                "\"additionalInfo\":\"" + "{}" + "\"" +
+                "}";
+
+        RequestBody body = RequestBody.create(jsonString, JSON);
+        OkHttpClient client = new OkHttpClient();
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .url(bidPostUrl)
+                .header("Authorization", myApiKey)
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
+                Log.d("theTag", String.valueOf(response.code()));
+                if (response.isSuccessful()) {
+                    //confirmed this does NOT work: error code 400 - Request body could not be parsed or contains invalid fields.
+                    //TODO: MUST FIX THIS
+                    Log.d("myTag", "jjjjjjjjjjjjjj");
+                    StudBiddingForm.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            confirmCreateBidClicked(selectedBid, selectedSubject);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+
     /**
      * This method is called when the 'confirm' button is clicked so that
      * the student is taken to from the Bidding Form page to either the
      * Open Bidding page or the Close bidding page, depending on his bid-request choice.
      */
-    public void confirmCreateBidClicked(){
+    public void confirmCreateBidClicked(String chosenBid, String chosenSubject){
+
         //retrieve choices
+        String selectedBid = toggleBid.getText().toString().toLowerCase();
         String selectedSubject = bidSubject.getSelectedItem().toString();
+        String selectedSubjId = getSubjectsId().get(getSubjects().indexOf(selectedSubject));
+        setTheSubjId(selectedSubjId);
+
         String selectedQualif = qualif_dropdown.getSelectedItem().toString();
         String selectedSession = num_session.getSelectedItem().toString();
         String selectedRate = rate_per_session.getSelectedItem().toString();
@@ -445,8 +553,13 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
         if (getToggle()) { intent = new Intent(StudBiddingForm.this, StudViewOpenBids.class); }
         else {   intent = new Intent(StudBiddingForm.this, StudViewCloseBids.class); }
 
+//        System.out.println("this is working");
+
         //all choices are added to intent so they can be used in other activities
-        intent.putExtra(EXTRA_SUBJECT, selectedSubject);
+        intent.putExtra(EXTRA_TOGGLE, chosenBid);
+        intent.putExtra(EXTRA_SUBJECT, chosenSubject);
+//        intent.putExtra(EXTRA_TOGGLE, selectedBid);
+//        intent.putExtra(EXTRA_SUBJECT, selectedSubject);
         intent.putExtra(EXTRA_QUALIF, selectedQualif);
         intent.putExtra(EXTRA_SESSION, selectedSession);
         intent.putExtra(EXTRA_RATE, selectedRate);
@@ -454,5 +567,4 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
         intent.putExtra(EXTRA_DAYS, selectedDays);
         StudBiddingForm.this.startActivity(intent);
     }
-
 }

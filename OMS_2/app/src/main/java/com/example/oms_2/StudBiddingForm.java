@@ -531,6 +531,7 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
      * the student is taken to from the Bidding Form page to either the
      * Open Bidding page or the Close bidding page, depending on his bid-request choice.
      */
+//    public void confirmCreateBidClicked(){
     public void confirmCreateBidClicked(String chosenBid, String chosenSubject){
 
         //retrieve choices
@@ -552,8 +553,6 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
         //go to open or close bids page
         if (getToggle()) { intent = new Intent(StudBiddingForm.this, StudViewOpenBids.class); }
         else {   intent = new Intent(StudBiddingForm.this, StudViewCloseBids.class); }
-
-//        System.out.println("this is working");
 
         //all choices are added to intent so they can be used in other activities
         intent.putExtra(EXTRA_TOGGLE, chosenBid);

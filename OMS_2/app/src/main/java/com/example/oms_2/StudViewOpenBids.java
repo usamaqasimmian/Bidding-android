@@ -20,6 +20,8 @@ public class StudViewOpenBids extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stud_view_open_bids);
 
+        //TEMPORARY DUMMY TEXT CODE
+
         Intent intent = getIntent();
         String text = "", nextln = "\n\n";
 

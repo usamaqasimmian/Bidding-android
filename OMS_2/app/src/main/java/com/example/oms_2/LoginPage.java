@@ -35,6 +35,7 @@ import static com.example.oms_2.OMSConstants.rootUrl;
 public class LoginPage extends AppCompatActivity {
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+    public static final String myApiKey = "";
     EditText UserName;
     EditText Password;
     Button Login;
@@ -42,7 +43,7 @@ public class LoginPage extends AppCompatActivity {
 
     private static String studId;
     public static String getStudId(){ return studId; }
-    public void setStudId(String sid){ this.studId = sid; }
+    public void setStudId(String sid){ studId = sid; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,7 @@ public class LoginPage extends AppCompatActivity {
         Login = findViewById(R.id.login);
         Error = findViewById(R.id.error);
 
-        Login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyCred(UserName.getText().toString().trim(), Password.getText().toString());
-            }
-        });
+        Login.setOnClickListener(v -> verifyCred(UserName.getText().toString().trim(), Password.getText().toString()));
 
     }
 
@@ -83,14 +79,13 @@ public class LoginPage extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
 
                 if (response.isSuccessful()) {
 
                     LoginPage.this.runOnUiThread(() -> {
                         try {
                             if (response.code() == 200) {
-                                System.out.println(response.code());
                                 JSONObject reader = new JSONObject(response.body().string());
                                 String jwt = reader.getString("jwt");
                                 VerifyToken(jwt);
@@ -125,13 +120,10 @@ public class LoginPage extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
                 if (response.isSuccessful()) {
 
-                    LoginPage.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() { redirectUser(); }
-                    });
+                    LoginPage.this.runOnUiThread(() -> redirectUser());
                 }
             }
         });
@@ -150,7 +142,7 @@ public class LoginPage extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
                 if (response.isSuccessful()) {
                     LoginPage.this.runOnUiThread(() -> {
                         String loggedIn = UserName.getText().toString().trim();
@@ -160,9 +152,10 @@ public class LoginPage extends AppCompatActivity {
                                 JSONObject row = array.getJSONObject(i);
                                 if (row.getString("userName").equals(loggedIn)) {
                                     if (row.getBoolean("isStudent")) {
-                                        Intent intent = new Intent(LoginPage.this, StudentLoggedIn.class);
+                                        Intent intent = new Intent(LoginPage.this, biddingAPI.class);
                                         String studId = row.getString("id");
                                         setStudId(studId);
+                                        intent.putExtra("UserID",studId);
                                         LoginPage.this.startActivity(intent);
                                     } else {
                                         Intent intent = new Intent(LoginPage.this, TutorLoggedIn.class);

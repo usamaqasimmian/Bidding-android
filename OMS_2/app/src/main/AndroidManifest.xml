@@ -17,6 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".biddingAPI" />
         <activity android:name=".StudentLoggedIn" />
         <activity android:name=".StudBiddingForm" />
         <activity android:name=".StudViewCloseBids" />

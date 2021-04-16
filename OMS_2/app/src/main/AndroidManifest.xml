@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.oms_2">
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -17,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".biddingAPI" />
+        <activity android:name=".Bidding" />
         <activity android:name=".StudentLoggedIn" />
         <activity android:name=".StudBiddingForm" />
         <activity android:name=".StudViewCloseBids" />
@@ -25,6 +26,14 @@
         <activity android:name=".TutorLoggedIn" />
         <activity android:name=".TutorBidOpen" />
         <activity android:name=".TutorBidClose" />
+        <receiver android:name=".TimeOutBid"
+            android:permission="TODO"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="processTimerReceiver" >
+                </action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,7 +27,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
 
@@ -86,7 +84,7 @@ public class LoginPage extends AppCompatActivity {
                     LoginPage.this.runOnUiThread(() -> {
                         try {
                             if (response.code() == 200) {
-                                JSONObject reader = new JSONObject(response.body().string());
+                                JSONObject reader = new JSONObject(Objects.requireNonNull(response.body()).string());
                                 String jwt = reader.getString("jwt");
                                 VerifyToken(jwt);
                             }
@@ -147,12 +145,12 @@ public class LoginPage extends AppCompatActivity {
                     LoginPage.this.runOnUiThread(() -> {
                         String loggedIn = UserName.getText().toString().trim();
                         try {
-                            JSONArray array = new JSONArray(response.body().string());
+                            JSONArray array = new JSONArray(Objects.requireNonNull(response.body()).string());
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject row = array.getJSONObject(i);
                                 if (row.getString("userName").equals(loggedIn)) {
                                     if (row.getBoolean("isStudent")) {
-                                        Intent intent = new Intent(LoginPage.this, biddingAPI.class);
+                                        Intent intent = new Intent(LoginPage.this, Bidding.class);
                                         String studId = row.getString("id");
                                         setStudId(studId);
                                         intent.putExtra("UserID",studId);

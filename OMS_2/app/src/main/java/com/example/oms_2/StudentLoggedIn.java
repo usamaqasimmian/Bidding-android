@@ -32,4 +32,25 @@ public class StudentLoggedIn extends AppCompatActivity {
         });
 
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.optionsmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        if (id == R.id.action_Logout) {
+            Intent intent = new Intent(com.example.oms_2.StudentLoggedIn.this, LoginPage.class);
+            StudentLoggedIn.this.startActivity(intent);
+        } else if (id == R.id.student_bidding_form) {
+            Intent intent = new Intent(com.example.oms_2.StudentLoggedIn.this, StudBiddingForm.class);
+            StudentLoggedIn.this.startActivity(intent);
+        }
+        return true;
+    }
 }
+
+
+

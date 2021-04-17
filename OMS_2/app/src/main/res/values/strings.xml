@@ -10,4 +10,5 @@
     <string name="tutor_bidding_form">Tutor Bidding Form</string>
     <string name="tutor_open_bid">Tutor Open Bid</string>
     <string name="tutor_close_bid">Tutor Close Bid</string>
+    <string name="view_all_bids">View All Bids</string>
 </resources>

@@ -27,7 +27,7 @@ import okhttp3.Response;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
 public class Bidding extends AppCompatActivity{
-    public static final String myApiKey = "";
+    public static final String myApiKey = "cPCG87WPdz8gmWTnqzbhCFGrTDHrrp";
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     TextView bidMessage;
     String userID;
@@ -38,28 +38,20 @@ public class Bidding extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bid_success);
         bidMessage = findViewById(R.id.bidMessage);
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                userID= null;
-            } else {
-                userID= extras.getString("UserID");
-            }
-        } else {
-            userID= (String) savedInstanceState.getSerializable("UserID");
-        }
-        bid(userID);
+        bid();
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void bid(String initiatorId) {
-        String type = "Open";
-        LocalDateTime dateCreated = LocalDateTime.now();
+    private void bid() {
+        Intent intent = getIntent();
+        String initiatorId = LoginPage.getStudId(); //working
+        String type = intent.getStringExtra(StudBiddingForm.EXTRA_TOGGLE); //the type
+        LocalDateTime dateCreated = LocalDateTime.now(); //time 2021-04-17T07:20:17.918
         String date = dateCreated + "Z";
-        String subjectId = "148e0af0-699b-4c1f-9e49-4de8816d121e";
-        String additionalInfoTag = "Hours";
-        String additionalInfoRequest = "Flexible Hours required";
+        String subjectId = StudBiddingForm.getTheSubjId(); //subject id
+        String additionalInfoTag = "AdditionalInfo";
+        String additionalInfoRequest = "Flexible Hours required"; //any additional information
         String usersUrl = rootUrl + "/bid";
         String json =
         "{" +
@@ -70,6 +62,7 @@ public class Bidding extends AppCompatActivity{
                 "\"additionalInfo\":"   +   "{" + "\"" + additionalInfoTag + "\":" + "\""+ additionalInfoRequest + "\"" + "}" +
 
                 "}";
+        System.out.println(json);
         RequestBody body = RequestBody.create(json, JSON);
 
         OkHttpClient client = new OkHttpClient();

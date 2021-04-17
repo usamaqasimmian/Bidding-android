@@ -26,15 +26,7 @@ public class TutorLoggedIn extends AppCompatActivity {
         bidOnOpenBids.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TutorLoggedIn.this, TutorBidOpen.class);
-                TutorLoggedIn.this.startActivity(intent);
-            }
-        });
-
-        bidOnCloseBids.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TutorLoggedIn.this, TutorBidClose.class);
+                Intent intent = new Intent(TutorLoggedIn.this, ViewBids.class);
                 TutorLoggedIn.this.startActivity(intent);
             }
         });

@@ -33,7 +33,7 @@ import static com.example.oms_2.OMSConstants.rootUrl;
 public class LoginPage extends AppCompatActivity {
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-    public static final String myApiKey = "";
+    public static final String myApiKey = "cPCG87WPdz8gmWTnqzbhCFGrTDHrrp";
     EditText UserName;
     EditText Password;
     Button Login;
@@ -51,7 +51,6 @@ public class LoginPage extends AppCompatActivity {
         Password = findViewById(R.id.password);
         Login = findViewById(R.id.login);
         Error = findViewById(R.id.error);
-
         Login.setOnClickListener(v -> verifyCred(UserName.getText().toString().trim(), Password.getText().toString()));
 
     }
@@ -149,13 +148,18 @@ public class LoginPage extends AppCompatActivity {
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject row = array.getJSONObject(i);
                                 if (row.getString("userName").equals(loggedIn)) {
-                                    if (row.getBoolean("isStudent")) {
-                                        Intent intent = new Intent(LoginPage.this, Bidding.class);
+                                    if (row.getBoolean("isStudent") && row.getBoolean("isTutor")) {
+                                        Intent intent = new Intent(LoginPage.this, StudentTutorBoth.class);
                                         String studId = row.getString("id");
                                         setStudId(studId);
-                                        intent.putExtra("UserID",studId);
                                         LoginPage.this.startActivity(intent);
-                                    } else {
+                                    } else if (row.getBoolean("isStudent")){
+                                        Intent intent = new Intent(LoginPage.this, StudentLoggedIn.class);
+                                        String studId = row.getString("id");
+                                        setStudId(studId);
+                                        LoginPage.this.startActivity(intent);
+                                    }
+                                    else{
                                         Intent intent = new Intent(LoginPage.this, TutorLoggedIn.class);
                                         LoginPage.this.startActivity(intent);
                                     }

@@ -12,8 +12,9 @@
         android:title="@string/tutor_open_bid" />
 
     <item
-        android:id="@+id/action_tutor_close_bid"
-        android:title="@string/tutor_close_bid" />
+        android:id="@+id/view_all_bids"
+        android:title="@string/view_all_bids" />
+
 
 
 </menu>

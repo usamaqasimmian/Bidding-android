@@ -25,7 +25,9 @@
         <activity android:name=".StudViewOpenBids" />
         <activity android:name=".TutorLoggedIn" />
         <activity android:name=".TutorBidOpen" />
-        <activity android:name=".TutorBidClose" />
+        <activity android:name=".StudentTutorBoth" />
+
+
         <receiver android:name=".TimeOutBid"
             android:permission="TODO"
             tools:ignore="ExportedReceiver">

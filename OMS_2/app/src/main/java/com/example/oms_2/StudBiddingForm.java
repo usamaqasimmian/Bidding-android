@@ -107,15 +107,6 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
         public void onNothingSelected(AdapterView<?> parent) {}
     };
 
-    //attribute for upon clicking on confirm button
-    private final View.OnClickListener confirmCreateBidOnClickListener = new View.OnClickListener() {
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        @Override
-        public void onClick(View v) {
-//            confirmCreateBidClicked();
-            postBid();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +119,7 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
         toggleBid = findViewById(R.id.toggleBid);
         time_picker = findViewById(R.id.time_picker);
         confirmCreateBid = findViewById(R.id.confirmCreateBid);
+
 
         dropdownSubjList();     //operations for selecting subject from dropdown subject list
         dropdownQualList();     //operations for selecting tutor's qualifications
@@ -156,9 +148,22 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
         checkBoxSelect();   //operations for selecting day
 
         toggleBid.setOnCheckedChangeListener(toggleBidOnCheckChangeListener);   //operations for clicking on open-close toggle button
-
         confirmCreateBid.setOnClickListener(confirmCreateBidOnClickListener);   //operations for clicking on 'confirm' button
+
+
+
     }
+
+    //attribute for upon clicking on confirm button
+    private final View.OnClickListener confirmCreateBidOnClickListener = new View.OnClickListener() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @Override
+        public void onClick(View v) {
+//            confirmCreateBidClicked();
+            Intent intent = new Intent(StudBiddingForm.this, Bidding.class);
+            StudBiddingForm.this.startActivity(intent);        }
+    };
+
 
     /**
      * This method adds the checked box value to a list of strings.

@@ -63,11 +63,6 @@ import static com.example.oms_2.OMSConstants.rootUrl;
  */
 public class StudBiddingForm extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
-    //constants used to pass data to another activity
-    public static final String EXTRA_SUBJECT = "EXTRA_SUBJECT", EXTRA_QUALIF = "EXTRA_QUALIF",
-            EXTRA_SESSION = "EXTRA_SESSION", EXTRA_RATE = "EXTRA_RATE", EXTRA_TIME = "EXTRA_TIME",
-            EXTRA_DAYS = "EXTRA_DAYS", EXTRA_TOGGLE = "EXTRA_TOGGLE";
-
     //attributes for the xml layout components
     Spinner bidSubject, qualif_dropdown, num_session, rate_per_session;
     ToggleButton toggleBid;
@@ -76,10 +71,7 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
     CheckBox checkMonday, checkTuesday, checkWednesday, checkThursday, checkFriday;
 
     private boolean toggle;                                     //attribute used for open-close toggle button
-    private String bidType;
-    public String getBidType(){ return bidType; }
-    public void setBidType(String bt){ this.bidType = bt; }
-
+    private static String bidType;
     private List<String> subjects = new ArrayList<>();          //attribute for dropdown list of subjects
     private List<String> subjectsId = new ArrayList<>();        //attribute for the list of subjects ids
     private static String theSubjId;                            //attribute for the selected subject's id
@@ -87,25 +79,12 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
     private List<Integer> sessions = new ArrayList<>();         //attribute for dropdown list of number os sessions per week
     private List<Integer> rates = new ArrayList<>();            //attribute for dropdown list of rates per session
     private List<String> checkBoxList = new ArrayList<>();      //attribute used to add checked box values
+    private static String thequalif, thesession, therate, thetime, thedays;
 
-    //attribute for upon clicking on toggle
-    private final CompoundButton.OnCheckedChangeListener toggleBidOnCheckChangeListener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            toggleBidChecked(isChecked);
-        }
-    };
-
-    //attribute for upon clicking on dropdown subject list
-    private final AdapterView.OnItemSelectedListener spinnerSelect = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            String item = parent.getItemAtPosition(position).toString();
-            Toast.makeText(parent.getContext(), item, Toast.LENGTH_SHORT).show();
-        }
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {}
-    };
+    //constants used to pass data to another activity
+    public static final String EXTRA_SUBJECT = "EXTRA_SUBJECT", EXTRA_QUALIF = "EXTRA_QUALIF",
+            EXTRA_SESSION = "EXTRA_SESSION", EXTRA_RATE = "EXTRA_RATE", EXTRA_TIME = "EXTRA_TIME",
+            EXTRA_DAYS = "EXTRA_DAYS", EXTRA_TOGGLE = "EXTRA_TOGGLE";
 
 
     @Override
@@ -119,7 +98,6 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
         toggleBid = findViewById(R.id.toggleBid);
         time_picker = findViewById(R.id.time_picker);
         confirmCreateBid = findViewById(R.id.confirmCreateBid);
-
 
         dropdownSubjList();     //operations for selecting subject from dropdown subject list
         dropdownQualList();     //operations for selecting tutor's qualifications
@@ -150,8 +128,6 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
         toggleBid.setOnCheckedChangeListener(toggleBidOnCheckChangeListener);   //operations for clicking on open-close toggle button
         confirmCreateBid.setOnClickListener(confirmCreateBidOnClickListener);   //operations for clicking on 'confirm' button
 
-
-
     }
 
     //attribute for upon clicking on confirm button
@@ -159,9 +135,72 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onClick(View v) {
-//            confirmCreateBidClicked();
+            callIntentPutExtras();
             Intent intent = new Intent(StudBiddingForm.this, Bidding.class);
-            StudBiddingForm.this.startActivity(intent);        }
+            StudBiddingForm.this.startActivity(intent);
+        }
+    };
+
+    /**
+     * This method puts the student's choices in the form of string into intent as extras.
+     * These can be accessed via other activities, or static getters can be used as an alternate.
+     */
+    public void callIntentPutExtras(){
+        Intent intent = new Intent();
+
+        String selectedBid = toggleBid.getText().toString().toLowerCase();
+        setBidType(selectedBid);
+
+        String selectedSubject = bidSubject.getSelectedItem().toString();
+        String selectedSubjId = getSubjectsId().get(getSubjects().indexOf(selectedSubject));
+        setTheSubjId(selectedSubjId);
+
+        String selectedQualif = qualif_dropdown.getSelectedItem().toString();
+        setThequalif(selectedQualif);
+
+        String selectedSession = num_session.getSelectedItem().toString();
+        setThesession(selectedSession);
+
+        String selectedRate = rate_per_session.getSelectedItem().toString();
+        setTherate(selectedRate);
+
+        String selectedTime = textView11.getText().toString();
+        setThetime(selectedTime);
+
+        StringBuilder sDays = new StringBuilder();
+        for (String each: getCheckBoxList()){ sDays.append(each).append(","); }
+        String selectedDays = sDays.deleteCharAt(sDays.length()-1).toString();
+        setThedays(selectedDays);
+
+    }
+
+    //attribute for upon clicking on toggle
+    private final CompoundButton.OnCheckedChangeListener toggleBidOnCheckChangeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            toggleBidChecked(isChecked);
+        }
+    };
+
+    /**
+     * This method sets the value of the toggle button.
+     * @param isChecked boolean value
+     */
+    public void toggleBidChecked(boolean isChecked){
+        setToggle(isChecked);
+        if (isChecked){ setBidType("open"); }
+        else{ setBidType("close"); }
+    }
+
+    //attribute for upon clicking on dropdown subject list
+    private final AdapterView.OnItemSelectedListener spinnerSelect = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            String item = parent.getItemAtPosition(position).toString();
+            Toast.makeText(parent.getContext(), item, Toast.LENGTH_SHORT).show();
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {}
     };
 
 
@@ -229,102 +268,6 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
         String t = hourOfDay + ":" + min;
         textView11.setText(t);
     }
-
-    /**
-     * Getter for the attribute: subjects
-     * @return a list of subjects
-     */
-    public List<String> getSubjects(){ return subjects; }
-
-    /**
-     * Setter for the attribute: qualifications
-     * @param subjs list of strings
-     */
-    public void setSubjects(List<String> subjs){ this.subjects = subjs; }
-
-    /**
-     * Getter for the attribute: subjectsId
-     * @return a list of strings of the subject ids
-     */
-    public List<String> getSubjectsId(){ return subjectsId; }
-
-    /**
-     * Setter for the attribute: subjectsId
-     * @param subjId list of strings
-     */
-    public void setSubjectsId(List<String> subjId){ this.subjectsId = subjId; }
-
-    /**
-     * Getter for the attribute: theSubjId
-     * @return a string of the selected subject's id
-     */
-    public static String getTheSubjId(){ return theSubjId; }
-
-    /**
-     * Setter for the attribute: theSubjId
-     * @param tsid string
-     */
-    public void setTheSubjId(String tsid){ this.theSubjId = tsid;}
-
-    /**
-     * Getter for the attribute: qualifications
-     * @return a list containing tutor's qualifications
-     */
-    public List<String> getQualifications(){ return qualifications; }
-
-    /**
-     * Setter for the attribute: qualifications
-     * @param qualifs list of strings
-     */
-    public void setQualifications(List<String> qualifs){ this.qualifications = qualifs; }
-
-    /**
-     * Getter for the attribute: sessions
-     * @return a list of number of sessions
-     */
-    public List<Integer> getSessions(){ return sessions; }
-
-    /**
-     * Setter for the attribute: sessions
-     * @param sess list of integers
-     */
-    public void setSessions(List<Integer> sess){ this.sessions = sess; }
-
-    /**
-     * Getter for the attribute: rates
-     * @return  a list of integers
-     */
-    public List<Integer> getRates(){ return rates; }
-
-    /**
-     * Setter for the attribute: rates
-     * @param rts list of integers
-     */
-    public void setRates(List<Integer> rts){ this.rates = rts; }
-
-    /**
-     * Getter for the attribute: toggle
-     * @return a boolean value
-     */
-    public boolean getToggle(){ return toggle; }
-
-    /**
-     * Setter for the attribute: toggle
-     * @param tog boolean
-     */
-    public void setToggle(boolean tog){ this.toggle = tog; }
-
-    /**
-     * Getter for the attribute: checkBoxList
-     * @return a list of strings
-     */
-    public List<String> getCheckBoxList(){ return checkBoxList; }
-
-    /**
-     * Setter for the attribute: checkBoxList
-     * @param cbl list of strings
-     */
-    public void setCheckBoxList(List<String> cbl){ this.checkBoxList = cbl; }
 
     /**
      * This method returns a collection of objects specified by the list provided
@@ -472,103 +415,36 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
         setRates(rates);
     }
 
-    /**
-     * This method sets the value of the toggle button.
-     * @param isChecked boolean value
-     */
-    public void toggleBidChecked(boolean isChecked){ setToggle(isChecked); }
+    //Getters
+    public static String getThequalif() { return thequalif; }
+    public static String getThesession() { return thesession; }
+    public static String getTherate() { return therate; }
+    public static String getThedays() { return thedays; }
+    public static String getThetime() { return thetime; }
+    public List<String> getCheckBoxList(){ return checkBoxList; }
+    public static String getBidType(){ return bidType; }
+    public boolean getToggle(){ return toggle; }
+    public List<Integer> getRates(){ return rates; }
+    public List<Integer> getSessions(){ return sessions; }
+    public List<String> getQualifications(){ return qualifications; }
+    public static String getTheSubjId(){ return theSubjId; }
+    public List<String> getSubjectsId(){ return subjectsId; }
+    public List<String> getSubjects(){ return subjects; }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void postBid(){
-        String selectedBid = toggleBid.getText().toString().toLowerCase();
+    //Setters
+    public void setThetime(String thetime) { this.thetime = thetime; }
+    public void setThedays(String thedays) { this.thedays = thedays; }
+    public void setTherate(String therate) { this.therate = therate; }
+    public void setThesession(String thesession) { this.thesession = thesession; }
+    public void setThequalif(String thequalif) { this.thequalif = thequalif; }
+    public void setCheckBoxList(List<String> cbl){ this.checkBoxList = cbl; }
+    public void setBidType(String bt){ this.bidType = bt; }
+    public void setToggle(boolean tog){ this.toggle = tog; }
+    public void setRates(List<Integer> rts){ this.rates = rts; }
+    public void setSessions(List<Integer> sess){ this.sessions = sess; }
+    public void setQualifications(List<String> qualifs){ this.qualifications = qualifs; }
+    public void setTheSubjId(String tsid){ this.theSubjId = tsid;}
+    public void setSubjectsId(List<String> subjId){ this.subjectsId = subjId; }
+    public void setSubjects(List<String> subjs){ this.subjects = subjs; }
 
-        String initiatorId = LoginPage.getStudId();
-
-        String dateTimeUtc = Instant.now().toString();
-
-        String selectedSubject = bidSubject.getSelectedItem().toString();
-        String selectedSubjId = getSubjectsId().get(getSubjects().indexOf(selectedSubject));
-        setTheSubjId(selectedSubjId);
-
-        String bidPostUrl = rootUrl + "/bid";
-        String jsonString = "{" +
-                "\"type\":\"" + selectedBid + "\"," +
-                "\"initiatorId\":\"" + initiatorId + "\","  +
-                "\"dateCreated\":\"" + dateTimeUtc + "\","  +
-                "\"subjectId\":\"" + selectedSubjId + "\"," +
-                "\"additionalInfo\":\"" + "{}" + "\"" +
-                "}";
-
-        RequestBody body = RequestBody.create(jsonString, JSON);
-        OkHttpClient client = new OkHttpClient();
-        okhttp3.Request request = new okhttp3.Request.Builder()
-                .url(bidPostUrl)
-                .header("Authorization", myApiKey)
-                .post(body)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
-                Log.d("theTag", String.valueOf(response.code()));
-                if (response.isSuccessful()) {
-                    //confirmed this does NOT work: error code 400 - Request body could not be parsed or contains invalid fields.
-                    //TODO: MUST FIX THIS
-                    Log.d("myTag", "jjjjjjjjjjjjjj");
-                    StudBiddingForm.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            confirmCreateBidClicked(selectedBid, selectedSubject);
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-
-    /**
-     * This method is called when the 'confirm' button is clicked so that
-     * the student is taken to from the Bidding Form page to either the
-     * Open Bidding page or the Close bidding page, depending on his bid-request choice.
-     */
-//    public void confirmCreateBidClicked(){
-    public void confirmCreateBidClicked(String chosenBid, String chosenSubject){
-
-        //retrieve choices
-        String selectedBid = toggleBid.getText().toString().toLowerCase();
-        String selectedSubject = bidSubject.getSelectedItem().toString();
-        String selectedSubjId = getSubjectsId().get(getSubjects().indexOf(selectedSubject));
-        setTheSubjId(selectedSubjId);
-
-        String selectedQualif = qualif_dropdown.getSelectedItem().toString();
-        String selectedSession = num_session.getSelectedItem().toString();
-        String selectedRate = rate_per_session.getSelectedItem().toString();
-        String selectedTime = textView11.getText().toString();
-
-        StringBuilder sDays = new StringBuilder();
-        for (String each: getCheckBoxList()){ sDays.append(each).append(","); }
-        String selectedDays = sDays.deleteCharAt(sDays.length()-1).toString();
-
-        Intent intent;
-        //go to open or close bids page
-        if (getToggle()) { intent = new Intent(StudBiddingForm.this, StudViewOpenBids.class); }
-        else {   intent = new Intent(StudBiddingForm.this, StudViewCloseBids.class); }
-
-        //all choices are added to intent so they can be used in other activities
-        intent.putExtra(EXTRA_TOGGLE, chosenBid);
-        intent.putExtra(EXTRA_SUBJECT, chosenSubject);
-//        intent.putExtra(EXTRA_TOGGLE, selectedBid);
-//        intent.putExtra(EXTRA_SUBJECT, selectedSubject);
-        intent.putExtra(EXTRA_QUALIF, selectedQualif);
-        intent.putExtra(EXTRA_SESSION, selectedSession);
-        intent.putExtra(EXTRA_RATE, selectedRate);
-        intent.putExtra(EXTRA_TIME, selectedTime);
-        intent.putExtra(EXTRA_DAYS, selectedDays);
-        StudBiddingForm.this.startActivity(intent);
-    }
 }

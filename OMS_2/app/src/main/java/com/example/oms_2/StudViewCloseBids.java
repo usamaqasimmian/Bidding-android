@@ -27,15 +27,15 @@ public class StudViewCloseBids extends AppCompatActivity {
         text += "Student ID: " + LoginPage.getStudId() + nextln;
 
         text += "Type of bid: " + intent.getStringExtra(StudBiddingForm.EXTRA_TOGGLE) + nextln;
-        text += "Lesson needed: " + intent.getStringExtra(StudBiddingForm.EXTRA_SUBJECT) + nextln;
+        text += "Lesson needed: " + intent.getStringExtra(StudBiddingForm.EXTRA_SUBJECT) + nextln;                  //
 
         text += "Lesson ID: " + StudBiddingForm.getTheSubjId() + nextln;
 
-        text += "Tutor's qualification: " + intent.getStringExtra(StudBiddingForm.EXTRA_QUALIF) + nextln;
-        text += "No. of sessions per week: " + intent.getStringExtra(StudBiddingForm.EXTRA_SESSION) + nextln;
-        text += "Preferred rate per session: RM " + intent.getStringExtra(StudBiddingForm.EXTRA_RATE) + nextln;
-        text += "Preferred time: " + intent.getStringExtra(StudBiddingForm.EXTRA_TIME) + nextln;
-        text += "Preferred day(s): " + intent.getStringExtra(StudBiddingForm.EXTRA_DAYS) + nextln;
+        text += "Tutor's qualification: " + intent.getStringExtra(StudBiddingForm.EXTRA_QUALIF) + nextln;           //
+        text += "No. of sessions per week: " + intent.getStringExtra(StudBiddingForm.EXTRA_SESSION) + nextln;       //
+        text += "Preferred rate per session: RM " + intent.getStringExtra(StudBiddingForm.EXTRA_RATE) + nextln;     //
+        text += "Preferred time: " + intent.getStringExtra(StudBiddingForm.EXTRA_TIME) + nextln;                    //
+        text += "Preferred day(s): " + intent.getStringExtra(StudBiddingForm.EXTRA_DAYS) + nextln;                  //
 
         textView4 = findViewById(R.id.textView4);
         textView4.setText(text);

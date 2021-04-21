@@ -24,10 +24,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
+/**
+ * This class respond to either success or failure of a student creating a bid.
+ * If successfull, the created bid is posted using the POST /bid endpoint.
+ */
 public class Bidding extends AppCompatActivity{
-    public static final String myApiKey = "cPCG87WPdz8gmWTnqzbhCFGrTDHrrp";
+
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     TextView bidMessage;
     String userID;
@@ -45,23 +51,43 @@ public class Bidding extends AppCompatActivity{
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void bid() {
         Intent intent = getIntent();
+
         String initiatorId = LoginPage.getStudId(); //working
-        String type = intent.getStringExtra(StudBiddingForm.EXTRA_TOGGLE); //the type
+
+        String type = StudBiddingForm.getBidType(); //the bid type
+
         LocalDateTime dateCreated = LocalDateTime.now(); //time 2021-04-17T07:20:17.918
         String date = dateCreated + "Z";
+
         String subjectId = StudBiddingForm.getTheSubjId(); //subject id
-        String additionalInfoTag = "AdditionalInfo";
-        String additionalInfoRequest = "Flexible Hours required"; //any additional information
+
+        String infoTagQ = "tutorQualification",
+                infoTagS = "numOfSess",
+                infoTagR = "ratePerSess",
+                infoTagT = "timeOfSess",
+                infoTagD = "daysOfSess";
+
+        String infoRQ = StudBiddingForm.getThequalif(),
+                infoRS = StudBiddingForm.getThesession(),
+                infoRR = StudBiddingForm.getTherate(),
+                infoRT = StudBiddingForm.getThetime(),
+                infoRD = StudBiddingForm.getThedays();
+
         String usersUrl = rootUrl + "/bid";
         String json =
-        "{" +
-                "\"type\":\"" + type + "\"," +
-                "\"initiatorId\":\"" + initiatorId + "\"," +
-                "\"dateCreated\":\"" + date + "\"," +
-                "\"subjectId\":\"" + subjectId + "\"," +
-                "\"additionalInfo\":"   +   "{" + "\"" + additionalInfoTag + "\":" + "\""+ additionalInfoRequest + "\"" + "}" +
-
-                "}";
+            "{" +
+            "\"type\":\"" + type + "\"," +
+            "\"initiatorId\":\"" + initiatorId + "\"," +
+            "\"dateCreated\":\"" + date + "\"," +
+            "\"subjectId\":\"" + subjectId + "\"," +
+            "\"additionalInfo\":"   +   "{" + "\"" +
+                    infoTagQ + "\":" + "\""+ infoRQ + "\"," + "\"" +
+                    infoTagS + "\":" + "\""+ infoRS + "\"," + "\"" +
+                    infoTagR + "\":" + "\""+ infoRR + "\"," + "\"" +
+                    infoTagT + "\":" + "\""+ infoRT + "\"," + "\"" +
+                    infoTagD + "\":" + "\""+ infoRD + "\"" +
+                    "}" +
+            "}";
         System.out.println(json);
         RequestBody body = RequestBody.create(json, JSON);
 

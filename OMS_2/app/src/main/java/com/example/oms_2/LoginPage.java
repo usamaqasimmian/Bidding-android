@@ -27,13 +27,14 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
 
 public class LoginPage extends AppCompatActivity {
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-    public static final String myApiKey = "cPCG87WPdz8gmWTnqzbhCFGrTDHrrp";
+
     EditText UserName;
     EditText Password;
     Button Login;

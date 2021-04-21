@@ -28,6 +28,14 @@ public class TutorLoggedIn extends AppCompatActivity {
             }
         });
 
+        bidOnCloseBids.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TutorLoggedIn.this, TutorViewCloseBids.class);
+                TutorLoggedIn.this.startActivity(intent);
+            }
+        });
+
     }
 }
 

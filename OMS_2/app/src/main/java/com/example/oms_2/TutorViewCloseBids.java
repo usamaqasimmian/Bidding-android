@@ -1,6 +1,5 @@
 package com.example.oms_2;
 
-
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -28,9 +27,9 @@ import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
 /**
- * This class displays all open bids (made by student) for the tutor.
+ * This class displays all close bids (made by student) for the tutor.
  */
-public class TutorViewOpenBids extends AppCompatActivity {
+public class TutorViewCloseBids extends AppCompatActivity {
 
     private ArrayList<BidCardItem> mListOfBids;
 
@@ -60,7 +59,7 @@ public class TutorViewOpenBids extends AppCompatActivity {
                             for (int i = 0; i < response.length(); i++) {
                                 //retrieve subject(name+desc) and additional info(contain the other details)
                                 JSONObject eachObject = response.getJSONObject(i);
-                                if ( (eachObject.getString("type").toLowerCase().equals("open")) && (eachObject.getJSONObject("additionalInfo").length() == 5)){    //get open bids only
+                                if ( (eachObject.getString("type").toLowerCase().equals("close")) && (eachObject.getJSONObject("additionalInfo").length() == 5)){    //get open bids only
                                     JSONObject subject = eachObject.getJSONObject("subject");
                                     String subjectName = subject.getString("name");
                                     String subjectDesc = subject.getString("description");

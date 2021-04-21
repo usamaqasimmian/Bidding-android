@@ -1,0 +1,43 @@
+[
+  {
+    "id": "string",
+    "givenName": "string",
+    "familyName": "string",
+    "userName": "string",
+    "isStudent": true,
+    "isTutor": true,
+    "competencies": [
+      {
+        "id": "string",
+        "subject": {
+          "id": "string",
+          "name": "string",
+          "description": "string"
+        },
+        "level": 0
+      }
+    ],
+    "qualifications": [
+      {
+        "id": "string",
+        "title": "string",
+        "description": "string",
+        "verified": true
+      }
+    ],
+    "initiatedBids": [
+      {
+        "id": "string",
+        "type": "string",
+        "dateCreated": "2021-04-21T21:30:13.964Z",
+        "dateClosedDown": "2021-04-21T21:30:13.964Z",
+        "subject": {
+          "id": "string",
+          "name": "string",
+          "description": "string"
+        },
+        "additionalInfo": {}
+      }
+    ]
+  }
+]

@@ -25,7 +25,9 @@
         <activity android:name=".StudViewOpenBids" />
         <activity android:name=".TutorLoggedIn" />
         <activity android:name=".TutorBidOpen" />
+        <activity android:name=".ViewAllTutors" />
         <activity android:name=".StudentTutorBoth" />
+        <activity android:name=".Contract" />
         <activity android:name=".TutorViewOpenBids" />
         <activity android:name=".TutorViewCloseBids" />
 

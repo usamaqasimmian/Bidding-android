@@ -110,7 +110,7 @@ public class Bidding extends AppCompatActivity{
 
                     Bidding.this.runOnUiThread(() -> {
                         System.out.println(Objects.requireNonNull(response.body()).toString());
-                        bidMessage.setText("Bid Successful");
+                        bidMessage.setText("Request Successful");
                         setTimer();
                     });
                 }

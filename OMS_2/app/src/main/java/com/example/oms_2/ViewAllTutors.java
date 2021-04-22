@@ -72,8 +72,9 @@ public class ViewAllTutors extends AppCompatActivity {
                                     String id = owner.getString("id");
                                     JSONObject subject = row.getJSONObject("subject");
                                     String qualification = subject.getString("name");
+                                    String subjectId = subject.getString("id");
                                     String level = (String.valueOf(row.getInt("level")));
-                                    TutorViewItems tutorViewItems = new TutorViewItems(name, qualification, level, id);
+                                    TutorViewItems tutorViewItems = new TutorViewItems(name, qualification, level, id, subjectId);
                                     dataItems.add(tutorViewItems);
 
                                     adapter = new RecyclerAdapter(dataItems);

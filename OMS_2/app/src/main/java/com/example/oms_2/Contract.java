@@ -12,6 +12,7 @@ public class Contract extends AppCompatActivity {
         setContentView(R.layout.contract);
         Intent intent = getIntent();
         String tutorId = intent.getStringExtra("tutorid");
+        String subjectId = intent.getStringExtra("subjectid");
         String studentId = LoginPage.getStudId();
 
     }

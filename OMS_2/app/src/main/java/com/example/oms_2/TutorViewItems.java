@@ -5,6 +5,7 @@ public class TutorViewItems {
     private String tutorQualification;
     private String tutorLevel;
     private String tutorId;
+    private String subjectId;
 
     public String getTutorId() {
         return tutorId;
@@ -14,11 +15,21 @@ public class TutorViewItems {
         this.tutorId = tutorId;
     }
 
-    public TutorViewItems(String tutorName, String tutorQualification, String tutorLevel, String tutorId){
+    public String getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(String subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public TutorViewItems(String tutorName, String tutorQualification, String tutorLevel, String tutorId, String subjectId){
         this.tutorName = tutorName;
         this.tutorQualification = tutorQualification;
         this.tutorLevel = tutorLevel;
         this.tutorId = tutorId;
+
+        this.subjectId = subjectId;
     }
 
     public void setTutorName(String tutorName) {

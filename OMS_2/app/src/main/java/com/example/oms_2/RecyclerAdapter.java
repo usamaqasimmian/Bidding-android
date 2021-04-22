@@ -45,7 +45,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), Contract.class);
                 String tutorID = data.get(position).getTutorId();
+                String subjectID = data.get(position).getSubjectId();
                 intent.putExtra("tutorid",tutorID);
+                intent.putExtra("subjectid",subjectID);
                 v.getContext().startActivity(intent);
 
             }

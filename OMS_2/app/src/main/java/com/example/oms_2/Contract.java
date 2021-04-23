@@ -1,6 +1,10 @@
 package com.example.oms_2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +15,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Contract extends AppCompatActivity {
 
@@ -40,8 +45,18 @@ public class Contract extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void contractSign() {
-        String date = dateCreated + "Z";
+        int   day  = expiryDate.getDayOfMonth();
+        int   month= expiryDate.getMonth();
+        int   year = expiryDate.getYear();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String date = sdf.format(calendar.getTime());
+        String expiryDate = date + "T00:00:00.000Z";
+        String startDate = dateCreated + "Z";
 
     }
 

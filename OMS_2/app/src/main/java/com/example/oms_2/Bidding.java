@@ -155,7 +155,6 @@ public class Bidding extends AppCompatActivity{
     private void setTimer(String bidID){
         AlarmManager processTimer = (AlarmManager)getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(this, TimeOutBid.class);
-        intent.putExtra("userID", userID);
         intent.putExtra("bidID", bidID);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Calendar calendar = Calendar.getInstance();

@@ -16,17 +16,26 @@ import android.widget.Button;
 public class StudentLoggedIn extends AppCompatActivity {
 
     Button createNewBid;
+    Button viewAllTutors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_logged_in);
-
+        viewAllTutors = findViewById(R.id.view_all_tutors);
         createNewBid = findViewById(R.id.createNewBid);
         createNewBid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StudentLoggedIn.this, StudBiddingForm.class);
+                StudentLoggedIn.this.startActivity(intent);
+            }
+        });
+
+        viewAllTutors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StudentLoggedIn.this, ViewAllTutors.class);
                 StudentLoggedIn.this.startActivity(intent);
             }
         });

@@ -10,7 +10,7 @@
         android:id="@+id/createNewBid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="create new bid"
+        android:text="@string/create_new_bid"
         app:backgroundTint="#00BCD4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
         android:id="@+id/bidding_system"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bidding System"
+        android:text="@string/bidding_system"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -34,4 +34,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.575" />
+
+    <Button
+        android:id="@+id/view_all_tutors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_all_tutors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createNewBid"
+        app:layout_constraintVertical_bias="0.122" />
 </androidx.constraintlayout.widget.ConstraintLayout>

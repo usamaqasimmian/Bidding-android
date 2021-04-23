@@ -70,7 +70,6 @@ public class Bidding extends AppCompatActivity{
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void bid() {
-        try {
 
             String initiatorId = LoginPage.getStudId(); //working
 
@@ -129,20 +128,20 @@ public class Bidding extends AppCompatActivity{
                     if (response.isSuccessful()) {
 
                         Bidding.this.runOnUiThread(() -> {
+                            String bidID = "id";
                             try {
-                                JSONArray array = new JSONArray(Objects.requireNonNull(response.body()).string());
-                                for (int i = 0; i < array.length(); i++) {
-                                    JSONObject row = array.getJSONObject(i);
-                                    String bidID = row.getString("id");
-                                    bidMessage.setText("Request Successful");
-                                    setTimer(bidID);
-                                    }
-
+                                JSONArray  array = new JSONArray(Objects.requireNonNull(response.body()).string());
+                                JSONObject row = array.getJSONObject(0);
+                                bidID = row.getString("id");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                                bidMessage.setText("Request Successful");
+                                setTimer(bidID);
+
+
 
                         });
                     } else {
@@ -150,10 +149,8 @@ public class Bidding extends AppCompatActivity{
                     }
                 }
             });
-        } catch (Exception e) {
-            bidMessage.setText("Try Again");
         }
-    }
+
 
     private void setTimer(String bidID){
         AlarmManager processTimer = (AlarmManager)getSystemService(ALARM_SERVICE);

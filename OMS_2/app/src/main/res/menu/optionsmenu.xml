@@ -15,6 +15,9 @@
         android:id="@+id/view_all_bids"
         android:title="@string/view_all_bids" />
 
+    <item
+        android:id="@+id/view_all_tutors"
+        android:title="@string/view_all_tutors" />
 
 
 </menu>

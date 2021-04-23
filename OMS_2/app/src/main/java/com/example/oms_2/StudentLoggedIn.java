@@ -48,6 +48,10 @@ public class StudentLoggedIn extends AppCompatActivity {
             Intent intent = new Intent(com.example.oms_2.StudentLoggedIn.this, StudBiddingForm.class);
             StudentLoggedIn.this.startActivity(intent);
         }
+        else if (id == R.id.view_all_tutors) {
+            Intent intent = new Intent(com.example.oms_2.StudentLoggedIn.this, ViewAllTutors.class);
+            StudentLoggedIn.this.startActivity(intent);
+        }
         return true;
     }
 }

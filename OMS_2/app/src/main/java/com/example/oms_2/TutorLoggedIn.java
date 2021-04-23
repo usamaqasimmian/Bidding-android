@@ -2,9 +2,12 @@ package com.example.oms_2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,6 +39,24 @@ public class TutorLoggedIn extends AppCompatActivity {
             }
         });
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.optionsmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        if (id == R.id.action_Logout) {
+            Intent intent = new Intent(com.example.oms_2.TutorLoggedIn.this, LoginPage.class);
+            TutorLoggedIn.this.startActivity(intent);
+        } else if (id == R.id.view_all_bids) {
+            Intent intent = new Intent(com.example.oms_2.TutorLoggedIn.this, TutorViewOpenBids.class);
+            TutorLoggedIn.this.startActivity(intent);
+        }
+        return true;
     }
 }
 

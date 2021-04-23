@@ -12,4 +12,8 @@
     <string name="tutor_close_bid">Tutor Close Bid</string>
     <string name="view_all_bids">View All Bids</string>
     <string name="all_tutors">All Tutors</string>
+    <string name="view_all_tutors">View All Tutors</string>
+    <string name="home">Home</string>
+    <string name="contract_expiry_date">Contract Expiry Date</string>
+    <string name="sign_contract">Sign Contract</string>
 </resources>

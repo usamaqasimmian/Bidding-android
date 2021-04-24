@@ -1,8 +1,10 @@
 package com.example.oms_2;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
     public static class BidCardViewHolder extends RecyclerView.ViewHolder{
         public TextView mbid_title, mline1_subject;
         public TextView mline2_qualif, mline3_sess, mline4_rate, mline5_time, mline6_days;
+        public Button button_offer, button_message;
 
         public BidCardViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -32,6 +35,28 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
             mline4_rate = itemView.findViewById(R.id.line4_rate);
             mline5_time = itemView.findViewById(R.id.line5_time);
             mline6_days = itemView.findViewById(R.id.line6_days);
+
+            button_offer = itemView.findViewById(R.id.button_offer);
+            if (button_offer != null){
+                button_offer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), TutorOfferForm.class);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+            }
+
+            button_message = itemView.findViewById(R.id.button_message);
+            if (button_message != null){
+                button_message.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), MessagePrivate.class);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+            }
         }
     }
 

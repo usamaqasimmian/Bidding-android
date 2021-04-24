@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class TutorOpenBidDialog extends AppCompatDialogFragment {
+public class OpenDialogForm extends AppCompatDialogFragment {
 
     EditText editTextTextPersonName;
     private TutorOpenDialogListener listener;

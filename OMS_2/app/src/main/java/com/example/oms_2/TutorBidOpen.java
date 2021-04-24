@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TutorBidOpen extends AppCompatActivity implements TutorOpenBidDialog.TutorOpenDialogListener {
+public class TutorBidOpen extends AppCompatActivity implements OpenDialogForm.TutorOpenDialogListener {
 
     TextView textView14, textView17;
     Button tutorClickOpenBid;
@@ -52,7 +52,7 @@ public class TutorBidOpen extends AppCompatActivity implements TutorOpenBidDialo
     }
 
     public void openDialog(){
-        TutorOpenBidDialog obDialog = new TutorOpenBidDialog();
+        OpenDialogForm obDialog = new OpenDialogForm();
         obDialog.show(getSupportFragmentManager(), "obDialog");
     }
 

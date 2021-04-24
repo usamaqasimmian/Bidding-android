@@ -31,6 +31,8 @@
         <activity android:name=".Contract" />
         <activity android:name=".TutorViewOpenBids" />
         <activity android:name=".TutorViewCloseBids" />
+        <activity android:name=".TutorOfferForm" />
+        <activity android:name=".MessagePrivate" />
 
 
         <receiver android:name=".TimeOutBid"

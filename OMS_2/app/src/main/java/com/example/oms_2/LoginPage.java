@@ -44,6 +44,10 @@ public class LoginPage extends AppCompatActivity {
     public static String getStudId(){ return studId; }
     public void setStudId(String sid){ studId = sid; }
 
+    private static String tutorId;
+    public static String getTutorId(){ return tutorId; }
+    public void setTutorId(String tid){ tutorId = tid; }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,6 +166,8 @@ public class LoginPage extends AppCompatActivity {
                                     }
                                     else{
                                         Intent intent = new Intent(LoginPage.this, TutorLoggedIn.class);
+                                        String tutId = row.getString("id");
+                                        setTutorId(tutId);
                                         LoginPage.this.startActivity(intent);
                                     }
                                 }

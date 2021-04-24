@@ -146,8 +146,6 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
      * These can be accessed via other activities, or static getters can be used as an alternate.
      */
     public void callIntentPutExtras(){
-        Intent intent = new Intent();
-
         String selectedBid = toggleBid.getText().toString().toLowerCase();
         setBidType(selectedBid);
 
@@ -398,7 +396,7 @@ public class StudBiddingForm extends AppCompatActivity implements TimePickerDial
      * so that the student can select from.
      */
     public void dropdownSessionList(){
-        for (int i=1 ; i <= 3 ; i++){
+        for (int i=1 ; i <= 5 ; i++){
             sessions.add(i);
         }
         setSessions(sessions);

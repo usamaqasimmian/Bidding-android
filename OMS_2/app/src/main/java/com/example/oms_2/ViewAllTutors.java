@@ -35,7 +35,6 @@ public class ViewAllTutors extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_all_tutors);
@@ -44,6 +43,7 @@ public class ViewAllTutors extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         makeRequest();
     }
+
     private void makeRequest() {
         String competency = rootUrl + "/competency";
         OkHttpClient client = new OkHttpClient();
@@ -71,10 +71,11 @@ public class ViewAllTutors extends AppCompatActivity {
                                     String name = owner.getString("givenName") + " " + owner.getString("familyName");
                                     String id = owner.getString("id");
                                     JSONObject subject = row.getJSONObject("subject");
-                                    String qualification = subject.getString("name");
+                                    String subjName = subject.getString("name");
+                                    String subjDescr = subject.getString("description");
                                     String subjectId = subject.getString("id");
                                     String level = (String.valueOf(row.getInt("level")));
-                                    TutorViewItems tutorViewItems = new TutorViewItems(name, qualification, level, id, subjectId);
+                                    TutorViewItems tutorViewItems = new TutorViewItems(name, "Teaching: "+subjName+" - "+subjDescr, "Competency: "+level, id, subjectId);
                                     dataItems.add(tutorViewItems);
 
                                     adapter = new RecyclerAdapter(dataItems);
@@ -96,7 +97,7 @@ public class ViewAllTutors extends AppCompatActivity {
         });
 
     }
-    }
+}
 
 
 

@@ -111,7 +111,7 @@ public class TutorViewOpenBids extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);                //increases performance of app when we know that the recycler view won't change in size
         mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new BidCardItemAdapter(getmListOfBids());         //this list gets passed to adapter which gets passed to viewholder
+        mAdapter = new BidCardItemAdapter(getmListOfBids(), R.layout.open_bid_card_item_card);         //this list gets passed to adapter which gets passed to viewholder
 
         mRecyclerView.setLayoutManager(mLayoutManager);     //pass the layoutmanager to recyclerview
         mRecyclerView.setAdapter(mAdapter);                 //pass adapter to recyclerview

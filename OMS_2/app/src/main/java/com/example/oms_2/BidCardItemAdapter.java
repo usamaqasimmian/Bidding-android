@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.BidCardViewHolder>{
 
     private ArrayList<BidCardItem> mBidCardList;
+    private int whichCard;
 
     public static class BidCardViewHolder extends RecyclerView.ViewHolder{
         public TextView mbid_title, mline1_subject;
@@ -35,15 +36,16 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
     }
 
     //constructor: pass items of the arraylist into the adapter
-    public BidCardItemAdapter(ArrayList<BidCardItem> exList){
+    public BidCardItemAdapter(ArrayList<BidCardItem> exList, int whichCardx){
         mBidCardList = exList;
+        this.whichCard = whichCardx;
     }
 
     @NonNull
     @Override
     public BidCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //pass layout of cards to this adapter
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bid_card_item_card, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(whichCard, parent, false);
         //create viewholder with this
         BidCardViewHolder evh = new BidCardViewHolder(v);
         return evh;     //now we have the viewholder

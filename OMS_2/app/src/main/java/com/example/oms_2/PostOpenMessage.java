@@ -64,7 +64,7 @@ public class PostOpenMessage extends AppCompatActivity {
         String posterID = LoginPage.getTutorId();   //from the logged in tutor
         LocalDateTime dateCreated = LocalDateTime.now();
         String datePosted = dateCreated + "Z";
-        String content = "see additional info";
+        String content = "open";
 
         String infoTagR = "rate",
                 infoTagH = "hour",

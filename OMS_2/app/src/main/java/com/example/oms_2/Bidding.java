@@ -140,9 +140,6 @@ public class Bidding extends AppCompatActivity{
                             }
                                 bidMessage.setText("Request Successful");
                                 setTimer(bidID);
-
-
-
                         });
                     } else {
                         new Handler(Looper.getMainLooper()).post(() -> bidMessage.setText("Invalid Bid Created Please Try again"));

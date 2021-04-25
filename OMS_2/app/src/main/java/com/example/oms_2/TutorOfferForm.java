@@ -46,12 +46,11 @@ public class TutorOfferForm extends AppCompatActivity {
 
     private static String oRate, oHour, oSess, oAddiInfo, dQualif, dCompL;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tutor_offer_form_page);
-        
+
         displayReqBidId();      //display the requester's bid id
         retrieveTutor();        //display tutor's qualification and competency in the offer
         callToSetFilters();     //set range of values allowed for certain entries
@@ -61,9 +60,8 @@ public class TutorOfferForm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 callToSetDetails();     //store the entered details so we can retrieve them later
-                Intent intent = new Intent(TutorOfferForm.this, TutorViewOpenBids.class);
+                Intent intent = new Intent(TutorOfferForm.this, PostOpenMessage.class);
                 TutorOfferForm.this.startActivity(intent);
-                Toast.makeText(getApplicationContext(), "Offers submitted successfully!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -79,7 +77,7 @@ public class TutorOfferForm extends AppCompatActivity {
         offer_sess = findViewById(R.id.offer_sess);
         offer_addi_info = findViewById(R.id.offer_addi_info);
 
-        offer_rate.setFilters(new InputFilter[]{new InputFilterMinMax("20", "100")});
+        offer_rate.setFilters(new InputFilter[]{new InputFilterMinMax("0", "100")});
         offer_hour.setFilters(new InputFilter[]{new InputFilterMinMax("1", "3")});
         offer_sess.setFilters(new InputFilter[]{new InputFilterMinMax("1", "5")});
     }
@@ -118,7 +116,7 @@ public class TutorOfferForm extends AppCompatActivity {
                                 String lvl = tutCompSubjObj.getString("level");
                                 strComp.append("Subject: ")
                                         .append(tutSubj)
-                                        .append("\n")
+                                        .append(", ")
                                         .append("Level: ")
                                         .append(lvl);
                                 dummy_comp_lvl.setText(strComp);
@@ -154,6 +152,7 @@ public class TutorOfferForm extends AppCompatActivity {
 
         mQueue.add(request);
     }
+
 
     //Setters
     public void setoRate(String offerR){ this.oRate = offerR; }

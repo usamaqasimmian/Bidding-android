@@ -33,6 +33,7 @@
         <activity android:name=".TutorViewCloseBids" />
         <activity android:name=".TutorOfferForm" />
         <activity android:name=".MessagePrivate" />
+        <activity android:name=".PostOpenMessage" />
 
 
         <receiver android:name=".TimeOutBid"

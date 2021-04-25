@@ -17,8 +17,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.464"
-        tools:text="create new bid" />
+        app:layout_constraintVertical_bias="0.414"
+        tools:text="make request" />
 
     <TextView
         android:id="@+id/bidding_system"
@@ -43,6 +43,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_offers_for_open_bids"
+        app:layout_constraintVertical_bias="0.169" />
+
+    <Button
+        android:id="@+id/view_offers_for_open_bids"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="view offers for open bids"
+        app:backgroundTint="#00BCD4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createNewBid"
-        app:layout_constraintVertical_bias="0.122" />
+        app:layout_constraintVertical_bias="0.11" />
 </androidx.constraintlayout.widget.ConstraintLayout>

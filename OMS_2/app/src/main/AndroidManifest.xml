@@ -35,6 +35,7 @@
         <activity android:name=".MessagePrivate" />
         <activity android:name=".PostOpenMessage" />
         <activity android:name=".ViewAllOffers" />
+        <activity android:name=".StudentViewOffersOpen" />
 
 
         <receiver android:name=".TimeOutBid"

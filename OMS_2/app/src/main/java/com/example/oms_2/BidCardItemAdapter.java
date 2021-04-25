@@ -31,14 +31,14 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
         public BidCardViewHolder(@NonNull View itemView) {
             super(itemView);
             //references
-            mbid_title = itemView.findViewById(R.id.bid_title);
+            mbid_title = itemView.findViewById(R.id.whatever_title);
             mline1_subject = itemView.findViewById(R.id.line1_subject);
             mline2_qualif = itemView.findViewById(R.id.line2_qualif);
             mline3_sess = itemView.findViewById(R.id.line3_sess);
             mline4_rate = itemView.findViewById(R.id.line4_rate);
             mline5_time = itemView.findViewById(R.id.line5_time);
             mline6_days = itemView.findViewById(R.id.line6_days);
-            thisBidID = itemView.findViewById(R.id.BidId);
+            thisBidID = itemView.findViewById(R.id.clickable_text);
         }
     }
 

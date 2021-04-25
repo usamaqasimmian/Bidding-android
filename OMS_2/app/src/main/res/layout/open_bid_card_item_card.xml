@@ -87,18 +87,30 @@
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/button_offer"
+<!--        <Button-->
+<!--            android:id="@+id/button_offer"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/line6_days"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_marginTop="2dp"-->
+<!--            android:layout_marginEnd="2dp"-->
+<!--            android:layout_marginRight="2dp"-->
+<!--            android:text="offer"-->
+<!--            app:backgroundTint="#2196F3" />-->
+
+        <TextView
+            android:id="@+id/BidId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/line6_days"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="2dp"
-            android:layout_marginRight="2dp"
-            android:text="offer"
-            app:backgroundTint="#2196F3" />
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="dummy openbidId"
+            android:textColor="@color/teal_700"
+            android:textSize="15sp" />
 
 
     </RelativeLayout>

@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.oms_2.BidCardItemAdapter.getOfferHolder;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
@@ -40,6 +41,7 @@ public class TutorOfferForm extends AppCompatActivity {
     EditText offer_sess;
     EditText offer_addi_info;
     TextView dummy_qualif, dummy_comp_lvl;
+    TextView reqBidId;
     Button button_confirm_offer;
 
     private static String oRate, oHour, oSess, oAddiInfo, dQualif, dCompL;
@@ -49,21 +51,26 @@ public class TutorOfferForm extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tutor_offer_form_page);
-
-        //display tutor's qualification and competency in the offer
-        retrieveTutor();
-        callToSetFilters();
+        
+        displayReqBidId();      //display the requester's bid id
+        retrieveTutor();        //display tutor's qualification and competency in the offer
+        callToSetFilters();     //set range of values allowed for certain entries
 
         button_confirm_offer = findViewById(R.id.button_confirm_offer);
         button_confirm_offer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callToSetDetails();
+                callToSetDetails();     //store the entered details so we can retrieve them later
                 Intent intent = new Intent(TutorOfferForm.this, TutorViewOpenBids.class);
                 TutorOfferForm.this.startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Offers submitted successfully!", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void displayReqBidId(){
+        reqBidId = findViewById(R.id.reqBidId);
+        reqBidId.setText(getOfferHolder());
     }
 
     public void callToSetFilters(){

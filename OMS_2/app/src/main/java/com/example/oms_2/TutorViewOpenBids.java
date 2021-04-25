@@ -73,13 +73,16 @@ public class TutorViewOpenBids extends AppCompatActivity {
                                     String timeOfSess = addInfo.getString("timeOfSess");
                                     String daysOfSess = addInfo.getString("daysOfSess");
 
+                                    String bidID = eachObject.getString("id");
+
                                     mListOfBids.add(new BidCardItem("Request "+String.valueOf(i),
                                             "Subject: "+resSubj,
                                             "Tutor's Qualification: "+tutorQualification,
                                             "No. of sessions: "+numOfSess,
                                             "Rate: RM "+ratePerSess,
                                             "Time: "+timeOfSess,
-                                            "Days: "+daysOfSess));
+                                            "Days: "+daysOfSess,
+                                            "Click here to offer:\n"+bidID));
 
                                 }
                             }

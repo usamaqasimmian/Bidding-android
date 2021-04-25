@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,13 +16,18 @@ import java.util.ArrayList;
  */
 public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.BidCardViewHolder>{
 
+    private static String offerHolder;
+    public static String getOfferHolder() { return offerHolder; }
+    public static void setOfferHolder(String offerHolder) { BidCardItemAdapter.offerHolder = offerHolder; }
+
     private ArrayList<BidCardItem> mBidCardList;
     private int whichCard;
 
     public static class BidCardViewHolder extends RecyclerView.ViewHolder{
         public TextView mbid_title, mline1_subject;
         public TextView mline2_qualif, mline3_sess, mline4_rate, mline5_time, mline6_days;
-        public Button button_offer, button_message;
+        public TextView thisBidID;
+
 
         public BidCardViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -35,28 +39,7 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
             mline4_rate = itemView.findViewById(R.id.line4_rate);
             mline5_time = itemView.findViewById(R.id.line5_time);
             mline6_days = itemView.findViewById(R.id.line6_days);
-
-            button_offer = itemView.findViewById(R.id.button_offer);
-            if (button_offer != null){
-                button_offer.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), TutorOfferForm.class);
-                        v.getContext().startActivity(intent);
-                    }
-                });
-            }
-
-            button_message = itemView.findViewById(R.id.button_message);
-            if (button_message != null){
-                button_message.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), MessagePrivate.class);
-                        v.getContext().startActivity(intent);
-                    }
-                });
-            }
+            thisBidID = itemView.findViewById(R.id.BidId);
         }
     }
 
@@ -89,6 +72,18 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
         holder.mline4_rate.setText(currentItem.getmText4());
         holder.mline5_time.setText(currentItem.getmText5());
         holder.mline6_days.setText(currentItem.getmText6());
+
+        holder.thisBidID.setText(currentItem.getTheBidID());
+        System.out.println();
+        holder.thisBidID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), TutorOfferForm.class);
+                setOfferHolder(String.valueOf(holder.thisBidID.getText()).substring(21));
+                v.getContext().startActivity(intent);
+            }
+        });
+
     }
 
 

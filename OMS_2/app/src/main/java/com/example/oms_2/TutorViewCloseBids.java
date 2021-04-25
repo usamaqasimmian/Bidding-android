@@ -72,13 +72,16 @@ public class TutorViewCloseBids extends AppCompatActivity {
                                     String timeOfSess = addInfo.getString("timeOfSess");
                                     String daysOfSess = addInfo.getString("daysOfSess");
 
+                                    String bidID = eachObject.getString("id");
+
                                     mListOfBids.add(new BidCardItem("Request "+String.valueOf(i),
                                             "Subject: "+resSubj,
                                             "Tutor's Qualification: "+tutorQualification,
                                             "No. of sessions: "+numOfSess,
                                             "Rate: RM "+ratePerSess,
                                             "Time: "+timeOfSess,
-                                            "Days: "+daysOfSess));
+                                            "Days: "+daysOfSess,
+                                            "Click here to offer: "+bidID));
 
                                 }
                             }
@@ -110,7 +113,7 @@ public class TutorViewCloseBids extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);                //increases performance of app when we know that the recycler view won't change in size
         mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new BidCardItemAdapter(getmListOfBids(), R.layout.close_bid_card_item_card);         //this list gets passed to adapter which gets passed to viewholder
+        mAdapter = new BidCardItemAdapter(getmListOfBids(), R.layout.open_bid_card_item_card);         //this list gets passed to adapter which gets passed to viewholder
 
         mRecyclerView.setLayoutManager(mLayoutManager);     //pass the layoutmanager to recyclerview
         mRecyclerView.setAdapter(mAdapter);                 //pass adapter to recyclerview

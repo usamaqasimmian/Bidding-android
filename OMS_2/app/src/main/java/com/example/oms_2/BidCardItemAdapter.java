@@ -28,7 +28,6 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
         public TextView mline2_qualif, mline3_sess, mline4_rate, mline5_time, mline6_days;
         public TextView thisBidID;
 
-
         public BidCardViewHolder(@NonNull View itemView) {
             super(itemView);
             //references
@@ -73,8 +72,8 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
         holder.mline5_time.setText(currentItem.getmText5());
         holder.mline6_days.setText(currentItem.getmText6());
 
-        holder.thisBidID.setText(currentItem.getTheBidID());
-        System.out.println();
+        holder.thisBidID.setText(currentItem.getmText7());
+
         holder.thisBidID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,12 +85,10 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
 
     }
 
-
     @Override
     public int getItemCount() {
         //define how many items there will be in the list
         return mBidCardList.size();
     }
-
 
 }

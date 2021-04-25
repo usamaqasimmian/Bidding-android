@@ -12,53 +12,42 @@
         android:layout_margin="10dp">
 
         <TextView
-            android:id="@+id/bid_title"
+            android:id="@+id/view_offer_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:text="dummy title"
+            android:text="dummy offer title"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/line1_subject"
+            android:id="@+id/view_offer_givenName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bid_title"
+            android:layout_below="@+id/view_offer_title"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
-            android:text="dummy subject"
+            android:text="dummy offer given name"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/line2_qualif"
+            android:id="@+id/view_offer_familyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line1_subject"
+            android:layout_below="@+id/view_offer_givenName"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
-            android:text="dummy qualif"
+            android:text="dummy family name"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/line3_sess"
+            android:id="@+id/view_offer_rateX"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line2_qualif"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:text="dummy sessions"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/line4_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/line3_sess"
+            android:layout_below="@+id/view_offer_familyName"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
             android:text="dummy rate"
@@ -66,39 +55,48 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/line5_time"
+            android:id="@+id/view_offer_session"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line4_rate"
+            android:layout_below="@+id/view_offer_rateX"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
-            android:text="dummy time"
+            android:text="dummy session"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/line6_days"
+            android:id="@+id/view_offer_moreInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line5_time"
+            android:layout_below="@+id/view_offer_session"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
-            android:text="dummy days"
+            android:text="dummy more info"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/BidId"
+            android:id="@+id/view_offer_qualifsX"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line6_days"
-            android:layout_marginTop="5dp"
+            android:layout_below="@+id/view_offer_moreInfo"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
-            android:text="dummy openbidId"
-            android:textColor="@color/teal_700"
+            android:text="dummy qualifsX"
+            android:textColor="@android:color/black"
             android:textSize="15sp" />
 
+        <TextView
+            android:id="@+id/view_offer_complvl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_offer_qualifsX"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="dummy comp lvl"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
     </RelativeLayout>
 

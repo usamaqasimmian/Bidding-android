@@ -1,5 +1,6 @@
 package com.example.oms_2;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -50,7 +51,8 @@ public class PostOpenMessage extends AppCompatActivity {
         viewAllOffers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(PostOpenMessage.this, ViewAllOffers.class);
+                PostOpenMessage.this.startActivity(intent);
             }
         });
     }

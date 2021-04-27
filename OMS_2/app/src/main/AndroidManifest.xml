@@ -20,22 +20,18 @@
         </activity>
         <activity android:name=".Bidding" />
         <activity android:name=".StudentLoggedIn" />
-        <activity android:name=".StudBiddingForm" />
-        <activity android:name=".StudViewCloseBids" />
-        <activity android:name=".StudViewOpenBids" />
+        <activity android:name=".StudRequestForm" />
         <activity android:name=".TutorLoggedIn" />
-        <activity android:name=".TutorBidOpen" />
         <activity android:name=".ViewAllTutors" />
         <activity android:name=".BidCloseDown" />
         <activity android:name=".StudentTutorBoth" />
         <activity android:name=".Contract" />
-        <activity android:name=".TutorViewOpenBids" />
-        <activity android:name=".TutorViewCloseBids" />
+        <activity android:name=".TutorViewRequests" />
         <activity android:name=".TutorOfferForm" />
         <activity android:name=".MessagePrivate" />
-        <activity android:name=".PostOpenMessage" />
+        <activity android:name=".PostOfferMessage" />
         <activity android:name=".ViewAllOffers" />
-        <activity android:name=".StudentViewOffersOpen" />
+        <activity android:name=".StudViewOffers" />
 
 
         <receiver android:name=".TimeOutBid"

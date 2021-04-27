@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,10 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static com.example.oms_2.BidCardItemAdapter.getOfferHolder;
@@ -60,7 +56,7 @@ public class TutorOfferForm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 callToSetDetails();     //store the entered details so we can retrieve them later
-                Intent intent = new Intent(TutorOfferForm.this, PostOpenMessage.class);
+                Intent intent = new Intent(TutorOfferForm.this, PostOfferMessage.class);
                 TutorOfferForm.this.startActivity(intent);
             }
         });

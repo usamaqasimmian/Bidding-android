@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class TutorLoggedIn extends AppCompatActivity {
 
     Button bidOnOpenBids, bidOnCloseBids;
+    public static String bidOnBids;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,7 +27,8 @@ public class TutorLoggedIn extends AppCompatActivity {
         bidOnOpenBids.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TutorLoggedIn.this, TutorViewOpenBids.class);
+                bidOnBids = "bidOnOpenBids";
+                Intent intent = new Intent(TutorLoggedIn.this, TutorViewRequests.class);
                 TutorLoggedIn.this.startActivity(intent);
             }
         });
@@ -34,7 +36,8 @@ public class TutorLoggedIn extends AppCompatActivity {
         bidOnCloseBids.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TutorLoggedIn.this, TutorViewCloseBids.class);
+                bidOnBids = "bidOnCloseBids";
+                Intent intent = new Intent(TutorLoggedIn.this, TutorViewRequests.class);
                 TutorLoggedIn.this.startActivity(intent);
             }
         });
@@ -53,7 +56,7 @@ public class TutorLoggedIn extends AppCompatActivity {
             Intent intent = new Intent(com.example.oms_2.TutorLoggedIn.this, LoginPage.class);
             TutorLoggedIn.this.startActivity(intent);
         } else if (id == R.id.view_all_bids) {
-            Intent intent = new Intent(com.example.oms_2.TutorLoggedIn.this, TutorViewOpenBids.class);
+            Intent intent = new Intent(com.example.oms_2.TutorLoggedIn.this, TutorViewRequests.class);
             TutorLoggedIn.this.startActivity(intent);
         }
         return true;

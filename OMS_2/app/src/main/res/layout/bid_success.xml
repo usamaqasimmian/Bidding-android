@@ -16,10 +16,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/backToBiddingForm"
+        android:id="@+id/backToRequestForm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/student_bidding_form"
+        android:text="Student Request Form"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.232"
@@ -34,7 +34,7 @@
         android:text="@string/home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backToBiddingForm"
+        app:layout_constraintStart_toEndOf="@+id/backToRequestForm"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.664" />
 </androidx.constraintlayout.widget.ConstraintLayout>

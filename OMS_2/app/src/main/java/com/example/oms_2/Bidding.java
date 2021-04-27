@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -44,7 +43,7 @@ public class Bidding extends AppCompatActivity{
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     TextView bidMessage;
     String userID;
-    Button studentBiddingForm;
+    Button studentRequestForm;
     Button home;
 
 
@@ -53,14 +52,14 @@ public class Bidding extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bid_success);
         bidMessage = findViewById(R.id.bidMessage);
-        studentBiddingForm = findViewById(R.id.backToBiddingForm);
+        studentRequestForm = findViewById(R.id.backToRequestForm);
         home = findViewById(R.id.StudentLoggedIn);
         home.setOnClickListener(v -> {
             Intent activityChangeIntent = new Intent(Bidding.this, StudentLoggedIn.class);
             Bidding.this.startActivity(activityChangeIntent);
         });
-        studentBiddingForm.setOnClickListener(v -> {
-            Intent activityChangeIntent = new Intent(Bidding.this, StudBiddingForm.class);
+        studentRequestForm.setOnClickListener(v -> {
+            Intent activityChangeIntent = new Intent(Bidding.this, StudRequestForm.class);
             Bidding.this.startActivity(activityChangeIntent);
         });
         bid();
@@ -73,12 +72,12 @@ public class Bidding extends AppCompatActivity{
 
             String initiatorId = LoginPage.getStudId(); //working
 
-            String type = StudBiddingForm.getBidType(); //the bid type
+            String type = StudRequestForm.getBidType(); //the bid type
 
             LocalDateTime dateCreated = LocalDateTime.now(); //time 2021-04-17T07:20:17.918
             String date = dateCreated + "Z";
 
-            String subjectId = StudBiddingForm.getTheSubjId(); //subject id
+            String subjectId = StudRequestForm.getTheSubjId(); //subject id
 
             String infoTagQ = "tutorQualification",
                     infoTagS = "numOfSess",
@@ -86,11 +85,11 @@ public class Bidding extends AppCompatActivity{
                     infoTagT = "timeOfSess",
                     infoTagD = "daysOfSess";
 
-            String infoRQ = StudBiddingForm.getThequalif(),
-                    infoRS = StudBiddingForm.getThesession(),
-                    infoRR = StudBiddingForm.getTherate(),
-                    infoRT = StudBiddingForm.getThetime(),
-                    infoRD = StudBiddingForm.getThedays();
+            String infoRQ = StudRequestForm.getThequalif(),
+                    infoRS = StudRequestForm.getThesession(),
+                    infoRR = StudRequestForm.getTherate(),
+                    infoRT = StudRequestForm.getThetime(),
+                    infoRD = StudRequestForm.getThedays();
 
             String usersUrl = rootUrl + "/bid";
             String json =

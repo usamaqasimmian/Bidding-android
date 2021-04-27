@@ -15,9 +15,10 @@ import android.widget.Button;
  */
 public class StudentLoggedIn extends AppCompatActivity {
 
-    Button createNewBid;
+    Button createNewRequest;
     Button viewAllTutors;
-    Button viewOffersOpen;
+    Button viewOffersOpen, viewOffersClose;
+    public static String viewWhichOffers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +26,12 @@ public class StudentLoggedIn extends AppCompatActivity {
         setContentView(R.layout.student_logged_in);
 
         viewAllTutors = findViewById(R.id.view_all_tutors);
-        createNewBid = findViewById(R.id.createNewBid);
+        createNewRequest = findViewById(R.id.createNewRequest);
 
-        createNewBid.setOnClickListener(new View.OnClickListener() {
+        createNewRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StudentLoggedIn.this, StudBiddingForm.class);
+                Intent intent = new Intent(StudentLoggedIn.this, StudRequestForm.class);
                 StudentLoggedIn.this.startActivity(intent);
             }
         });
@@ -43,11 +44,22 @@ public class StudentLoggedIn extends AppCompatActivity {
             }
         });
 
-        viewOffersOpen = findViewById(R.id.view_offers_for_open_bids);
+        viewOffersOpen = findViewById(R.id.view_offers_for_open_requests);
         viewOffersOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StudentLoggedIn.this, StudentViewOffersOpen.class);
+                viewWhichOffers = "viewOffersOpen";
+                Intent intent = new Intent(StudentLoggedIn.this, StudViewOffers.class);
+                StudentLoggedIn.this.startActivity(intent);
+            }
+        });
+
+        viewOffersClose = findViewById(R.id.view_offers_for_close_requests);
+        viewOffersClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewWhichOffers = "viewOffersClose";
+                Intent intent = new Intent(StudentLoggedIn.this, StudViewOffers.class);
                 StudentLoggedIn.this.startActivity(intent);
             }
         });
@@ -66,7 +78,7 @@ public class StudentLoggedIn extends AppCompatActivity {
             Intent intent = new Intent(com.example.oms_2.StudentLoggedIn.this, LoginPage.class);
             StudentLoggedIn.this.startActivity(intent);
         } else if (id == R.id.student_bidding_form) {
-            Intent intent = new Intent(com.example.oms_2.StudentLoggedIn.this, StudBiddingForm.class);
+            Intent intent = new Intent(com.example.oms_2.StudentLoggedIn.this, StudRequestForm.class);
             StudentLoggedIn.this.startActivity(intent);
         }
         else if (id == R.id.view_all_tutors) {

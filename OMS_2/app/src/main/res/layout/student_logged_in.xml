@@ -7,7 +7,7 @@
     tools:context=".StudentLoggedIn">
 
     <Button
-        android:id="@+id/createNewBid"
+        android:id="@+id/createNewRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_new_bid"
@@ -24,11 +24,11 @@
         android:id="@+id/bidding_system"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bidding_system"
+        android:text="Request System"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/createNewBid"
+        app:layout_constraintBottom_toTopOf="@+id/createNewRequest"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,19 +42,33 @@
         android:text="@string/view_all_tutors"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_offers_for_open_bids"
-        app:layout_constraintVertical_bias="0.169" />
+        app:layout_constraintTop_toBottomOf="@+id/view_offers_for_open_requests"
+        app:layout_constraintVertical_bias="0.524" />
 
     <Button
-        android:id="@+id/view_offers_for_open_bids"
+        android:id="@+id/view_offers_for_open_requests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="view offers for open bids"
+        android:text="view offers for open requests"
         app:backgroundTint="#00BCD4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createNewBid"
+        app:layout_constraintTop_toBottomOf="@+id/createNewRequest"
         app:layout_constraintVertical_bias="0.11" />
+
+    <Button
+        android:id="@+id/view_offers_for_close_requests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="view offers for close requests"
+        app:backgroundTint="#00BCD4"
+        app:layout_constraintBottom_toTopOf="@+id/view_all_tutors"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_offers_for_open_requests"
+        app:layout_constraintVertical_bias="0.505" />
 </androidx.constraintlayout.widget.ConstraintLayout>

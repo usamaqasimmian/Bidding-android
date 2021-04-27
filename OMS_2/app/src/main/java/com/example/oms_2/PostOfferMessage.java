@@ -13,13 +13,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,11 +29,12 @@ import static com.example.oms_2.BidCardItemAdapter.getOfferHolder;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
-public class PostOpenMessage extends AppCompatActivity {
+public class PostOfferMessage extends AppCompatActivity {
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
     Button viewAllOffers;
+    Button gotoTutHomeFromOffer;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -45,20 +42,34 @@ public class PostOpenMessage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_open_message);
 
-        postMgsOpen();
+        if (TutorLoggedIn.bidOnBids.equals("bidOnOpenBids")) {
+            postMsg("open");
+        }
+        else if (TutorLoggedIn.bidOnBids.equals("bidOnCloseBids")){
+            postMsg("close");
+        }
 
         viewAllOffers = findViewById(R.id.view_all_offers);
         viewAllOffers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PostOpenMessage.this, ViewAllOffers.class);
-                PostOpenMessage.this.startActivity(intent);
+                Intent intent = new Intent(PostOfferMessage.this, ViewAllOffers.class);
+                PostOfferMessage.this.startActivity(intent);
+            }
+        });
+
+        gotoTutHomeFromOffer = findViewById(R.id.gotoTutHomeFromOffer);
+        gotoTutHomeFromOffer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostOfferMessage.this, TutorLoggedIn.class);
+                PostOfferMessage.this.startActivity(intent);
             }
         });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void postMgsOpen(){
+    public void postMsg(String content){
         String postMsgUrl = rootUrl + "/message";
 
         //retrieve required info for json
@@ -66,7 +77,6 @@ public class PostOpenMessage extends AppCompatActivity {
         String posterID = LoginPage.getTutorId();   //from the logged in tutor
         LocalDateTime dateCreated = LocalDateTime.now();
         String datePosted = dateCreated + "Z";
-        String content = "open";
 
         String infoTagR = "rate",
                 infoTagH = "hour",
@@ -117,7 +127,7 @@ public class PostOpenMessage extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()){
-                    PostOpenMessage.this.runOnUiThread(() -> {
+                    PostOfferMessage.this.runOnUiThread(() -> {
 //                        String msgId = "id";
 //                        try{
 //                            JSONArray array = new JSONArray(Objects.requireNonNull(response.body()).string());

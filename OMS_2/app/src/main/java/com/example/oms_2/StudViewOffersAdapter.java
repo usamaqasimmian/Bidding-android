@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class StudViewOffersOpenAdapter extends RecyclerView.Adapter<StudViewOffersOpenAdapter.StudViewOffersOpenViewHolder> {
+public class StudViewOffersAdapter extends RecyclerView.Adapter<StudViewOffersAdapter.StudViewOffersViewHolder> {
 
     private ArrayList<BidCardItem> aListY;
     private int whichCardY;
 
-    public static class StudViewOffersOpenViewHolder extends RecyclerView.ViewHolder{
+    public static class StudViewOffersViewHolder extends RecyclerView.ViewHolder{
         public TextView tutorIdHere, mline1_subject;
         public TextView mline2_qualif, mline3_sess, mline4_rate, mline5_time, mline6_days;
         public TextView proceedClick;
 
-        public StudViewOffersOpenViewHolder(@NonNull View itemView) {
+        public StudViewOffersViewHolder(@NonNull View itemView) {
             super(itemView);
             tutorIdHere = itemView.findViewById(R.id.whatever_title);
             mline1_subject = itemView.findViewById(R.id.line1_subject);
@@ -34,20 +34,20 @@ public class StudViewOffersOpenAdapter extends RecyclerView.Adapter<StudViewOffe
         }
     }
 
-    public StudViewOffersOpenAdapter(ArrayList<BidCardItem> aly, int wcy){
+    public StudViewOffersAdapter(ArrayList<BidCardItem> aly, int wcy){
         aListY = aly;
         this.whichCardY = wcy;
     }
 
     @NonNull
     @Override
-    public StudViewOffersOpenViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StudViewOffersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(whichCardY, parent, false);
-        return new StudViewOffersOpenViewHolder(v);
+        return new StudViewOffersViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StudViewOffersOpenViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StudViewOffersViewHolder holder, int position) {
         BidCardItem currentItemY = aListY.get(position);
         holder.tutorIdHere.setText(currentItemY.getmText0());
         holder.mline1_subject.setText(currentItemY.getmText1());

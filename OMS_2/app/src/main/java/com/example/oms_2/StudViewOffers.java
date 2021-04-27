@@ -26,12 +26,12 @@ import java.util.Map;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
-public class StudentViewOffersOpen extends AppCompatActivity {
+public class StudViewOffers extends AppCompatActivity {
 
     private ArrayList<BidCardItem> aList;
 
     private RecyclerView xRecyclerView;
-    private StudViewOffersOpenAdapter xAdapter;
+    private StudViewOffersAdapter xAdapter;
     private RecyclerView.LayoutManager xLayoutManager;
 
 
@@ -40,10 +40,16 @@ public class StudentViewOffersOpen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stud_view_offers_open_recyclerview);
 
-        fillViewOffersList();
+        if (StudentLoggedIn.viewWhichOffers.equals("viewOffersOpen")){
+            fillViewOffersList("open");
+        }
+        else if (StudentLoggedIn.viewWhichOffers.equals("viewOffersClose")){
+            fillViewOffersList("close");
+        }
+
     }
 
-    public void fillViewOffersList(){
+    public void fillViewOffersList(String content){
         aList = new ArrayList<>();
         String studID = LoginPage.getStudId();
 
@@ -65,7 +71,7 @@ public class StudentViewOffersOpen extends AppCompatActivity {
                                     String thatbidId = eachbid.getString("id");
                                     //now loop thg messages using the bid id to display on cards
 
-                                    RequestQueue nQueue = Volley.newRequestQueue(StudentViewOffersOpen.this);
+                                    RequestQueue nQueue = Volley.newRequestQueue(StudViewOffers.this);
                                     String msgUrl = rootUrl + "/message";
 
                                     JsonArrayRequest reqX = new JsonArrayRequest(Request.Method.GET, msgUrl, null,
@@ -77,9 +83,12 @@ public class StudentViewOffersOpen extends AppCompatActivity {
                                                         for (int j=0; j<response.length() ; j++){
                                                             JSONObject eachMsgObj = response.getJSONObject(j);
                                                             String isMatchBidId = eachMsgObj.getString("bidId");
-                                                            if (isMatchBidId.equals(thatbidId) && eachMsgObj.getString("content").equals("open")){
+                                                            if (isMatchBidId.equals(thatbidId) && eachMsgObj.getString("content").equals(content)){
                                                                 JSONObject posterX = eachMsgObj.getJSONObject("poster");
                                                                 String posterId = posterX.getString("id");
+                                                                String posterGName = posterX.getString("givenName");
+                                                                String posterFName = posterX.getString("familyName");
+                                                                String tutFullName = posterGName + " " + posterFName;
 
                                                                 JSONObject addInfoX = eachMsgObj.getJSONObject("additionalInfo");
                                                                 String rateX = addInfoX.getString("rate");
@@ -89,7 +98,7 @@ public class StudentViewOffersOpen extends AppCompatActivity {
                                                                 String qualifsX = addInfoX.getString("qualifs");
                                                                 String compLvlX = addInfoX.getString("compLvl");
 
-                                                                aList.add(new BidCardItem("Tutor ID: "+posterId,
+                                                                aList.add(new BidCardItem("Tutor: "+tutFullName+"("+posterId+")",
                                                                         "Rate per week: RM "+rateX,
                                                                         "Hours per session: "+hourX,
                                                                         "Sessions per week: "+sessionX,
@@ -148,7 +157,7 @@ public class StudentViewOffersOpen extends AppCompatActivity {
         xRecyclerView = findViewById(R.id.studViewOfferRecyclerView);
         xRecyclerView.setHasFixedSize(true);
         xLayoutManager = new LinearLayoutManager(this);
-        xAdapter = new StudViewOffersOpenAdapter(getaList(), R.layout.open_bid_card_item_card);
+        xAdapter = new StudViewOffersAdapter(getaList(), R.layout.open_bid_card_item_card);
 
         xRecyclerView.setLayoutManager(xLayoutManager);
         xRecyclerView.setAdapter(xAdapter);

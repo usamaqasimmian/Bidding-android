@@ -27,9 +27,9 @@ import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
 /**
- * This class displays all close bids (made by student) for the tutor.
+ * This class displays all open bids (made by student) for the tutor.
  */
-public class TutorViewCloseBids extends AppCompatActivity {
+public class TutorViewRequests extends AppCompatActivity {
 
     private ArrayList<BidCardItem> mListOfBids;
 
@@ -42,10 +42,16 @@ public class TutorViewCloseBids extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bid_card_item_recyclerview);
 
-        populateList();
+        if (TutorLoggedIn.bidOnBids.equals("bidOnOpenBids")) {
+            populateList("open");
+        }
+        else if (TutorLoggedIn.bidOnBids.equals("bidOnCloseBids")){
+            populateList("close");
+        }
+
     }
 
-    public void populateList(){
+    public void populateList(String type){
         mListOfBids = new ArrayList<>();
 
         RequestQueue mQueue = Volley.newRequestQueue(this);
@@ -59,7 +65,7 @@ public class TutorViewCloseBids extends AppCompatActivity {
                             for (int i = 0; i < response.length(); i++) {
                                 //retrieve subject(name+desc) and additional info(contain the other details)
                                 JSONObject eachObject = response.getJSONObject(i);
-                                if ( (eachObject.getString("type").toLowerCase().equals("close")) && (eachObject.getJSONObject("additionalInfo").length() == 5)){    //get open bids only
+                                if ( (eachObject.getString("type").toLowerCase().equals(type)) && (eachObject.getJSONObject("additionalInfo").length() == 5)){    //get open bids only
                                     JSONObject subject = eachObject.getJSONObject("subject");
                                     String subjectName = subject.getString("name");
                                     String subjectDesc = subject.getString("description");
@@ -81,7 +87,7 @@ public class TutorViewCloseBids extends AppCompatActivity {
                                             "Rate: RM "+ratePerSess,
                                             "Time: "+timeOfSess,
                                             "Days: "+daysOfSess,
-                                            "Click here to offer: "+bidID));
+                                            "Click here to offer:\n"+bidID));
 
                                 }
                             }

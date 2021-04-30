@@ -50,7 +50,6 @@ public class Contract extends AppCompatActivity {
     String studentId;
     LocalDateTime dateCreated;
     TextView heading;
-    String dateSign;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,7 @@ public class Contract extends AppCompatActivity {
         tutorId = intent.getStringExtra("tutorid");
         subjectId = intent.getStringExtra("subjectid");
         studentId = LoginPage.getStudId();
-        dateCreated = LocalDateTime.now(); //time 2021-04-17T07:20:17.918
+        dateCreated = LocalDateTime.now(); //time 2021-04-30T07:20:17.918
         SignContract = findViewById(R.id.signContract);
         heading = findViewById(R.id.heading);
         SignContract.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +82,6 @@ public class Contract extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(calendar.getTime());
         String expiry = date + "T23:59:59.999Z";
-        dateSign = expiry;
         String startDate = dateCreated + "Z";
         String usersUrl = rootUrl + "/contract";
         String additionalInfoTag = "Special Request";
@@ -115,6 +113,7 @@ public class Contract extends AppCompatActivity {
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
@@ -143,9 +142,12 @@ public class Contract extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void contractSign(String ID){
+        LocalDateTime startDate = dateCreated.plusDays(1);
+        String date = startDate + "Z";
         String usersUrl = rootUrl + "/contract/" + ID + "/sign";
-        String json = "{\"dateSigned\":\"" + dateSign + "\"}";
+        String json = "{\"dateSigned\":\"" + date + "\"}";
         RequestBody body = RequestBody.create(json, JSON);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -153,24 +155,26 @@ public class Contract extends AppCompatActivity {
                 .header("Authorization", myApiKey)
                 .post(body)
                 .build();
-        System.out.println(json);
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
             }
-
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
-                if (response.isSuccessful()) {
-                    heading.setText("Contract Signed!");
-                    System.out.println("ok");
 
+                if (response.isSuccessful()) {
+
+                    Contract.this.runOnUiThread(() -> {
+                        heading.setText("Contract Signed!");
+
+                    });
                 }
             }
         });
 
     }
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.optionsmenu, menu);

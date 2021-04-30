@@ -32,8 +32,7 @@
         <activity android:name=".PostOfferMessage" />
         <activity android:name=".ViewAllOffers" />
         <activity android:name=".StudViewOffers" />
-
-
+        <activity android:name=".LastBid" />
         <receiver android:name=".TimeOutBid"
             android:permission="TODO"
             tools:ignore="ExportedReceiver">

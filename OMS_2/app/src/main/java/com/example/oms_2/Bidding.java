@@ -129,8 +129,7 @@ public class Bidding extends AppCompatActivity{
                         Bidding.this.runOnUiThread(() -> {
                             String bidID = "id";
                             try {
-                                JSONArray  array = new JSONArray(Objects.requireNonNull(response.body()).string());
-                                JSONObject row = array.getJSONObject(0);
+                                JSONObject row = new JSONObject(Objects.requireNonNull(response.body()).string());
                                 bidID = row.getString("id");
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -155,7 +154,7 @@ public class Bidding extends AppCompatActivity{
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.MINUTE, 30); //Minutes
+        calendar.add(Calendar.SECOND, 10); //Minutes
         processTimer.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 

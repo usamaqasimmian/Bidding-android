@@ -50,6 +50,7 @@ public class Contract extends AppCompatActivity {
     String studentId;
     LocalDateTime dateCreated;
     TextView heading;
+    String dateSign;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +67,13 @@ public class Contract extends AppCompatActivity {
         heading = findViewById(R.id.heading);
         SignContract.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                contractSign();
+                contract_create();
             }
         });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void contractSign() {
+    private void contract_create() {
         int   day  = expiryDate.getDayOfMonth();
         int   month= expiryDate.getMonth();
         int   year = expiryDate.getYear();
@@ -82,6 +83,7 @@ public class Contract extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(calendar.getTime());
         String expiry = date + "T23:59:59.999Z";
+        dateSign = expiry;
         String startDate = dateCreated + "Z";
         String usersUrl = rootUrl + "/contract";
         String additionalInfoTag = "Special Request";
@@ -101,11 +103,10 @@ public class Contract extends AppCompatActivity {
                         "\"lessonInfo\":"  +   "{" + "\"" + lessonInfoTag + "\":" + "\""+ lessonInfo + "\"" + "}," +
                         "\"additionalInfo\":"   +   "{" + "\"" + additionalInfoTag + "\":" + "\""+ additionalInfoRequest + "\"" + "}" +
                         "}";
-        System.out.println(json);
         RequestBody body = RequestBody.create(json, JSON);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(usersUrl + "?jwt=true")
+                .url(usersUrl)
                 .header("Authorization", myApiKey)
                 .post(body)
                 .build();
@@ -121,11 +122,50 @@ public class Contract extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     Contract.this.runOnUiThread(() -> {
-                       SignContract.setVisibility(View.GONE);
-                       expiryDate.setVisibility(View.GONE);
-                       heading.setText("Contract Signed Successfully!");
+                        try {
+                            JSONObject row = new JSONObject(Objects.requireNonNull(response.body()).string());
+                            String contractID = row.getString("id");
+                            SignContract.setVisibility(View.GONE);
+                            expiryDate.setVisibility(View.GONE);
+                            heading.setText("Contract Created!");
+                            contractSign(contractID);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
 
                     });
+                }
+            }
+        });
+
+    }
+
+    public void contractSign(String ID){
+        String usersUrl = rootUrl + "/contract/" + ID + "/sign";
+        String json = "{\"dateSigned\":\"" + dateSign + "\"}";
+        RequestBody body = RequestBody.create(json, JSON);
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(usersUrl)
+                .header("Authorization", myApiKey)
+                .post(body)
+                .build();
+        System.out.println(json);
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                if (response.isSuccessful()) {
+                    heading.setText("Contract Signed!");
+                    System.out.println("ok");
+
                 }
             }
         });

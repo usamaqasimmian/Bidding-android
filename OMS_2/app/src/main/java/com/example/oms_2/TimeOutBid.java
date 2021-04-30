@@ -31,6 +31,7 @@ public class TimeOutBid extends BroadcastReceiver{
         Intent i = new Intent();
         i.setClassName("com.example.oms_2", "com.example.oms_2.LastBid");
         i.putExtra("bidID",bidID);
+        System.out.println(bidID);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
 

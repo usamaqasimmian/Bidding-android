@@ -89,7 +89,6 @@ public class StudViewOffers extends AppCompatActivity {
                                                                 String posterGName = posterX.getString("givenName");
                                                                 String posterFName = posterX.getString("familyName");
                                                                 String tutFullName = posterGName + " " + posterFName;
-
                                                                 JSONObject addInfoX = eachMsgObj.getJSONObject("additionalInfo");
                                                                 String rateX = addInfoX.getString("rate");
                                                                 String hourX = addInfoX.getString("hour");

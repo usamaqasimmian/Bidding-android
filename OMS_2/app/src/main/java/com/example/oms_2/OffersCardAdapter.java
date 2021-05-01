@@ -10,11 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * This class is used to retrieve the references' value and display the (offer) cards to tutors for open bids.
+ */
 public class OffersCardAdapter extends RecyclerView.Adapter<OffersCardAdapter.OffersCardViewHolder> {
 
     private ArrayList<BidCardItem> nOffersList;
     private int whichCardX;
 
+    /**
+     * This class is used to retrieve the card's contents.
+     */
     public static class OffersCardViewHolder extends RecyclerView.ViewHolder {
         public TextView view_offer_title, view_offer_givenName, view_offer_familyName;
         public TextView view_offer_rateX, view_offer_session, view_offer_moreInfo, view_offer_qualifsX, view_offer_complvl;
@@ -57,7 +63,6 @@ public class OffersCardAdapter extends RecyclerView.Adapter<OffersCardAdapter.Of
         holder.view_offer_moreInfo.setText(currentItemX.getmText5());
         holder.view_offer_qualifsX.setText(currentItemX.getmText6());
         holder.view_offer_complvl.setText(currentItemX.getmText7());
-
     }
 
     @Override

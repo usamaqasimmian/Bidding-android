@@ -11,11 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * This class is used to retrieve the references' value and display the (offer) cards to students.
+ */
 public class StudViewOffersAdapter extends RecyclerView.Adapter<StudViewOffersAdapter.StudViewOffersViewHolder> {
 
     private ArrayList<BidCardItem> aListY;
     private int whichCardY;
 
+    /**
+     * This class is used to retrieve the card's contents.
+     */
     public static class StudViewOffersViewHolder extends RecyclerView.ViewHolder{
         public TextView tutorIdHere, mline1_subject;
         public TextView mline2_qualif, mline3_sess, mline4_rate, mline5_time, mline6_days;
@@ -34,6 +40,7 @@ public class StudViewOffersAdapter extends RecyclerView.Adapter<StudViewOffersAd
         }
     }
 
+    //constructor
     public StudViewOffersAdapter(ArrayList<BidCardItem> aly, int wcy){
         aListY = aly;
         this.whichCardY = wcy;

@@ -26,12 +26,11 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static com.example.oms_2.BidCardItemAdapter.getOfferHolder;
+import static com.example.oms_2.OMSConstants.JSON;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
 public class PostOfferMessage extends AppCompatActivity {
-
-    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
     Button viewAllOffers;
     Button gotoTutHomeFromOffer;
@@ -128,16 +127,6 @@ public class PostOfferMessage extends AppCompatActivity {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()){
                     PostOfferMessage.this.runOnUiThread(() -> {
-//                        String msgId = "id";
-//                        try{
-//                            JSONArray array = new JSONArray(Objects.requireNonNull(response.body()).string());
-//                            JSONObject row = array.getJSONObject(0);
-//                            msgId = row.getString("id");
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
                         System.out.println("message posted successfully");
                     });
                 } else {

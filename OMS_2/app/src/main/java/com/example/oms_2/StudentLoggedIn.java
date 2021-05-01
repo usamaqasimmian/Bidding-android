@@ -11,13 +11,15 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * This class is directs the student to a page where he/she can open a bid form.
+ * This class is directs the student to a page where he/she has options to
+ * open a request form, to view all open bid offers, to view all close bid offers,
+ * to view all tutors.
  */
 public class StudentLoggedIn extends AppCompatActivity {
 
-    Button createNewRequest;
-    Button viewAllTutors;
-    Button viewOffersOpen, viewOffersClose;
+    private Button createNewRequest;
+    private Button viewAllTutors;
+    private Button viewOffersOpen, viewOffersClose;
     public static String viewWhichOffers;
 
     @Override

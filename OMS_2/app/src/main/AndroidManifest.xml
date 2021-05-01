@@ -28,7 +28,6 @@
         <activity android:name=".Contract" />
         <activity android:name=".TutorViewRequests" />
         <activity android:name=".TutorOfferForm" />
-        <activity android:name=".MessagePrivate" />
         <activity android:name=".PostOfferMessage" />
         <activity android:name=".ViewAllOffers" />
         <activity android:name=".StudViewOffers" />

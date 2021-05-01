@@ -30,16 +30,20 @@ import static com.example.oms_2.BidCardItemAdapter.getOfferHolder;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
+/**
+ * This class represents the offer form for a tutor to provide details on bids.
+ * Upon confirmation, all provided details are sent to PostOfferMessage class,
+ * to be posted to the message endpoint.
+ */
 public class TutorOfferForm extends AppCompatActivity {
 
-    EditText offer_rate;
-    EditText offer_hour;
-    EditText offer_sess;
-    EditText offer_addi_info;
-    TextView dummy_qualif, dummy_comp_lvl;
-    TextView reqBidId;
-    Button button_confirm_offer;
-
+    private EditText offer_rate;
+    private EditText offer_hour;
+    private EditText offer_sess;
+    private EditText offer_addi_info;
+    private TextView dummy_qualif, dummy_comp_lvl;
+    private TextView reqBidId;
+    private Button button_confirm_offer;
     private static String oRate, oHour, oSess, oAddiInfo, dQualif, dCompL;
 
     @Override
@@ -62,11 +66,17 @@ public class TutorOfferForm extends AppCompatActivity {
         });
     }
 
+    /**
+     * Displays the selected request id.
+     */
     public void displayReqBidId(){
         reqBidId = findViewById(R.id.reqBidId);
         reqBidId.setText(getOfferHolder());
     }
 
+    /**
+     * Sets a range of values to a certain fields in the offer form.
+     */
     public void callToSetFilters(){
         offer_rate = findViewById(R.id.offer_rate);
         offer_hour = findViewById(R.id.offer_hour);
@@ -78,6 +88,9 @@ public class TutorOfferForm extends AppCompatActivity {
         offer_sess.setFilters(new InputFilter[]{new InputFilterMinMax("1", "5")});
     }
 
+    /**
+     * Sets the entered values using the setters.
+     */
     public void callToSetDetails(){
         setoRate(offer_rate.getText().toString());
         setoHour(offer_hour.getText().toString());
@@ -85,6 +98,10 @@ public class TutorOfferForm extends AppCompatActivity {
         setoAddiInfo(offer_addi_info.getText().toString());
     }
 
+    /**
+     * Retrieves the tutor's details such as competency level and qualifications
+     * and display it on the offer form.
+     */
     public void retrieveTutor() {
         String tutorID = LoginPage.getTutorId();
         StringBuilder strComp = new StringBuilder("");
@@ -151,7 +168,6 @@ public class TutorOfferForm extends AppCompatActivity {
 
         mQueue.add(request);
     }
-
 
     //Setters
     public void setoRate(String offerR){ this.oRate = offerR; }

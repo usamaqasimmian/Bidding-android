@@ -2,7 +2,6 @@ package com.example.oms_2;
 
 /**
  * This class is used for other classes to be able to instantiate objects from it.
- * The objects are the open bids details.
  */
 public class BidCardItem {
 
@@ -30,8 +29,6 @@ public class BidCardItem {
     public String getmText4(){ return mText4; }
     public String getmText5(){ return mText5; }
     public String getmText6(){ return mText6; }
-    public String getmText7() {
-        return mText7;
-    }
+    public String getmText7(){ return mText7; }
 
 }

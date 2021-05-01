@@ -9,8 +9,10 @@ import android.text.Spanned;
  * Reference: https://acomputerengineer.com/2015/12/16/limit-number-range-in-edittext-in-android-using-inputfilter/
  */
 public class InputFilterMinMax implements InputFilter {
+
     private int min, max;
 
+    //constructors
     public InputFilterMinMax(int min, int max) {
         this.min = min;
         this.max = max;

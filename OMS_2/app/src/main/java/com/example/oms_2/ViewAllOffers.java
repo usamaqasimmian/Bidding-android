@@ -26,10 +26,13 @@ import java.util.Map;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
+/**
+ * This class displays all the offers made by tutor to the students,
+ * based on whether the student chose to view offers for open requests or close requests.
+ */
 public class ViewAllOffers extends AppCompatActivity {
 
     private ArrayList<BidCardItem> nListOfOffers;
-
     private RecyclerView nRecyclerView;
     private OffersCardAdapter nAdapter;
     private RecyclerView.LayoutManager nLayoutManager;
@@ -42,6 +45,10 @@ public class ViewAllOffers extends AppCompatActivity {
         fillUpOfferCards();
     }
 
+    /**
+     * Fills up the offer cards with tutors' provided details on the corresponding bid,
+     * to display to the student.
+     */
     public void fillUpOfferCards(){
         nListOfOffers = new ArrayList<>();
 
@@ -103,6 +110,9 @@ public class ViewAllOffers extends AppCompatActivity {
         mQueue.add(request);
     }
 
+    /**
+     * Builds up the recycler view for the cards.
+     */
     public void buildOfferRecyclerView(){
         nRecyclerView = findViewById(R.id.offerRecyclerView);
         nRecyclerView.setHasFixedSize(true);
@@ -113,6 +123,7 @@ public class ViewAllOffers extends AppCompatActivity {
         nRecyclerView.setAdapter(nAdapter);
     }
 
+    //getter and setter
     public ArrayList<BidCardItem> getnListOfOffers() { return nListOfOffers; }
     public void setnListOfOffers(ArrayList<BidCardItem> nListOfOffers) { this.nListOfOffers = nListOfOffers; }
 }

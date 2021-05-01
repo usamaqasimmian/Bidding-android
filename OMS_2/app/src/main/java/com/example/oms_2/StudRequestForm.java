@@ -5,7 +5,6 @@ import android.content.Intent;
 
 import android.os.Build;
 import android.os.Bundle;
-//import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,10 +33,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-//import java.net.http.HttpClient;
-//import java.net.http.HttpRequest;
-//import java.net.http.HttpResponse;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,17 +42,17 @@ import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
 /**
- * This class implements all the operations required for all the selected components in the bidding form.
- * Upon completion of the form, the student is directed to either the Open or Close biddings page.
+ * This class implements all the operations required for all the selected components in the request form.
+ * Upon completion of the form, the student is directed to select either the home page or the request form page.
  */
 public class StudRequestForm extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
     //attributes for the xml layout components
-    Spinner bidSubject, qualif_dropdown, num_session, rate_per_session;
-    ToggleButton toggleBid;
-    Button time_picker, confirmCreateBid;
-    TextView textView11;
-    CheckBox checkMonday, checkTuesday, checkWednesday, checkThursday, checkFriday;
+    private Spinner bidSubject, qualif_dropdown, num_session, rate_per_session;
+    private ToggleButton toggleBid;
+    private Button time_picker, confirmCreateBid;
+    private TextView textView11;
+    private CheckBox checkMonday, checkTuesday, checkWednesday, checkThursday, checkFriday;
 
     private boolean toggle;                                     //attribute used for open-close toggle button
     private static String bidType;
@@ -69,12 +64,6 @@ public class StudRequestForm extends AppCompatActivity implements TimePickerDial
     private List<Integer> rates = new ArrayList<>();            //attribute for dropdown list of rates per session
     private List<String> checkBoxList = new ArrayList<>();      //attribute used to add checked box values
     private static String thequalif, thesession, therate, thetime, thedays;
-
-    //constants used to pass data to another activity
-//    public static final String EXTRA_SUBJECT = "EXTRA_SUBJECT", EXTRA_QUALIF = "EXTRA_QUALIF",
-//            EXTRA_SESSION = "EXTRA_SESSION", EXTRA_RATE = "EXTRA_RATE", EXTRA_TIME = "EXTRA_TIME",
-//            EXTRA_DAYS = "EXTRA_DAYS", EXTRA_TOGGLE = "EXTRA_TOGGLE";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -433,5 +422,4 @@ public class StudRequestForm extends AppCompatActivity implements TimePickerDial
     public void setTheSubjId(String tsid){ this.theSubjId = tsid;}
     public void setSubjectsId(List<String> subjId){ this.subjectsId = subjId; }
     public void setSubjects(List<String> subjs){ this.subjects = subjs; }
-
 }

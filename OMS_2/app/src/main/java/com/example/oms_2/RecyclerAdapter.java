@@ -8,17 +8,18 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+/**
+ * This class is used to retrieve the references' value and display the (tutor's personal details) cards to students.
+ */
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    ArrayList<TutorViewItems> data;
+    private ArrayList<TutorViewItems> data;
 
-
+    //constructor
     public RecyclerAdapter(ArrayList<TutorViewItems> _data) {
         super();
         data = _data;
@@ -49,10 +50,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 intent.putExtra("tutorid",tutorID);
                 intent.putExtra("subjectid",subjectID);
                 v.getContext().startActivity(intent);
-
             }
         });
-
     }
 
     @Override
@@ -60,12 +59,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return data.size();
     }
 
+    /**
+     * This class is used to retrieve the card's contents.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View itemView;
         public TextView tutorName;
         public TextView tutorQualification;
         public TextView level;
-
 
         public ViewHolder(View itemView) {
             super(itemView);

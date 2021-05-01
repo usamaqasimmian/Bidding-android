@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 import okhttp3.Call;
@@ -24,8 +23,13 @@ import okhttp3.Response;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
+/**
+ * This class accepts the last bid is none is selected after 30 minutes and
+ * closes a request upon which no bid has been placed.
+ */
 public class LastBid extends AppCompatActivity {
-    String bidID;
+
+    private String bidID;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +41,11 @@ public class LastBid extends AppCompatActivity {
         System.out.println(bidID);
         checkLastBid(bidID);
     }
-//accpets the last bid after 30 minutes
+
+    /**
+     * This method accepts the last bid if student does not select any tutor after 30 minutes.
+     * @param id
+     */
     private void checkLastBid(String id){
         String getAllUsers = rootUrl + "/bid/" + id;
         OkHttpClient client = new OkHttpClient();
@@ -81,10 +89,12 @@ public class LastBid extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-    //if no bid in 30 minutes request will be closed
+
+    /**
+     * This method closes a request if no bid is placed after 30 minutes.
+     * @param id
+     */
     private void bidClose(String id){
         String getAllUsers = rootUrl + "/bid/" + id +"/close-down";
         OkHttpClient client = new OkHttpClient();
@@ -106,6 +116,5 @@ public class LastBid extends AppCompatActivity {
                 }
             }
         });
-
     }
-    }
+}

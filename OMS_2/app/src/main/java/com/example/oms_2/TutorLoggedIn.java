@@ -10,10 +10,13 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
+/**
+ * This class is directs the tutor to a page where he/she has the option
+ * to bid on open requests, or bid on close requests.
+ */
 public class TutorLoggedIn extends AppCompatActivity {
 
-    Button bidOnOpenBids, bidOnCloseBids;
+    private Button bidOnOpenBids, bidOnCloseBids;
     public static String bidOnBids;
 
     @Override
@@ -41,7 +44,6 @@ public class TutorLoggedIn extends AppCompatActivity {
                 TutorLoggedIn.this.startActivity(intent);
             }
         });
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

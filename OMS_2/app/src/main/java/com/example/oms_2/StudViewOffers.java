@@ -26,14 +26,16 @@ import java.util.Map;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
+/**
+ * This class retrieves and displays all offers made by tutors on the logged in student's bid,
+ * based on whether the student is viewing open or close bids.
+ */
 public class StudViewOffers extends AppCompatActivity {
 
     private ArrayList<BidCardItem> aList;
-
     private RecyclerView xRecyclerView;
     private StudViewOffersAdapter xAdapter;
     private RecyclerView.LayoutManager xLayoutManager;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,9 +48,12 @@ public class StudViewOffers extends AppCompatActivity {
         else if (StudentLoggedIn.viewWhichOffers.equals("viewOffersClose")){
             fillViewOffersList("close");
         }
-
     }
 
+    /**
+     * Fills up the offer cards' with the appropriate tutor's offer details.
+     * @param content
+     */
     public void fillViewOffersList(String content){
         aList = new ArrayList<>();
         String studID = LoginPage.getStudId();
@@ -153,6 +158,9 @@ public class StudViewOffers extends AppCompatActivity {
         mQueue.add(request);
     }
 
+    /**
+     * Builds up the recycler view to display the cards.
+     */
     public void buildTheRecyclerView(){
         xRecyclerView = findViewById(R.id.studViewOfferRecyclerView);
         xRecyclerView.setHasFixedSize(true);
@@ -163,6 +171,7 @@ public class StudViewOffers extends AppCompatActivity {
         xRecyclerView.setAdapter(xAdapter);
     }
 
+    //getter and setter
     public ArrayList<BidCardItem> getaList() { return aList; }
     public void setaList(ArrayList<BidCardItem> aList) { this.aList = aList; }
 }

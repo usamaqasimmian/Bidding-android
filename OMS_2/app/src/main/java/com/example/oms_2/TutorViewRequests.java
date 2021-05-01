@@ -27,12 +27,11 @@ import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
 /**
- * This class displays all open bids (made by student) for the tutor.
+ * This class displays all open requests (made by student) for the tutor.
  */
 public class TutorViewRequests extends AppCompatActivity {
 
     private ArrayList<BidCardItem> mListOfBids;
-
     private RecyclerView mRecyclerView;
     private BidCardItemAdapter mAdapter;                //bridge between data (exampleList) and RecyclerView
     private RecyclerView.LayoutManager mLayoutManager;  //aligns every single item in the list
@@ -48,9 +47,12 @@ public class TutorViewRequests extends AppCompatActivity {
         else if (TutorLoggedIn.bidOnBids.equals("bidOnCloseBids")){
             populateList("close");
         }
-
     }
 
+    /**
+     * Fills up the request cards.
+     * @param type
+     */
     public void populateList(String type){
         mListOfBids = new ArrayList<>();
 
@@ -115,6 +117,9 @@ public class TutorViewRequests extends AppCompatActivity {
         mQueue.add(request);
     }
 
+    /**
+     * Builds up the recycler view for the cards.
+     */
     public void buildRecyclerView(){
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);                //increases performance of app when we know that the recycler view won't change in size
@@ -123,7 +128,6 @@ public class TutorViewRequests extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(mLayoutManager);     //pass the layoutmanager to recyclerview
         mRecyclerView.setAdapter(mAdapter);                 //pass adapter to recyclerview
-
     }
 
     //getters and setters

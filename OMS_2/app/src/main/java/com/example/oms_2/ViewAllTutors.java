@@ -1,6 +1,5 @@
 package com.example.oms_2;
 
-
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,15 +24,14 @@ import okhttp3.Response;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
-//show all tutors with their subjects
+/**
+ * This class shows all tutors and their competencies and teaching subject in the recycler view to the student.
+ */
 public class ViewAllTutors extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
-    private BidCardItemAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerView.Adapter adapter;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +42,9 @@ public class ViewAllTutors extends AppCompatActivity {
         makeRequest();
     }
 
+    /**
+     * Seeks the tutors' competencies and display them on the cards.
+     */
     private void makeRequest() {
         String competency = rootUrl + "/competency";
         OkHttpClient client = new OkHttpClient();
@@ -83,19 +84,15 @@ public class ViewAllTutors extends AppCompatActivity {
                                     recyclerView.setAdapter(adapter);
                                 }
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
-
                     });
                 }
             }
         });
-
     }
 }
 

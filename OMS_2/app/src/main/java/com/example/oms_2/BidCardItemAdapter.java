@@ -12,17 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 /**
- * This class is used to retrieve the references' value and display the (bid) cards for tutors.
+ * This class is used to retrieve the references' value and display the (request) cards to tutors.
  */
 public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.BidCardViewHolder>{
 
     private static String offerHolder;
-    public static String getOfferHolder() { return offerHolder; }
-    public static void setOfferHolder(String offerHolder) { BidCardItemAdapter.offerHolder = offerHolder; }
-
     private ArrayList<BidCardItem> mBidCardList;
     private int whichCard;
 
+    //getter and setter
+    public static String getOfferHolder() { return offerHolder; }
+    public static void setOfferHolder(String offerHolder) { BidCardItemAdapter.offerHolder = offerHolder; }
+
+    /**
+     * This class is used to retrieve the card's contents.
+     */
     public static class BidCardViewHolder extends RecyclerView.ViewHolder{
         public TextView mbid_title, mline1_subject;
         public TextView mline2_qualif, mline3_sess, mline4_rate, mline5_time, mline6_days;

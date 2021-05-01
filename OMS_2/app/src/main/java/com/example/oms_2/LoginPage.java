@@ -27,24 +27,26 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static com.example.oms_2.OMSConstants.JSON;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
-
+/**
+ * This class sets the login page for students and tutors.
+ * Users can enter their username and password to gain access to the system.
+ */
 public class LoginPage extends AppCompatActivity {
 
-    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-
-    EditText UserName;
-    EditText Password;
-    Button Login;
-    TextView Error;
-
+    private EditText UserName;
+    private EditText Password;
+    private Button Login;
+    private TextView Error;
     private static String studId;
+    private static String tutorId;
+
+    //getters and setters
     public static String getStudId(){ return studId; }
     public void setStudId(String sid){ studId = sid; }
-
-    private static String tutorId;
     public static String getTutorId(){ return tutorId; }
     public void setTutorId(String tid){ tutorId = tid; }
 
@@ -57,9 +59,13 @@ public class LoginPage extends AppCompatActivity {
         Login = findViewById(R.id.login);
         Error = findViewById(R.id.error);
         Login.setOnClickListener(v -> verifyCred(UserName.getText().toString().trim(), Password.getText().toString()));
-
     }
 
+    /**
+     * Verifies the username and password entered.
+     * @param username
+     * @param password
+     */
     @SuppressLint("SetTextI18n")
     private void verifyCred(String username, String password) {
         String usersUrl = rootUrl + "/user/login";
@@ -105,6 +111,10 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
+    /**
+     * Verifies the jwt token.
+     * @param jwt
+     */
     @SuppressLint("SetTextI18n")
     private void VerifyToken(String jwt) {
         String jsonString = "{\"jwt\":\"" + jwt + "\"}";
@@ -131,6 +141,9 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
+    /**
+     * If all provided info is valid, the user is directed to the next corresponding page.
+     */
     private void redirectUser() {
         String getAllUsers = rootUrl + "/user";
         OkHttpClient client = new OkHttpClient();

@@ -2,13 +2,10 @@ package com.example.oms_2;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,30 +23,28 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static com.example.oms_2.OMSConstants.JSON;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
 public class Contract extends AppCompatActivity {
-    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-    DatePicker expiryDate;
-    Button SignContract;
-    String tutorId;
-    String subjectId;
-    String studentId;
-    LocalDateTime dateCreated;
-    TextView heading;
+    private DatePicker expiryDate;
+    private Button SignContract;
+    private String tutorId;
+    private String subjectId;
+    private String studentId;
+    private LocalDateTime dateCreated;
+    private TextView heading;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +59,7 @@ public class Contract extends AppCompatActivity {
         dateCreated = LocalDateTime.now(); //time 2021-04-30T07:20:17.918
         SignContract = findViewById(R.id.signContract);
         heading = findViewById(R.id.heading);
+
         SignContract.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 contract_create();
@@ -71,11 +67,15 @@ public class Contract extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method will post to the json array using the POST /contract endpoint.
+     * It is executed when student signs a contract with a tutor.
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void contract_create() {
-        int   day  = expiryDate.getDayOfMonth();
-        int   month= expiryDate.getMonth();
-        int   year = expiryDate.getYear();
+        int day  = expiryDate.getDayOfMonth();
+        int month= expiryDate.getMonth();
+        int year = expiryDate.getYear();
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
 
@@ -142,6 +142,11 @@ public class Contract extends AppCompatActivity {
 
     }
 
+    /**
+     * This method will post to the json array using the POST /contract/sign endpoint.
+     * It is executed when student signs a contract with a tutor.
+     * @param ID
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void contractSign(String ID){
         LocalDateTime startDate = dateCreated.plusDays(1);
@@ -162,19 +167,14 @@ public class Contract extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
-
                 if (response.isSuccessful()) {
-
                     Contract.this.runOnUiThread(() -> {
                         heading.setText("Contract Signed!");
-
                     });
                 }
             }
         });
-
     }
-
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.optionsmenu, menu);

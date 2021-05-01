@@ -41,17 +41,15 @@ import static com.example.oms_2.OMSConstants.rootUrl;
 public class Bidding extends AppCompatActivity{
 
     private TextView bidMessage;
-    private Button studentRequestForm;
-    private Button home;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bid_success);
         bidMessage = findViewById(R.id.bidMessage);
-        studentRequestForm = findViewById(R.id.backToRequestForm);
+        Button studentRequestForm = findViewById(R.id.backToRequestForm);
 
-        home = findViewById(R.id.StudentLoggedIn);
+        Button home = findViewById(R.id.StudentLoggedIn);
         home.setOnClickListener(v -> {
             Intent activityChangeIntent = new Intent(Bidding.this, StudentLoggedIn.class);
             Bidding.this.startActivity(activityChangeIntent);

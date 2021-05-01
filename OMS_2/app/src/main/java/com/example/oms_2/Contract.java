@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -175,6 +176,31 @@ public class Contract extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Contract.this.runOnUiThread(() -> {
                         heading.setText("Contract Signed!");
+                        closeBid();
+
+                    });
+                }
+            }
+        });
+    }
+
+    public void closeBid(){
+        String getAllUsers = rootUrl + "/bid/" + bidId +"/close-down";
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(getAllUsers)
+                .header("Authorization", myApiKey)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                if (response.isSuccessful()) {
+                    Contract.this.runOnUiThread(() -> {
+                        Toast.makeText(getApplicationContext(),"Request has been closed",Toast.LENGTH_SHORT).show();
                     });
                 }
             }

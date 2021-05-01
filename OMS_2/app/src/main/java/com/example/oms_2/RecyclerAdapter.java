@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private ArrayList<TutorViewItems> data;
+    private final ArrayList<TutorViewItems> data;
 
     //constructor
     public RecyclerAdapter(ArrayList<TutorViewItems> _data) {
@@ -29,9 +29,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_all_tutors_card, viewGroup, false); //CardView inflated as RecyclerView list item
-        ViewHolder viewHolder = new ViewHolder(v);
 
-        return viewHolder;
+        return new ViewHolder(v);
 
     }
 
@@ -49,6 +48,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 String subjectID = data.get(position).getSubjectId();
                 intent.putExtra("tutorid",tutorID);
                 intent.putExtra("subjectid",subjectID);
+                intent.putExtra("bidId","");
                 v.getContext().startActivity(intent);
             }
         });

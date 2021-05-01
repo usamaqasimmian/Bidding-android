@@ -36,6 +36,9 @@ import static com.example.oms_2.OMSConstants.JSON;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
+/**
+ * This class is used for the student to sign the contract and hence closing the bid-request.
+ */
 public class Contract extends AppCompatActivity {
 
     private DatePicker expiryDate;
@@ -43,6 +46,7 @@ public class Contract extends AppCompatActivity {
     private String tutorId;
     private String subjectId;
     private String studentId;
+    private String bidId;
     private LocalDateTime dateCreated;
     private TextView heading;
 
@@ -55,6 +59,7 @@ public class Contract extends AppCompatActivity {
         expiryDate.setMinDate(System.currentTimeMillis() - 1000); //no expiry date in the past
         tutorId = intent.getStringExtra("tutorid");
         subjectId = intent.getStringExtra("subjectid");
+        bidId = intent.getStringExtra("bidId");             //got the bidId
         studentId = LoginPage.getStudId();
         dateCreated = LocalDateTime.now(); //time 2021-04-30T07:20:17.918
         SignContract = findViewById(R.id.signContract);

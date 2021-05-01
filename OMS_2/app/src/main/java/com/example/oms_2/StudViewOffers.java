@@ -103,14 +103,15 @@ public class StudViewOffers extends AppCompatActivity {
                                                                 String qualifsX = addInfoX.getString("qualifs");
                                                                 String compLvlX = addInfoX.getString("compLvl");
 
-                                                                aList.add(new BidCardItem("Tutor: "+tutFullName,
+                                                                aList.add(new BidCardItem("BidId:"+isMatchBidId,
+                                                                        "Tutor: "+tutFullName,
                                                                         "Rate per week: RM "+rateX,
-                                                                        "Hours per session: "+hourX,
-                                                                        "Sessions per week: "+sessionX,
+                                                                        "Hours per session: "+hourX+", Sessions per week: "+sessionX,
                                                                         "More Info: "+moreInfoX,
                                                                         "Tutor's Qualifications: "+qualifsX,
                                                                         "Tutor's Competency: "+compLvlX,
                                                                         "SELECT TUTOR:"+posterId));
+
                                                             }
                                                         }
                                                         setaList(aList);

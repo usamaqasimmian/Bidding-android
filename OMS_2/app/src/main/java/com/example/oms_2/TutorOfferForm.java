@@ -108,9 +108,12 @@ public class TutorOfferForm extends AppCompatActivity {
                             if (tutComp.length() != 0){
                                 JSONObject tutCompSubjObj = tutComp.getJSONObject(0);
                                 JSONObject tutCompSubj = tutCompSubjObj.getJSONObject("subject");
+                                String tutSubjID = tutCompSubj.getString("id");
                                 String tutSubj = tutCompSubj.getString("name") +" - "+ tutCompSubj.getString("description");
                                 String lvl = tutCompSubjObj.getString("level");
-                                strComp.append("Subject: ")
+                                strComp.append("SubjectID:")
+                                        .append(tutSubjID)
+                                        .append("Subject: ")
                                         .append(tutSubj)
                                         .append(", ")
                                         .append("Level: ")

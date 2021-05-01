@@ -83,7 +83,8 @@ public class StudViewOffers extends AppCompatActivity {
                                                         for (int j=0; j<response.length() ; j++){
                                                             JSONObject eachMsgObj = response.getJSONObject(j);
                                                             String isMatchBidId = eachMsgObj.getString("bidId");
-                                                            if (isMatchBidId.equals(thatbidId) && eachMsgObj.getString("content").equals(content)){
+                                                            if (isMatchBidId.equals(thatbidId) && eachMsgObj.getString("content").equals(content)
+                                                                    && eachMsgObj.getJSONObject("additionalInfo").getString("compLvl").contains("SubjectID")){
                                                                 JSONObject posterX = eachMsgObj.getJSONObject("poster");
                                                                 String posterId = posterX.getString("id");
                                                                 String posterGName = posterX.getString("givenName");
@@ -97,14 +98,14 @@ public class StudViewOffers extends AppCompatActivity {
                                                                 String qualifsX = addInfoX.getString("qualifs");
                                                                 String compLvlX = addInfoX.getString("compLvl");
 
-                                                                aList.add(new BidCardItem("Tutor: "+tutFullName+"("+posterId+")",
+                                                                aList.add(new BidCardItem("Tutor: "+tutFullName,
                                                                         "Rate per week: RM "+rateX,
                                                                         "Hours per session: "+hourX,
                                                                         "Sessions per week: "+sessionX,
                                                                         "More Info: "+moreInfoX,
                                                                         "Tutor's Qualifications: "+qualifsX,
                                                                         "Tutor's Competency: "+compLvlX,
-                                                                        "PROCEED WITH THIS OFFER"));
+                                                                        "SELECT TUTOR:"+posterId));
                                                             }
                                                         }
                                                         setaList(aList);

@@ -62,12 +62,11 @@ public class StudViewOffersAdapter extends RecyclerView.Adapter<StudViewOffersAd
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Contract.class);
-                String tutorID = ""; //need these and contract will work
-                String subjectID = "";
+                String tutorID = currentItemY.getmText7().substring(13);
+                String subjectID = currentItemY.getmText6().substring(30, 66);
                 intent.putExtra("tutorid",tutorID);
                 intent.putExtra("subjectid",subjectID);
                 v.getContext().startActivity(intent);
-
             }
         });
     }

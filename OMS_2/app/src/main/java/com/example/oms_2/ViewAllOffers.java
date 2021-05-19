@@ -36,13 +36,49 @@ public class ViewAllOffers extends AppCompatActivity {
     private RecyclerView nRecyclerView;
     private OffersCardAdapter nAdapter;
     private RecyclerView.LayoutManager nLayoutManager;
+    private boolean interrupted;
+    public boolean getInterrupted(){ return interrupted; }
+    public void setInterrupted(boolean interruptedY){ this.interrupted = interruptedY;}
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.offers_recyclerview);
 
-        fillUpOfferCards();
+        fillUpOfferCards();     //call first time, then call again later to refresh page
+        setInterrupted(false);
+
+        //updates/refreshes offer list from other tutors for open bids every N second
+        Thread t = new Thread(){
+            @Override
+            public void run() {
+                while (!getInterrupted()){
+                    try{
+                        Thread.sleep(5000);     //5000ms = 5s
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                fillUpOfferCards();
+                                System.out.println("Offer page is being updated every 5 second");   //checking
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        t.start();
+    }
+
+    /**
+     * When the user switched to another activity, the offer page stops refreshing
+     * until the user returns to this activity.
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        setInterrupted(true);
     }
 
     /**

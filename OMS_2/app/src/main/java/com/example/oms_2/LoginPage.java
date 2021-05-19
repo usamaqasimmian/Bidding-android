@@ -91,19 +91,19 @@ public class LoginPage extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
 
-                    LoginPage.this.runOnUiThread(() -> {
+                    new Thread(() -> {
+
+
                         try {
-                            if (response.code() == 200) {
-                                JSONObject reader = new JSONObject(Objects.requireNonNull(response.body()).string());
-                                String jwt = reader.getString("jwt");
-                                VerifyToken(jwt);
-                            }
+                            JSONObject reader = new JSONObject(Objects.requireNonNull(response.body()).string());
+                            String jwt = reader.getString("jwt");
+                            VerifyToken(jwt);
+
 
                         } catch (IOException | JSONException e) {
                             e.printStackTrace();
                         }
-
-                    });
+                    }).start();
                 } else {
                     new Handler(Looper.getMainLooper()).post(() -> Error.setText("Invalid Username or Password"));
                 }
@@ -159,7 +159,7 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
                 if (response.isSuccessful()) {
-                    LoginPage.this.runOnUiThread(() -> {
+                    new Thread(() -> {
                         String loggedIn = UserName.getText().toString().trim();
                         try {
                             JSONArray array = new JSONArray(Objects.requireNonNull(response.body()).string());
@@ -191,7 +191,7 @@ public class LoginPage extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                    });
+                    }).start();
                 }
             }
         });

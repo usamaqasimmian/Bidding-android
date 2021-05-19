@@ -127,7 +127,7 @@ public class Bidding extends AppCompatActivity{
 
                 if (response.isSuccessful()) {
 
-                    Bidding.this.runOnUiThread(() -> {
+                    new Thread(() -> {
                         String bidID = "id";
                         try {
                             JSONObject row = new JSONObject(Objects.requireNonNull(response.body()).string());
@@ -137,9 +137,9 @@ public class Bidding extends AppCompatActivity{
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                            bidMessage.setText("Request Successful");
-                            setTimer(bidID);
-                    });
+//                        bidMessage.setText("Request Successful");
+                        setTimer(bidID);
+                    }).start();
                 } else {
                     new Handler(Looper.getMainLooper()).post(() -> bidMessage.setText("Invalid Bid Created Please Try again"));
                 }

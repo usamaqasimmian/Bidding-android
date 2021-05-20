@@ -82,14 +82,19 @@ public class TutorViewRequests extends AppCompatActivity {
 
                                     String bidID = eachObject.getString("id");
 
-                                    mListOfBids.add(new BidCardItem("Request "+String.valueOf(i),
-                                            "Subject: "+resSubj,
-                                            "Tutor's Qualification: "+tutorQualification,
-                                            "No. of sessions: "+numOfSess,
-                                            "Rate: RM "+ratePerSess,
-                                            "Time: "+timeOfSess,
-                                            "Days: "+daysOfSess,
-                                            "Click here to offer:\n"+bidID));
+                                    String dateClosedDown = eachObject.getString("dateClosedDown");
+
+                                    //only display requests that have not been closed down (where dateClosedDown is null)
+                                    if (dateClosedDown.equals("null")) {
+                                        mListOfBids.add(new BidCardItem("Request " + String.valueOf(i),
+                                                "Subject: " + resSubj,
+                                                "Tutor's Qualification: " + tutorQualification,
+                                                "No. of sessions: " + numOfSess,
+                                                "Rate: RM " + ratePerSess,
+                                                "Time: " + timeOfSess,
+                                                "Days: " + daysOfSess,
+                                                "Click here to offer:\n" + bidID));
+                                    }
 
                                 }
                             }

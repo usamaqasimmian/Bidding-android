@@ -37,8 +37,6 @@ public class ViewAllOffers extends AppCompatActivity {
     private OffersCardAdapter nAdapter;
     private RecyclerView.LayoutManager nLayoutManager;
     private boolean interrupted;
-    public boolean getInterrupted(){ return interrupted; }
-    public void setInterrupted(boolean interruptedY){ this.interrupted = interruptedY;}
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -162,4 +160,6 @@ public class ViewAllOffers extends AppCompatActivity {
     //getter and setter
     public ArrayList<BidCardItem> getnListOfOffers() { return nListOfOffers; }
     public void setnListOfOffers(ArrayList<BidCardItem> nListOfOffers) { this.nListOfOffers = nListOfOffers; }
+    public boolean getInterrupted(){ return interrupted; }
+    public void setInterrupted(boolean interruptedY){ this.interrupted = interruptedY;}
 }

@@ -126,13 +126,14 @@ public class Contract extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
 
-                    Contract.this.runOnUiThread(() -> {
+//                    Contract.this.runOnUiThread(() -> {
+                    new Thread(() -> {
                         try {
                             JSONObject row = new JSONObject(Objects.requireNonNull(response.body()).string());
                             String contractID = row.getString("id");
-                            SignContract.setVisibility(View.GONE);
-                            expiryDate.setVisibility(View.GONE);
-                            heading.setText("Contract Created!");
+//                            SignContract.setVisibility(View.GONE);
+//                            expiryDate.setVisibility(View.GONE);
+//                            heading.setText("Contract Created!");
                             contractSign(contractID);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -141,7 +142,8 @@ public class Contract extends AppCompatActivity {
                         }
 
 
-                    });
+//                    });
+                    }).start();
                 }
             }
         });
@@ -184,12 +186,18 @@ public class Contract extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void closeBid(){
+        LocalDateTime theDateClosedDown = LocalDateTime.now();
+        String dateCD = theDateClosedDown + "Z";
+        String jsonString = "{\"dateClosedDown\":\"" + dateCD + "\"}";
         String getAllUsers = rootUrl + "/bid/" + bidId +"/close-down";
+        RequestBody body = RequestBody.create(jsonString, JSON);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(getAllUsers)
                 .header("Authorization", myApiKey)
+                .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override

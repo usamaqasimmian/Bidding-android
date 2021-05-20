@@ -1,5 +1,6 @@
 package com.example.oms_2;
 
+import android.graphics.BlendMode;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -52,7 +53,7 @@ public class ViewAllOffers extends AppCompatActivity {
             public void run() {
                 while (!getInterrupted()){
                     try{
-                        Thread.sleep(5000);     //5000ms = 5s
+                        Thread.sleep(60000);     //5000ms = 5s
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -110,18 +111,62 @@ public class ViewAllOffers extends AppCompatActivity {
                                     String aiQualifs = additionalInfo.getString("qualifs");
                                     String aiCompLvl = additionalInfo.getString("compLvl");
 
-                                    nListOfOffers.add(new BidCardItem("Offer "+String.valueOf(i),
-                                            "Tutor's name: "+gfName,
-                                            "Rate per week: RM "+aiRate,
-                                            "Hours per session: "+aiHour,
-                                            "Sessions per week: "+aiSession,
-                                            "More info: "+aiMoreInfo,
-                                            "Tutor's Qualifications: "+aiQualifs,
-                                            "Tutor's Competency: "+aiCompLvl));
+                                    String bidIDHere = each.getString("bidId");
+
+                                    //call GET /bid endpoint to find if the bid has been closed down (contract signed)
+                                    RequestQueue nQueue = Volley.newRequestQueue(ViewAllOffers.this);
+                                    String getBidUrl = rootUrl + "/bid";
+                                    int finalI = i;
+
+                                    JsonArrayRequest nrequest = new JsonArrayRequest(Request.Method.GET, getBidUrl, null,
+                                            new Response.Listener<JSONArray>() {
+                                                @Override
+                                                public void onResponse(JSONArray response) {
+                                                    try {
+                                                        for (int j = 0; j < response.length(); j++) {
+                                                            JSONObject eachBidNow = response.getJSONObject(j);
+                                                            String bidIdNow = eachBidNow.getString("id");
+                                                            if (bidIDHere.equals(bidIdNow)){
+                                                                String getDateCD = eachBidNow.getString("dateClosedDown");
+                                                                if (getDateCD.equals("null")){
+                                                                    nListOfOffers.add(new BidCardItem("Offer "+String.valueOf(finalI),
+                                                                            "Tutor's name: "+gfName,
+                                                                            "Rate per week: RM "+aiRate,
+                                                                            "Hours per session: "+aiHour,
+                                                                            "Sessions per week: "+aiSession,
+                                                                            "More info: "+aiMoreInfo,
+                                                                            "Tutor's Qualifications: "+aiQualifs,
+                                                                            "Tutor's Competency: "+aiCompLvl));
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
+
+                                                        setnListOfOffers(nListOfOffers);
+                                                        buildOfferRecyclerView();
+
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }, new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            error.printStackTrace();
+                                        }
+                                    }){
+                                        @Override
+                                        public Map<String, String> getHeaders() throws AuthFailureError {
+                                            Map<String, String> headers = new HashMap<>();
+                                            headers.put("Authorization", myApiKey);
+                                            return headers;
+                                        }
+                                    };
+                                    nQueue.add(nrequest);
+
                                 }
                             }
-                            setnListOfOffers(nListOfOffers);
-                            buildOfferRecyclerView();
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -16,8 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class TutorLoggedIn extends AppCompatActivity {
 
-    private Button bidOnOpenBids, bidOnCloseBids;
+    private Button bidOnOpenBids, bidOnCloseBids, viewMyOffersToUpdate;
     public static String bidOnBids;
+    public static String buttonCoUOfferForm;    //used in adapters for offer form to confirm or update
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class TutorLoggedIn extends AppCompatActivity {
 
         bidOnOpenBids = findViewById(R.id.bidOnOpenBids);
         bidOnCloseBids = findViewById(R.id.bidOnCloseBids);
+        viewMyOffersToUpdate = findViewById(R.id.viewMyOffersToUpdate);
 
         bidOnOpenBids.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +43,14 @@ public class TutorLoggedIn extends AppCompatActivity {
             public void onClick(View v) {
                 bidOnBids = "bidOnCloseBids";
                 Intent intent = new Intent(TutorLoggedIn.this, TutorViewRequests.class);
+                TutorLoggedIn.this.startActivity(intent);
+            }
+        });
+
+        viewMyOffersToUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TutorLoggedIn.this, LoggedInTutorOffers.class);
                 TutorLoggedIn.this.startActivity(intent);
             }
         });

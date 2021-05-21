@@ -59,9 +59,16 @@ public class TutorOfferForm extends AppCompatActivity {
         button_confirm_offer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callToSetDetails();     //store the entered details so we can retrieve them later
-                Intent intent = new Intent(TutorOfferForm.this, PostOfferMessage.class);
-                TutorOfferForm.this.startActivity(intent);
+                if (TutorLoggedIn.buttonCoUOfferForm.equals("toPostOffer")) {
+                    callToSetDetails();     //store the entered details so we can retrieve them later
+                    Intent intent = new Intent(TutorOfferForm.this, PostOfferMessage.class);
+                    TutorOfferForm.this.startActivity(intent);
+                }
+                else if (TutorLoggedIn.buttonCoUOfferForm.equals("toPatchOffer")){
+                    callToSetDetails();
+                    Intent intt = new Intent(TutorOfferForm.this, PatchOfferMessage.class);
+                    TutorOfferForm.this.startActivity(intt);
+                }
             }
         });
     }

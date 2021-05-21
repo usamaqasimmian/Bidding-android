@@ -1,6 +1,5 @@
 package com.example.oms_2;
 
-import android.graphics.BlendMode;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -33,7 +32,7 @@ import static com.example.oms_2.OMSConstants.rootUrl;
  */
 public class ViewAllOffers extends AppCompatActivity {
 
-    private ArrayList<BidCardItem> nListOfOffers;
+    private ArrayList<CardItem> nListOfOffers;
     private RecyclerView nRecyclerView;
     private OffersCardAdapter nAdapter;
     private RecyclerView.LayoutManager nLayoutManager;
@@ -53,12 +52,13 @@ public class ViewAllOffers extends AppCompatActivity {
             public void run() {
                 while (!getInterrupted()){
                     try{
-                        Thread.sleep(60000);     //5000ms = 5s
+                        int ms = 10000;     //eg. 5000ms = 5s
+                        Thread.sleep(ms);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 fillUpOfferCards();
-                                System.out.println("Offer page is being updated every 5 second");   //checking
+                                System.out.println("Offer page is being updated every "+String.valueOf(ms)+" second");   //checking
                             }
                         });
                     } catch (InterruptedException e) {
@@ -98,6 +98,7 @@ public class ViewAllOffers extends AppCompatActivity {
                             for (int i=0 ; i<response.length() ; i++){
                                 JSONObject each = response.getJSONObject(i);
                                 if (each.getJSONObject("additionalInfo").length() == 6 && each.getString("content").equals("open")){
+                                    String messageId = each.getString("id");
                                     JSONObject poster = each.getJSONObject("poster");
                                     String gName = poster.getString("givenName");
                                     String fName = poster.getString("familyName");
@@ -116,7 +117,6 @@ public class ViewAllOffers extends AppCompatActivity {
                                     //call GET /bid endpoint to find if the bid has been closed down (contract signed)
                                     RequestQueue nQueue = Volley.newRequestQueue(ViewAllOffers.this);
                                     String getBidUrl = rootUrl + "/bid";
-                                    int finalI = i;
 
                                     JsonArrayRequest nrequest = new JsonArrayRequest(Request.Method.GET, getBidUrl, null,
                                             new Response.Listener<JSONArray>() {
@@ -128,8 +128,9 @@ public class ViewAllOffers extends AppCompatActivity {
                                                             String bidIdNow = eachBidNow.getString("id");
                                                             if (bidIDHere.equals(bidIdNow)){
                                                                 String getDateCD = eachBidNow.getString("dateClosedDown");
+                                                                //only display if bid is not closed down
                                                                 if (getDateCD.equals("null")){
-                                                                    nListOfOffers.add(new BidCardItem("Offer "+String.valueOf(finalI),
+                                                                    nListOfOffers.add(new CardItem("OfferID:"+messageId,
                                                                             "Tutor's name: "+gfName,
                                                                             "Rate per week: RM "+aiRate,
                                                                             "Hours per session: "+aiHour,
@@ -137,7 +138,7 @@ public class ViewAllOffers extends AppCompatActivity {
                                                                             "More info: "+aiMoreInfo,
                                                                             "Tutor's Qualifications: "+aiQualifs,
                                                                             "Tutor's Competency: "+aiCompLvl));
-                                                                    break;
+                                                                    break; //because there's only gonna be one particular bid so no need to loop thru all
                                                                 }
                                                             }
                                                         }
@@ -203,8 +204,8 @@ public class ViewAllOffers extends AppCompatActivity {
     }
 
     //getter and setter
-    public ArrayList<BidCardItem> getnListOfOffers() { return nListOfOffers; }
-    public void setnListOfOffers(ArrayList<BidCardItem> nListOfOffers) { this.nListOfOffers = nListOfOffers; }
+    public ArrayList<CardItem> getnListOfOffers() { return nListOfOffers; }
+    public void setnListOfOffers(ArrayList<CardItem> nListOfOffers) { this.nListOfOffers = nListOfOffers; }
     public boolean getInterrupted(){ return interrupted; }
     public void setInterrupted(boolean interruptedY){ this.interrupted = interruptedY;}
 }

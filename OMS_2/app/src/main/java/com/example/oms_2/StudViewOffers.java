@@ -32,7 +32,7 @@ import static com.example.oms_2.OMSConstants.rootUrl;
  */
 public class StudViewOffers extends AppCompatActivity {
 
-    private ArrayList<BidCardItem> aList;
+    private ArrayList<CardItem> aList;
     private RecyclerView xRecyclerView;
     private StudViewOffersAdapter xAdapter;
     private RecyclerView.LayoutManager xLayoutManager;
@@ -107,7 +107,7 @@ public class StudViewOffers extends AppCompatActivity {
                                                                 //student's view offers won't display bids that were closed down after contract signed for it
                                                                 //will only display bids that have not been signed
                                                                 if (dateClosedDown.equals("null")) {
-                                                                    aList.add(new BidCardItem("BidId:" + isMatchBidId,
+                                                                    aList.add(new CardItem("BidId:" + isMatchBidId,
                                                                             "Tutor: " + tutFullName,
                                                                             "Rate per week: RM " + rateX,
                                                                             "Hours per session: " + hourX + ", Sessions per week: " + sessionX,
@@ -177,6 +177,6 @@ public class StudViewOffers extends AppCompatActivity {
     }
 
     //getter and setter
-    public ArrayList<BidCardItem> getaList() { return aList; }
-    public void setaList(ArrayList<BidCardItem> aList) { this.aList = aList; }
+    public ArrayList<CardItem> getaList() { return aList; }
+    public void setaList(ArrayList<CardItem> aList) { this.aList = aList; }
 }

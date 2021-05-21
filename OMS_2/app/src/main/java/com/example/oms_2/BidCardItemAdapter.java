@@ -17,8 +17,10 @@ import java.util.ArrayList;
 public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.BidCardViewHolder>{
 
     private static String offerHolder;
-    private ArrayList<BidCardItem> mBidCardList;
+    private ArrayList<CardItem> mBidCardList;
     private int whichCard;
+
+    public static boolean buttonToConfirm;
 
     //getter and setter
     public static String getOfferHolder() { return offerHolder; }
@@ -47,7 +49,7 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
     }
 
     //constructor: pass items of the arraylist into the adapter
-    public BidCardItemAdapter(ArrayList<BidCardItem> exList, int whichCardx){
+    public BidCardItemAdapter(ArrayList<CardItem> exList, int whichCardx){
         mBidCardList = exList;
         this.whichCard = whichCardx;
     }
@@ -65,7 +67,7 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
     @Override
     public void onBindViewHolder(@NonNull BidCardViewHolder holder, int position) {
         //pass values to references; the values (info) retrieved from arraylist
-        BidCardItem currentItem = mBidCardList.get(position);
+        CardItem currentItem = mBidCardList.get(position);
 
         //call getter methods on items to get the info out of it to pass it to views in viewholder
         holder.mbid_title.setText(currentItem.getmText0());
@@ -81,8 +83,9 @@ public class BidCardItemAdapter extends RecyclerView.Adapter<BidCardItemAdapter.
         holder.thisBidID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TutorLoggedIn.buttonCoUOfferForm = "toPostOffer";
                 Intent intent = new Intent(v.getContext(), TutorOfferForm.class);
-                setOfferHolder(String.valueOf(holder.thisBidID.getText()).substring(21));
+                setOfferHolder(String.valueOf(holder.thisBidID.getText()).substring(21));   //21 because from TutorViewRequests "Click here to offer:\n"
                 v.getContext().startActivity(intent);
             }
         });

@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class StudViewOffersAdapter extends RecyclerView.Adapter<StudViewOffersAdapter.StudViewOffersViewHolder> {
 
-    private ArrayList<BidCardItem> aListY;
+    private ArrayList<CardItem> aListY;
     private int whichCardY;
 
     /**
@@ -41,7 +41,7 @@ public class StudViewOffersAdapter extends RecyclerView.Adapter<StudViewOffersAd
     }
 
     //constructor
-    public StudViewOffersAdapter(ArrayList<BidCardItem> aly, int wcy){
+    public StudViewOffersAdapter(ArrayList<CardItem> aly, int wcy){
         aListY = aly;
         this.whichCardY = wcy;
     }
@@ -55,7 +55,7 @@ public class StudViewOffersAdapter extends RecyclerView.Adapter<StudViewOffersAd
 
     @Override
     public void onBindViewHolder(@NonNull StudViewOffersViewHolder holder, int position) {
-        BidCardItem currentItemY = aListY.get(position);
+        CardItem currentItemY = aListY.get(position);
         holder.tutorIdHere.setText(currentItemY.getmText0());
         holder.mline1_subject.setText(currentItemY.getmText1());
         holder.mline2_qualif.setText(currentItemY.getmText2());

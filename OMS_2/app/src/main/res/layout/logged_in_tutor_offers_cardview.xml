@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/litocv_offerid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="temp1"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/litocv_content_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/litocv_offerid"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="temp2"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/litocv_tutor_given_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/litocv_content_type"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="temp3"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/litocv_tutor_last_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/litocv_tutor_given_name"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="temp4"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/litocv_addinfo_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/litocv_tutor_last_name"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="temp5"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/litocv_addinfo_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/litocv_addinfo_rate"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="temp6"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/litocv_addinfo_session"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/litocv_addinfo_hour"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="temp7"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/litocv_addinfo_moreInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/litocv_addinfo_session"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="temp8"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/litocv_addinfo_qualifs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/litocv_addinfo_moreInfo"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="temp9"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/litocv_addinfo_compLvl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/litocv_addinfo_qualifs"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="temp10"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/litocv_clickable_update_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/litocv_addinfo_compLvl"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="TEMP11 click to update"
+            android:textColor="@color/teal_200"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

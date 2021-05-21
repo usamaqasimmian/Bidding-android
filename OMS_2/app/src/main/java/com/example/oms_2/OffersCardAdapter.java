@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class OffersCardAdapter extends RecyclerView.Adapter<OffersCardAdapter.OffersCardViewHolder> {
 
-    private ArrayList<BidCardItem> nOffersList;
+    private ArrayList<CardItem> nOffersList;
     private int whichCardX;
 
     /**
@@ -39,7 +39,7 @@ public class OffersCardAdapter extends RecyclerView.Adapter<OffersCardAdapter.Of
     }
 
     //constructor
-    public OffersCardAdapter(ArrayList<BidCardItem> offerClist, int whichOffCard){
+    public OffersCardAdapter(ArrayList<CardItem> offerClist, int whichOffCard){
         nOffersList = offerClist;
         this.whichCardX = whichOffCard;
     }
@@ -53,7 +53,7 @@ public class OffersCardAdapter extends RecyclerView.Adapter<OffersCardAdapter.Of
 
     @Override
     public void onBindViewHolder(@NonNull OffersCardViewHolder holder, int position) {
-        BidCardItem currentItemX = nOffersList.get(position);
+        CardItem currentItemX = nOffersList.get(position);
 
         holder.view_offer_title.setText(currentItemX.getmText0());
         holder.view_offer_givenName.setText(currentItemX.getmText1());

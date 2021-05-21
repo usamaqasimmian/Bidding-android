@@ -1,7 +1,6 @@
 package com.example.oms_2;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -9,13 +8,11 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -24,61 +21,49 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static com.example.oms_2.BidCardItemAdapter.getOfferHolder;
+import static com.example.oms_2.LoggedInTutorOffersAdapter.getMessageIDHolder;
 import static com.example.oms_2.OMSConstants.JSON;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
 /**
  * This class will take all of the tutor's entered offer details from the tutor offer form
- * and post to the message endpoint.
+ * and patch/update to the message endpoint.
  */
-public class PostOfferMessage extends AppCompatActivity {
+public class PatchOfferMessage extends AppCompatActivity {
 
-    private Button viewAllOffers;
-    private Button gotoTutHomeFromOffer;
+    private Button viewAllOffers, gotoTutHome;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_or_patch_open_message);
 
-        if (TutorLoggedIn.bidOnBids.equals("bidOnOpenBids")) {
-            postMsg("open");
-        }
-        else if (TutorLoggedIn.bidOnBids.equals("bidOnCloseBids")){
-            postMsg("close");
-        }
+        String contentType = "open";
+        patchMsg(contentType);
 
         viewAllOffers = findViewById(R.id.view_all_offers);
         viewAllOffers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PostOfferMessage.this, ViewAllOffers.class);
-                PostOfferMessage.this.startActivity(intent);
+                Intent intent = new Intent(PatchOfferMessage.this, ViewAllOffers.class);
+                PatchOfferMessage.this.startActivity(intent);
             }
         });
 
-        gotoTutHomeFromOffer = findViewById(R.id.gotoTutHomeFromOffer);
-        gotoTutHomeFromOffer.setOnClickListener(new View.OnClickListener() {
+        gotoTutHome = findViewById(R.id.gotoTutHomeFromOffer);
+        gotoTutHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PostOfferMessage.this, TutorLoggedIn.class);
-                PostOfferMessage.this.startActivity(intent);
+                Intent intent = new Intent(PatchOfferMessage.this, TutorLoggedIn.class);
+                PatchOfferMessage.this.startActivity(intent);
             }
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void postMsg(String content){
-        String postMsgUrl = rootUrl + "/message";
-
-        //retrieve required info for json
-        String bidId = getOfferHolder();            //from BidCardItemAdapter
-        String posterID = LoginPage.getTutorId();   //from the logged in tutor
-        LocalDateTime dateCreated = LocalDateTime.now();
-        String datePosted = dateCreated + "Z";
+    public void patchMsg(String contentType){
+        String msgId = getMessageIDHolder();    //retrieve message id from LoggedInTutorOffersAdapter
+        String patchMsgUrl = rootUrl + "/message/" + msgId;
 
         String infoTagR = "rate",
                 infoTagH = "hour",
@@ -96,10 +81,7 @@ public class PostOfferMessage extends AppCompatActivity {
 
         String json =
                 "{" +
-                        "\"bidId\":\"" + bidId + "\"," +
-                        "\"posterId\":\"" + posterID + "\"," +
-                        "\"datePosted\":\"" + datePosted + "\"," +
-                        "\"content\":\"" + content + "\"," +
+                        "\"content\":\"" + contentType + "\"," +
                         "\"additionalInfo\":" + "{" + "\"" +
                         infoTagR + "\":" + "\"" + infoTR + "\"," + "\"" +
                         infoTagH + "\":" + "\"" + infoTH + "\"," + "\"" +
@@ -115,9 +97,9 @@ public class PostOfferMessage extends AppCompatActivity {
         RequestBody body = RequestBody.create(json, JSON);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(postMsgUrl)
+                .url(patchMsgUrl)
                 .header("Authorization", myApiKey)
-                .post(body)
+                .patch(body)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -129,12 +111,12 @@ public class PostOfferMessage extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()){
-                    PostOfferMessage.this.runOnUiThread(() -> {
-                        System.out.println("message posted successfully");
+                    PatchOfferMessage.this.runOnUiThread(() ->{
+                        System.out.println("message patched successfully");
                     });
                 } else {
                     System.out.println(response);
-                    new Handler(Looper.getMainLooper()).post(() -> System.out.println("Error: message not posted!"));
+                    new Handler(Looper.getMainLooper()).post(() -> System.out.println("Error: message not patched"));
                 }
             }
         });

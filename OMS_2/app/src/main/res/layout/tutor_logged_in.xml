@@ -35,12 +35,23 @@
         android:id="@+id/bidOnCloseBids"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="bid on close requests"
         app:backgroundTint="#00BCD4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bidOnOpenBids" />
+
+    <Button
+        android:id="@+id/viewMyOffersToUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="view and edit my offers (open requests)"
+        app:backgroundTint="#03A9F4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bidOnOpenBids"
-        app:layout_constraintVertical_bias="0.183" />
+        app:layout_constraintTop_toBottomOf="@+id/bidOnCloseBids"
+        app:layout_constraintVertical_bias="0.115" />
 </androidx.constraintlayout.widget.ConstraintLayout>

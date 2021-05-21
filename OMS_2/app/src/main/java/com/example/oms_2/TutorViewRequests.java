@@ -31,7 +31,7 @@ import static com.example.oms_2.OMSConstants.rootUrl;
  */
 public class TutorViewRequests extends AppCompatActivity {
 
-    private ArrayList<BidCardItem> mListOfBids;
+    private ArrayList<CardItem> mListOfBids;
     private RecyclerView mRecyclerView;
     private BidCardItemAdapter mAdapter;                //bridge between data (exampleList) and RecyclerView
     private RecyclerView.LayoutManager mLayoutManager;  //aligns every single item in the list
@@ -86,7 +86,7 @@ public class TutorViewRequests extends AppCompatActivity {
 
                                     //only display requests that have not been closed down (where dateClosedDown is null)
                                     if (dateClosedDown.equals("null")) {
-                                        mListOfBids.add(new BidCardItem("Request " + String.valueOf(i),
+                                        mListOfBids.add(new CardItem("Request " + String.valueOf(i),
                                                 "Subject: " + resSubj,
                                                 "Tutor's Qualification: " + tutorQualification,
                                                 "No. of sessions: " + numOfSess,
@@ -136,6 +136,6 @@ public class TutorViewRequests extends AppCompatActivity {
     }
 
     //getters and setters
-    public ArrayList<BidCardItem> getmListOfBids(){ return mListOfBids; }
-    public void setmListOfBids(ArrayList<BidCardItem> l){ this.mListOfBids = l; }
+    public ArrayList<CardItem> getmListOfBids(){ return mListOfBids; }
+    public void setmListOfBids(ArrayList<CardItem> l){ this.mListOfBids = l; }
 }

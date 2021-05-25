@@ -42,35 +42,67 @@ import static com.example.oms_2.OMSConstants.rootUrl;
  */
 public class Contract extends AppCompatActivity {
 
-    private DatePicker expiryDate;
-    private Button SignContract;
     private String tutorId;
     private String subjectId;
     private String studentId;
     private String bidId;
     private LocalDateTime dateCreated;
     private TextView heading;
+    private int months;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contract);
         Intent intent = getIntent();
-        expiryDate = findViewById(R.id.expiry_date);
-        expiryDate.setMinDate(System.currentTimeMillis() - 1000); //no expiry date in the past
         tutorId = intent.getStringExtra("tutorid");
         subjectId = intent.getStringExtra("subjectid");
         bidId = intent.getStringExtra("bidId");             //got the bidId
         studentId = LoginPage.getStudId();
         dateCreated = LocalDateTime.now(); //time 2021-04-30T07:20:17.918
-        SignContract = findViewById(R.id.signContract);
+        Button signContract = findViewById(R.id.signContract);
+        Button three = findViewById(R.id.three_months);
+        Button six = findViewById(R.id.six_months);
+        Button twelve = findViewById(R.id.twelve_months);
+        Button twenty_four = findViewById(R.id.twenty_four_months);
+
         heading = findViewById(R.id.heading);
 
-        SignContract.setOnClickListener(new View.OnClickListener() {
+        signContract.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                months = 6;
                 contract_create();
             }
         });
+
+        three.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                months = 3;
+                contract_create();
+            }
+        });
+
+        six.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                months = 6;
+                contract_create();
+            }
+        });
+
+        twelve.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                months = 12;
+                contract_create();
+            }
+        });
+
+        twenty_four.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                months = 24;
+                contract_create();
+            }
+        });
+
     }
 
     /**
@@ -79,11 +111,8 @@ public class Contract extends AppCompatActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void contract_create() {
-        int day  = expiryDate.getDayOfMonth();
-        int month= expiryDate.getMonth();
-        int year = expiryDate.getYear();
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
+        calendar.add(Calendar.MONTH, months);
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(calendar.getTime());
@@ -108,6 +137,7 @@ public class Contract extends AppCompatActivity {
                         "\"additionalInfo\":"   +   "{" + "\"" + additionalInfoTag + "\":" + "\""+ additionalInfoRequest + "\"" + "}" +
                         "}";
         RequestBody body = RequestBody.create(json, JSON);
+        System.out.println(json);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(usersUrl)
@@ -126,7 +156,6 @@ public class Contract extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
 
-//                    Contract.this.runOnUiThread(() -> {
                     new Thread(() -> {
                         try {
                             JSONObject row = new JSONObject(Objects.requireNonNull(response.body()).string());
@@ -209,6 +238,8 @@ public class Contract extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Contract.this.runOnUiThread(() -> {
                         Toast.makeText(getApplicationContext(),"Request has been closed",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(com.example.oms_2.Contract.this, StudentLoggedIn.class);
+                        Contract.this.startActivity(intent);
                     });
                 }
             }

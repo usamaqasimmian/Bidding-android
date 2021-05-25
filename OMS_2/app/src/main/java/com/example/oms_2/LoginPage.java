@@ -168,19 +168,22 @@ public class LoginPage extends AppCompatActivity {
                                 JSONObject row = array.getJSONObject(i);
                                 if (row.getString("userName").equals(loggedIn)) {
                                     if (row.getBoolean("isStudent") && row.getBoolean("isTutor")) {
-                                        Intent intent = new Intent(LoginPage.this, StudentTutorBoth.class);
+                                        Intent intent = new Intent(LoginPage.this, ContractRemind.class);
                                         String studId = row.getString("id");
+                                        intent.putExtra("login","Both");
                                         setStudId(studId);
                                         LoginPage.this.startActivity(intent);
                                     } else if (row.getBoolean("isStudent")){
-                                        Intent intent = new Intent(LoginPage.this, StudentLoggedIn.class);
+                                        Intent intent = new Intent(LoginPage.this, ContractRemind.class);
                                         String studId = row.getString("id");
+                                        intent.putExtra("login","Student");
                                         setStudId(studId);
                                         LoginPage.this.startActivity(intent);
                                     }
                                     else{
-                                        Intent intent = new Intent(LoginPage.this, TutorLoggedIn.class);
+                                        Intent intent = new Intent(LoginPage.this, ContractRemind.class);
                                         String tutId = row.getString("id");
+                                        intent.putExtra("login","Tutor");
                                         setTutorId(tutId);
                                         LoginPage.this.startActivity(intent);
                                     }

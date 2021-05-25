@@ -60,7 +60,7 @@ public class ViewAllTutors extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
                 if (response.isSuccessful()) {
-                    ViewAllTutors.this.runOnUiThread(() -> {
+                    new Thread(() -> {
 
                         try {
                             JSONArray array = new JSONArray(Objects.requireNonNull(response.body()).string());
@@ -89,7 +89,7 @@ public class ViewAllTutors extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    });
+                    }).start();
                 }
             }
         });

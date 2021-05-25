@@ -70,7 +70,7 @@ public class Contract extends AppCompatActivity {
 
         signContract.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                months = 6;
+                months = 1;
                 contract_create();
             }
         });

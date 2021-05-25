@@ -134,8 +134,9 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
                 if (response.isSuccessful()) {
-
-                    LoginPage.this.runOnUiThread(() -> redirectUser());
+                    new Thread(() -> {
+                        redirectUser();
+                    }).start();
                 }
             }
         });

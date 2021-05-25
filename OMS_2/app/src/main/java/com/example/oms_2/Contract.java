@@ -186,6 +186,7 @@ public class Contract extends AppCompatActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void contractSign(String ID){
+        System.out.println(ID);
         LocalDateTime startDate = dateCreated.plusDays(1);
         String date = startDate + "Z";
         String usersUrl = rootUrl + "/contract/" + ID + "/sign";

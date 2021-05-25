@@ -41,10 +41,10 @@ public class ContractRemind extends AppCompatActivity {
     }
 
     public void checkAllContracts(){
-        String getAllUsers = rootUrl + "/contract";
+        String allContracts = rootUrl + "/contract";
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(getAllUsers)
+                .url(allContracts)
                 .header("Authorization", myApiKey)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -78,8 +78,6 @@ public class ContractRemind extends AppCompatActivity {
                                         // if contract expiry date is 1 month or less than a notification will be made
                                         makeNotification();
                                     }
-
-                                    makeNotification();
                                 }
                             }
                             redirectUser();

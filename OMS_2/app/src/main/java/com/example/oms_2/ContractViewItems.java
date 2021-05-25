@@ -1,13 +1,15 @@
 package com.example.oms_2;
 
+import org.json.JSONObject;
+
 public class ContractViewItems {
 
     private String studentID;
     private String tutorID;
     private String dateCreated;
     private String dateExpired;
-    private String payment;
-    private String lesson;
+    private JSONObject payment;
+    private JSONObject lesson;
 
     public ContractViewItems(String studentID, String tutorID, String dateCreated, String dateExpired, String payment, String lesson) {
         this.studentID = studentID;
@@ -50,19 +52,19 @@ public class ContractViewItems {
         this.dateExpired = dateExpired;
     }
 
-    public String getPayment() {
+    public JSONObject getPayment() {
         return payment;
     }
 
-    public void setPayment(String payment) {
+    public void setPayment(JSONObject payment) {
         this.payment = payment;
     }
 
-    public String getLesson() {
+    public JSONObject getLesson() {
         return lesson;
     }
 
-    public void setLesson(String lesson) {
+    public void setLesson(JSONObject lesson) {
         this.lesson = lesson;
     }
 }

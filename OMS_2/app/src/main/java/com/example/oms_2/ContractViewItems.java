@@ -8,8 +8,8 @@ public class ContractViewItems {
     private String tutorID;
     private String dateCreated;
     private String dateExpired;
-    private JSONObject payment;
-    private JSONObject lesson;
+    private String payment;
+    private String lesson;
 
     public ContractViewItems(String studentID, String tutorID, String dateCreated, String dateExpired, String payment, String lesson) {
         this.studentID = studentID;
@@ -52,19 +52,19 @@ public class ContractViewItems {
         this.dateExpired = dateExpired;
     }
 
-    public JSONObject getPayment() {
+    public String getPayment() {
         return payment;
     }
 
-    public void setPayment(JSONObject payment) {
+    public void setPayment(String payment) {
         this.payment = payment;
     }
 
-    public JSONObject getLesson() {
+    public String getLesson() {
         return lesson;
     }
 
-    public void setLesson(JSONObject lesson) {
+    public void setLesson(String lesson) {
         this.lesson = lesson;
     }
 }

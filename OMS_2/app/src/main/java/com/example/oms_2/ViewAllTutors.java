@@ -1,6 +1,8 @@
 package com.example.oms_2;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -81,7 +83,7 @@ public class ViewAllTutors extends AppCompatActivity {
 
                                     adapter = new RecyclerAdapter(dataItems);
                                     // assign the adapter to the recycler view
-                                    recyclerView.setAdapter(adapter);
+                                    new Handler(Looper.getMainLooper()).post(() -> recyclerView.setAdapter(adapter));
                                 }
                             }
                         } catch (JSONException e) {

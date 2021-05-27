@@ -24,7 +24,7 @@ public class ContractsRec extends  RecyclerView.Adapter<ContractsRec.ViewHolder>
     @NonNull
     @Override
     public ContractsRec.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_contracts, viewGroup, false); //CardView inflated as RecyclerView list item
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_all_contracts_card, viewGroup, false); //CardView inflated as RecyclerView list item
 
         return new ViewHolder(v);
 
@@ -38,7 +38,7 @@ public class ContractsRec extends  RecyclerView.Adapter<ContractsRec.ViewHolder>
         holder.dateCreated.setText(data.get(position).getDateCreated());
         holder.dateExpired.setText(data.get(position).getDateExpired());
         holder.payment.setText(data.get(position).getPayment());
-        holder.lesson.setText(data.get(position).getLesson());
+        holder.lesson.setText( data.get(position).getLesson());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() { //set back to itemView for students
             @Override

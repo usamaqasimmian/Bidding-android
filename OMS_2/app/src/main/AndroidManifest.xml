@@ -32,6 +32,8 @@
         <activity android:name=".ViewAllOffers" />
         <activity android:name=".StudViewOffers" />
         <activity android:name=".LastBid" />
+        <activity android:name=".ContractRemind" />
+        <activity android:name=".ViewContracts" />
         <activity android:name=".PatchOfferMessage" />
         <activity android:name=".LoggedInTutorOffers" />
 

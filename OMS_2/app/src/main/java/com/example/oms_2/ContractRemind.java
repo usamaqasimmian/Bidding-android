@@ -1,12 +1,18 @@
 package com.example.oms_2;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.annotation.WorkerThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
@@ -63,20 +69,19 @@ public class ContractRemind extends AppCompatActivity {
                         try {
                             JSONArray array = new JSONArray(Objects.requireNonNull(response.body()).string());
                             for (int i = 0; i < array.length(); i++) {
+                                System.out.println("Hello");
                                 JSONObject row = array.getJSONObject(i);
                                 JSONObject student = row.getJSONObject("firstParty");
                                 String studentID = student.getString("id");
                                 JSONObject tutor = row.getJSONObject("secondParty");
                                 String tutorID = tutor.getString("id");
+                                redirectUser();
                                 if (studentID.equals(userID) || tutorID.equals(userID)){
                                     String expiryDate = row.getString("dateCreated");
-                                    @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                                    Date parsedDate = format.parse(expiryDate);
-                                    Date futureDate = format.parse(dateMonthTime);
-
+                                    @SuppressLint("SimpleDateFormat") Date futureDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").parse(dateMonthTime);
+                                    @SuppressLint("SimpleDateFormat") Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").parse(expiryDate);
                                     if ((parsedDate.compareTo(futureDate)) < 1){
-                                        // if contract expiry date is 1 month or less than a notification will be made
-                                        makeNotification();
+                                        new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(getApplicationContext(),"One or More Contracts are about to expire",Toast.LENGTH_SHORT).show());
                                     }
                                 }
                             }
@@ -98,31 +103,27 @@ public class ContractRemind extends AppCompatActivity {
 
     }
 
-    public void makeNotification(){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.notification_icon)
-                .setContentTitle("My notification")
-                .setContentText("Much longer text that cannot fit one line...")
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Much longer text that cannot fit one line..."))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        redirectUser();
-    }
+
 
     public void redirectUser(){
         Intent intent = getIntent();
         String login = intent.getStringExtra("login");
-        if (login.equals("Both")) {
-            Intent newIntent = new Intent(ContractRemind.this, StudentTutorBoth.class);
-            ContractRemind.this.startActivity(newIntent);
-        }
-        else if (login.equals("Student")){
-            Intent newIntent = new Intent(ContractRemind.this, StudentLoggedIn.class);
-            ContractRemind.this.startActivity(newIntent);
-        }
-        else {
-            Intent newIntent = new Intent(ContractRemind.this, TutorLoggedIn.class);
-            ContractRemind.this.startActivity(newIntent);
+        switch (login) {
+            case "Both": {
+                Intent newIntent = new Intent(ContractRemind.this, StudentTutorBoth.class);
+                ContractRemind.this.startActivity(newIntent);
+                break;
+            }
+            case "Student": {
+                Intent newIntent = new Intent(ContractRemind.this, StudentLoggedIn.class);
+                ContractRemind.this.startActivity(newIntent);
+                break;
+            }
+            case "Tutor": {
+                Intent newIntent = new Intent(ContractRemind.this, TutorLoggedIn.class);
+                ContractRemind.this.startActivity(newIntent);
+                break;
+            }
         }
     }
     }

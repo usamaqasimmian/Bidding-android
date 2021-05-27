@@ -20,6 +20,7 @@ public class StudentLoggedIn extends AppCompatActivity {
     private Button createNewRequest;
     private Button viewAllTutors;
     private Button viewOffersOpen, viewOffersClose;
+    private Button contracts;
     public static String viewWhichOffers;
 
     @Override
@@ -29,6 +30,7 @@ public class StudentLoggedIn extends AppCompatActivity {
 
         viewAllTutors = findViewById(R.id.view_all_tutors);
         createNewRequest = findViewById(R.id.createNewRequest);
+        contracts = findViewById(R.id.contracts);
 
         createNewRequest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +46,12 @@ public class StudentLoggedIn extends AppCompatActivity {
                 Intent intent = new Intent(StudentLoggedIn.this, ViewAllTutors.class);
                 StudentLoggedIn.this.startActivity(intent);
             }
+        });
+
+
+        contracts.setOnClickListener(v -> {
+            Intent intent = new Intent(StudentLoggedIn.this, ViewContracts.class);
+            StudentLoggedIn.this.startActivity(intent);
         });
 
         viewOffersOpen = findViewById(R.id.view_offers_for_open_requests);

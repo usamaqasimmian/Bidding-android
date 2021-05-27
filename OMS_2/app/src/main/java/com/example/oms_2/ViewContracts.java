@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.BaseAdapter;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,9 +36,9 @@ import static com.example.oms_2.OMSConstants.rootUrl;
 
 public class ViewContracts extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
+    private RecyclerView recyclerView;
     String userID;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class ViewContracts extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         userID = LoginPage.getStudId();
         makeRequest();
+
     }
 
     private void makeRequest() {
@@ -60,12 +64,8 @@ public class ViewContracts extends AppCompatActivity {
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
-                LocalDateTime dateCreated = LocalDateTime.now();
-                LocalDateTime dateMonth = dateCreated.plusDays(30);
-                String dateMonthTime = dateMonth + "Z";
                 if (response.isSuccessful()) {
                     new Thread(() -> {
                         try {
@@ -73,21 +73,21 @@ public class ViewContracts extends AppCompatActivity {
                             ArrayList<ContractViewItems> dataItems = new ArrayList<>();
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject row = array.getJSONObject(i);
-                                JSONObject student = row.getJSONObject("firstParty");
+                                JSONObject student = row.getJSONObject("secondParty");
                                 String studentID = student.getString("id");
-                                JSONObject tutor = row.getJSONObject("secondParty");
+                                JSONObject tutor = row.getJSONObject("firstParty");
                                 String tutorID = tutor.getString("id");
                                 if (studentID.equals(userID) || tutorID.equals(userID)){
                                     String signed = row.getString("dateSigned");
                                     String expiryDate = row.getString("expiryDate");
-                                    JSONObject payment = row.getJSONObject("paymentInfo");
-                                    JSONObject lesson = row.getJSONObject("lessonInfo");
+                                    String payment = row.getJSONObject("paymentInfo").toString();
+                                    String lesson = row.getJSONObject("lessonInfo").toString();
                                     ContractViewItems contractViewItems = new ContractViewItems("Student ID: " + studentID,"Tutor ID: " + tutorID, "Date Signed: " + signed, "Date Expired: "+ expiryDate,
-                                            "Payment Info: "+ payment,"Lesson Info: " + lesson);
+                                            "Payment Info: " + payment,"Lesson Info: " + lesson);
                                     dataItems.add(contractViewItems);
                                     adapter = new ContractsRec(dataItems);
-                                    // assign the adapter to the recycler view
-                                    recyclerView.setAdapter(adapter);
+                                    new Handler(Looper.getMainLooper()).post(() -> recyclerView.setAdapter(adapter));
+
 
                                 }
                             }

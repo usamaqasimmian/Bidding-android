@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.414"
+        app:layout_constraintVertical_bias="0.297"
         tools:text="make request" />
 
     <TextView
@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.575" />
+        app:layout_constraintVertical_bias="0.672" />
 
     <Button
         android:id="@+id/view_all_tutors"
@@ -42,10 +42,9 @@
         android:text="@string/view_all_tutors"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_offers_for_open_requests"
-        app:layout_constraintVertical_bias="0.524" />
+        app:layout_constraintVertical_bias="0.886" />
 
     <Button
         android:id="@+id/view_offers_for_open_requests"
@@ -55,9 +54,10 @@
         app:backgroundTint="#00BCD4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createNewRequest"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.034" />
 
     <Button
         android:id="@+id/view_offers_for_close_requests"
@@ -70,14 +70,18 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_offers_for_open_requests"
-        app:layout_constraintVertical_bias="0.505" />
+        app:layout_constraintVertical_bias="0.035" />
 
     <Button
         android:id="@+id/contracts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View All Contracts"
+        android:text="View All Contracts and Extend"
+        app:backgroundTint="#2196F3"
+        app:layout_constraintBottom_toTopOf="@+id/view_all_tutors"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="650dp" />
+        app:layout_constraintTop_toBottomOf="@+id/view_offers_for_close_requests"
+        app:layout_constraintVertical_bias="0.14" />
 </androidx.constraintlayout.widget.ConstraintLayout>

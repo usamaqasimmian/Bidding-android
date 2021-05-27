@@ -247,8 +247,9 @@ public class Contract extends AppCompatActivity {
         });
     }
 
+    //menu
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.optionsmenu, menu);
+        getMenuInflater().inflate(R.menu.options_menu2, menu);
         return true;
     }
 
@@ -258,9 +259,8 @@ public class Contract extends AppCompatActivity {
         if (id == R.id.action_Logout) {
             Intent intent = new Intent(com.example.oms_2.Contract.this, LoginPage.class);
             Contract.this.startActivity(intent);
-        }
-        else if (id == R.id.view_all_tutors) {
-            Intent intent = new Intent(com.example.oms_2.Contract.this, ViewAllTutors.class);
+        } else if (id == R.id.homepage) {
+            Intent intent = new Intent(com.example.oms_2.Contract.this, StudentLoggedIn.class);
             Contract.this.startActivity(intent);
         }
         return true;

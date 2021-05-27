@@ -1,7 +1,11 @@
 package com.example.oms_2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -176,4 +180,23 @@ public class LoggedInTutorOffers extends AppCompatActivity {
     //getter and setter
     public ArrayList<CardItem> getpListOfOfferTut(){ return pListOfOfferTut; }
     public void setpListOfOfferTut(ArrayList<CardItem> plist){ this.pListOfOfferTut = plist; }
+
+    //menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        if (id == R.id.action_Logout) {
+            Intent intent = new Intent(com.example.oms_2.LoggedInTutorOffers.this, LoginPage.class);
+            LoggedInTutorOffers.this.startActivity(intent);
+        } else if (id == R.id.homepage) {
+            Intent intent = new Intent(com.example.oms_2.LoggedInTutorOffers.this, TutorLoggedIn.class);
+            LoggedInTutorOffers.this.startActivity(intent);
+        }
+        return true;
+    }
 }

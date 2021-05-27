@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.WorkerThread;
 import androidx.appcompat.app.AppCompatActivity;
@@ -126,4 +129,28 @@ public class ContractRemind extends AppCompatActivity {
             }
         }
     }
+
+    //menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu2, menu);
+        return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        Intent intt = getIntent();
+        String login = intt.getStringExtra("login");
+        if (id == R.id.action_Logout) {
+            Intent intent = new Intent(com.example.oms_2.ContractRemind.this, LoginPage.class);
+            ContractRemind.this.startActivity(intent);
+        } else if (id == R.id.homepage && login.equals("Student")) {
+            Intent intent = new Intent(com.example.oms_2.ContractRemind.this, StudentLoggedIn.class);
+            ContractRemind.this.startActivity(intent);
+        } else if (id == R.id.homepage && login.equals("Tutor")) {
+            Intent intent = new Intent(com.example.oms_2.ContractRemind.this, TutorLoggedIn.class);
+            ContractRemind.this.startActivity(intent);
+        }
+        return true;
+    }
+}

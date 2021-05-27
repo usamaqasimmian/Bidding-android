@@ -1,13 +1,17 @@
 package com.example.oms_2;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.BaseAdapter;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -77,6 +81,7 @@ public class ViewContracts extends AppCompatActivity {
                                 String studentID = student.getString("id");
                                 JSONObject tutor = row.getJSONObject("firstParty");
                                 String tutorID = tutor.getString("id");
+                                System.out.println("aaaaaaaaaaaaaaaaaaaa");
                                 if (studentID.equals(userID) || tutorID.equals(userID)){
                                     String signed = row.getString("dateSigned");
                                     String expiryDate = row.getString("expiryDate");
@@ -84,6 +89,7 @@ public class ViewContracts extends AppCompatActivity {
                                     String lesson = row.getJSONObject("lessonInfo").toString();
                                     ContractViewItems contractViewItems = new ContractViewItems("Student ID: " + studentID,"Tutor ID: " + tutorID, "Date Signed: " + signed, "Date Expired: "+ expiryDate,
                                             "Payment Info: " + payment,"Lesson Info: " + lesson);
+                                    System.out.println("sssssssssssss");
                                     dataItems.add(contractViewItems);
                                     adapter = new ContractsRec(dataItems);
                                     new Handler(Looper.getMainLooper()).post(() -> recyclerView.setAdapter(adapter));
@@ -106,6 +112,23 @@ public class ViewContracts extends AppCompatActivity {
         });
     }
 
+    //menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu2, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        if (id == R.id.action_Logout) {
+            Intent intent = new Intent(com.example.oms_2.ViewContracts.this, LoginPage.class);
+            ViewContracts.this.startActivity(intent);
+        } else if (id == R.id.homepage) {
+            Intent intent = new Intent(com.example.oms_2.ViewContracts.this, StudentLoggedIn.class);
+            ViewContracts.this.startActivity(intent);
+        }
+        return true;
+    }
 
 }

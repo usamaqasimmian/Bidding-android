@@ -1,7 +1,11 @@
 package com.example.oms_2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -208,4 +212,23 @@ public class ViewAllOffers extends AppCompatActivity {
     public void setnListOfOffers(ArrayList<CardItem> nListOfOffers) { this.nListOfOffers = nListOfOffers; }
     public boolean getInterrupted(){ return interrupted; }
     public void setInterrupted(boolean interruptedY){ this.interrupted = interruptedY;}
+
+    //menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        if (id == R.id.action_Logout) {
+            Intent intent = new Intent(com.example.oms_2.ViewAllOffers.this, LoginPage.class);
+            ViewAllOffers.this.startActivity(intent);
+        } else if (id == R.id.homepage) {
+            Intent intent = new Intent(com.example.oms_2.ViewAllOffers.this, TutorLoggedIn.class);
+            ViewAllOffers.this.startActivity(intent);
+        }
+        return true;
+    }
 }

@@ -3,11 +3,14 @@ package com.example.oms_2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -192,4 +195,22 @@ public class TutorOfferForm extends AppCompatActivity {
     public static String getdQualif(){ return dQualif; }
     public static String getdCompL(){ return dCompL; }
 
+    //menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        if (id == R.id.action_Logout) {
+            Intent intent = new Intent(com.example.oms_2.TutorOfferForm.this, LoginPage.class);
+            TutorOfferForm.this.startActivity(intent);
+        } else if (id == R.id.homepage) {
+            Intent intent = new Intent(com.example.oms_2.TutorOfferForm.this, TutorLoggedIn.class);
+            TutorOfferForm.this.startActivity(intent);
+        }
+        return true;
+    }
 }

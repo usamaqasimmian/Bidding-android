@@ -51,7 +51,7 @@ public class ContractsRec extends  RecyclerView.Adapter<ContractsRec.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

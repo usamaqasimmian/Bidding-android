@@ -5,6 +5,8 @@ import android.content.Intent;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -422,4 +425,23 @@ public class StudRequestForm extends AppCompatActivity implements TimePickerDial
     public void setTheSubjId(String tsid){ this.theSubjId = tsid;}
     public void setSubjectsId(List<String> subjId){ this.subjectsId = subjId; }
     public void setSubjects(List<String> subjs){ this.subjects = subjs; }
+
+    //menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        if (id == R.id.action_Logout) {
+            Intent intent = new Intent(com.example.oms_2.StudRequestForm.this, LoginPage.class);
+            StudRequestForm.this.startActivity(intent);
+        } else if (id == R.id.homepage) {
+            Intent intent = new Intent(com.example.oms_2.StudRequestForm.this, StudentLoggedIn.class);
+            StudRequestForm.this.startActivity(intent);
+        }
+        return true;
+    }
 }

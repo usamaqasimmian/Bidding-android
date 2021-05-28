@@ -23,7 +23,6 @@
         <activity android:name=".StudRequestForm" />
         <activity android:name=".TutorLoggedIn" />
         <activity android:name=".ViewAllTutors" />
-        <activity android:name=".BidCloseDown" />
         <activity android:name=".StudentTutorBoth" />
         <activity android:name=".Contract" />
         <activity android:name=".TutorViewRequests" />

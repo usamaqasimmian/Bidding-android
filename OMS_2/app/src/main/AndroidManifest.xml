@@ -36,6 +36,8 @@
         <activity android:name=".ViewContracts" />
         <activity android:name=".PatchOfferMessage" />
         <activity android:name=".LoggedInTutorOffers" />
+        <activity android:name=".ContractDiffTutor" />
+        <activity android:name=".PostReusedContract" />
 
         <receiver android:name=".TimeOutBid"
             android:permission="TODO"

@@ -12,6 +12,12 @@ https://docs.google.com/document/d/1vwdW4-qZ-Ub1SX015aXmQzHVgGgk9gl1NBeU5Ux71Kc/
 4. Link to class diagram (lucidspark):  
 https://lucid.app/lucidspark/invitations/accept/inv_ff1ebfd2-3006-46c3-a8a7-b2fd59e8d821?viewport_loc=2332%2C-403%2C3071%2C1443%2C0_0  
   
+5. The layout or .xml files for activities are provided in code in the folder:  
+OMS_2 > app > src > main > res > layout   
+  
+6. The layout or .xml files for menu are provided in code in the folder:  
+OMS_2 > app > src > main > res > menu    
+  
 ### Steps  
 1. Login as Student  
   

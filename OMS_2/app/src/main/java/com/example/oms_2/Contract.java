@@ -55,8 +55,8 @@ public class Contract extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contract);
         Intent intent = getIntent();
-        tutorId = intent.getStringExtra("tutorid");
-        subjectId = intent.getStringExtra("subjectid");
+        tutorId = intent.getStringExtra("tutorid");         //from StudViewOffersAdapter
+        subjectId = intent.getStringExtra("subjectid");     //from StudViewOffersAdapter
         bidId = intent.getStringExtra("bidId");             //got the bidId
         studentId = LoginPage.getStudId();
         dateCreated = LocalDateTime.now(); //time 2021-04-30T07:20:17.918
@@ -209,7 +209,7 @@ public class Contract extends AppCompatActivity {
                     Contract.this.runOnUiThread(() -> {
                         heading.setText("Contract Signed!");
                         closeBid();
-
+                        System.out.println("Bid(request) was closed down successfully!");
                     });
                 }
             }

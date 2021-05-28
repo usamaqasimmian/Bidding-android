@@ -20,8 +20,9 @@ public class StudentLoggedIn extends AppCompatActivity {
     private Button createNewRequest;
     private Button viewAllTutors;
     private Button viewOffersOpen, viewOffersClose;
-    private Button contracts;
+    private Button contracts, reuse_contract;
     public static String viewWhichOffers;
+    public static String doWhatContract;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,19 @@ public class StudentLoggedIn extends AppCompatActivity {
 
 
         contracts.setOnClickListener(v -> {
+            doWhatContract = "same tutor contract";
             Intent intent = new Intent(StudentLoggedIn.this, ViewContracts.class);
             StudentLoggedIn.this.startActivity(intent);
+        });
+
+        reuse_contract = findViewById(R.id.reuse_contract);
+        reuse_contract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doWhatContract = "different tutor contract";
+                Intent intent = new Intent(StudentLoggedIn.this, ViewContracts.class);
+                StudentLoggedIn.this.startActivity(intent);
+            }
         });
 
         viewOffersOpen = findViewById(R.id.view_offers_for_open_requests);

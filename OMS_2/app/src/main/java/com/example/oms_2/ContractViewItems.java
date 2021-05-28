@@ -2,6 +2,10 @@ package com.example.oms_2;
 
 import org.json.JSONObject;
 
+/**
+ * This class is a template class to be used by other classes, namely ViewContract,
+ * such that the attributes here are used to fill up the contract cards.
+ */
 public class ContractViewItems {
 
     private String studentID;
@@ -10,14 +14,16 @@ public class ContractViewItems {
     private String dateExpired;
     private String payment;
     private String lesson;
+    private String subjectIdH;
 
-    public ContractViewItems(String studentID, String tutorID, String dateCreated, String dateExpired, String payment, String lesson) {
+    public ContractViewItems(String studentID, String tutorID, String dateCreated, String dateExpired, String payment, String lesson, String sidh) {
         this.studentID = studentID;
         this.tutorID = tutorID;
         this.dateCreated = dateCreated;
         this.dateExpired = dateExpired;
         this.payment = payment;
         this.lesson = lesson;
+        this.subjectIdH = sidh;
     }
 
     public String getStudentID() {
@@ -67,4 +73,8 @@ public class ContractViewItems {
     public void setLesson(String lesson) {
         this.lesson = lesson;
     }
+
+    public String getSubjectIdH(){ return subjectIdH; }
+
+    public void setSubjectIdH(String ssidh){ this.subjectIdH = ssidh; }
 }

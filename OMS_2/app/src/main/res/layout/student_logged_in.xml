@@ -42,9 +42,10 @@
         android:text="@string/view_all_tutors"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_offers_for_open_requests"
-        app:layout_constraintVertical_bias="0.886" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.939" />
 
     <Button
         android:id="@+id/view_offers_for_open_requests"
@@ -76,7 +77,7 @@
         android:id="@+id/contracts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View All Contracts and Extend"
+        android:text="View Contracts and renew with same tutor"
         app:backgroundTint="#2196F3"
         app:layout_constraintBottom_toTopOf="@+id/view_all_tutors"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,4 +85,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_offers_for_close_requests"
         app:layout_constraintVertical_bias="0.14" />
+
+    <Button
+        android:id="@+id/reuse_contract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="view and reuse contract with different tutor"
+        app:backgroundTint="#3F51B5"
+        app:layout_constraintBottom_toTopOf="@+id/view_all_tutors"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contracts"
+        app:layout_constraintVertical_bias="0.146" />
 </androidx.constraintlayout.widget.ConstraintLayout>

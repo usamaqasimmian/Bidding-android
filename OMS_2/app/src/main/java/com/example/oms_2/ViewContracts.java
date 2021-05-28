@@ -38,6 +38,10 @@ import okhttp3.Response;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
+/**
+ * This class is used to display to the student all of his contracts signed, and he can select
+ * any of them to renew/extend the duration of the selected contract with same tutor.
+ */
 public class ViewContracts extends AppCompatActivity {
 
     private RecyclerView.LayoutManager layoutManager;
@@ -81,15 +85,16 @@ public class ViewContracts extends AppCompatActivity {
                                 String studentID = student.getString("id");
                                 JSONObject tutor = row.getJSONObject("firstParty");
                                 String tutorID = tutor.getString("id");
-                                System.out.println("aaaaaaaaaaaaaaaaaaaa");
                                 if (studentID.equals(userID) || tutorID.equals(userID)){
                                     String signed = row.getString("dateSigned");
                                     String expiryDate = row.getString("expiryDate");
                                     String payment = row.getJSONObject("paymentInfo").toString();
                                     String lesson = row.getJSONObject("lessonInfo").toString();
+                                    JSONObject subject = row.getJSONObject("subject");
+                                    String subjid = subject.getString("id");
                                     ContractViewItems contractViewItems = new ContractViewItems("Student ID: " + studentID,"Tutor ID: " + tutorID, "Date Signed: " + signed, "Date Expired: "+ expiryDate,
-                                            "Payment Info: " + payment,"Lesson Info: " + lesson);
-                                    System.out.println("sssssssssssss");
+                                            "Payment Info: " + payment,"Lesson Info: " + lesson, "Subject ID: "+subjid);
+
                                     dataItems.add(contractViewItems);
                                     adapter = new ContractsRec(dataItems);
                                     new Handler(Looper.getMainLooper()).post(() -> recyclerView.setAdapter(adapter));

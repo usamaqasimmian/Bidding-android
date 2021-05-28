@@ -39,6 +39,9 @@ import okhttp3.Response;
 import static com.example.oms_2.OMSConstants.myApiKey;
 import static com.example.oms_2.OMSConstants.rootUrl;
 
+/**
+ * This class is used to set a reminder if a contract is soon to expire as soon as the user logs in.
+ */
 public class ContractRemind extends AppCompatActivity {
     private static final String CHANNEL_ID = "REMIND" ;
     String userID;

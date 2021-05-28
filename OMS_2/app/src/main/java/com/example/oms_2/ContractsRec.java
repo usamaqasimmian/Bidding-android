@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * The adapter class for ViewContracts class.
+ */
 public class ContractsRec extends  RecyclerView.Adapter<ContractsRec.ViewHolder> {
 
     private final ArrayList<ContractViewItems> data;
@@ -39,14 +42,27 @@ public class ContractsRec extends  RecyclerView.Adapter<ContractsRec.ViewHolder>
         holder.dateExpired.setText(data.get(position).getDateExpired());
         holder.payment.setText(data.get(position).getPayment());
         holder.lesson.setText( data.get(position).getLesson());
+        holder.subjid.setText(data.get(position).getSubjectIdH());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() { //set back to itemView for students
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), Contract.class);
-                v.getContext().startActivity(intent);
-            }
-        });
+        if (StudentLoggedIn.doWhatContract.equals("same tutor contract")) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() { //set back to itemView for students
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), Contract.class);
+                    v.getContext().startActivity(intent);
+                }
+            });
+        } else if (StudentLoggedIn.doWhatContract.equals("different tutor contract")){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ContractDiffTutor.class);
+                    String subjIDHere = data.get(position).getSubjectIdH().substring(12);   //from ViewContracts "Subject ID: " (id is after 12 chars)
+                    intent.putExtra("subjIDFromHere", subjIDHere);
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
@@ -62,6 +78,7 @@ public class ContractsRec extends  RecyclerView.Adapter<ContractsRec.ViewHolder>
         public TextView dateExpired;
         public TextView payment;
         public TextView lesson;
+        public TextView subjid;
 
 
         public ViewHolder (View itemView) {
@@ -73,6 +90,7 @@ public class ContractsRec extends  RecyclerView.Adapter<ContractsRec.ViewHolder>
             dateExpired = itemView.findViewById(R.id.date_expired);
             payment = itemView.findViewById(R.id.rate);
             lesson = itemView.findViewById(R.id.lesson);
+            subjid = itemView.findViewById(R.id.subjid);
 
         }
     }

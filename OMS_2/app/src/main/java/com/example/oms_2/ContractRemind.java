@@ -30,6 +30,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -70,12 +71,13 @@ public class ContractRemind extends AppCompatActivity {
                 LocalDateTime dateCreated = LocalDateTime.now();
                 LocalDateTime dateMonth = dateCreated.plusDays(30);
                 String dateMonthTime = dateMonth + "Z";
+                String finalDateMonthTime = dateMonthTime.substring(0,dateMonthTime.length()-14);
+                System.out.println(dateMonthTime);
                 if (response.isSuccessful()) {
                     new Thread(() -> {
                         try {
                             JSONArray array = new JSONArray(Objects.requireNonNull(response.body()).string());
                             for (int i = 0; i < array.length(); i++) {
-                                System.out.println("Hello");
                                 JSONObject row = array.getJSONObject(i);
                                 JSONObject student = row.getJSONObject("firstParty");
                                 String studentID = student.getString("id");
@@ -84,10 +86,12 @@ public class ContractRemind extends AppCompatActivity {
                                 redirectUser();
                                 if (studentID.equals(userID) || tutorID.equals(userID)){
                                     String expiryDate = row.getString("dateCreated");
-                                    @SuppressLint("SimpleDateFormat") Date futureDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").parse(dateMonthTime);
-                                    @SuppressLint("SimpleDateFormat") Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").parse(expiryDate);
+                                    expiryDate = expiryDate.substring(0,expiryDate.length()-14);
+                                    @SuppressLint("SimpleDateFormat") Date futureDate = new SimpleDateFormat("yyyy-MM-dd").parse(finalDateMonthTime);
+                                    @SuppressLint("SimpleDateFormat") Date parsedDate = new SimpleDateFormat("yyyy-MM-dd").parse(expiryDate);
                                     if ((parsedDate.compareTo(futureDate)) < 1){
-                                        new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(getApplicationContext(),"One or More Contracts are about to expire",Toast.LENGTH_SHORT).show());
+                                        new Handler(Looper.getMainLooper()).post(() -> Toasty.warning(getApplicationContext(), "One or More Contracts are about to expire", Toast.LENGTH_SHORT, true).show());
+
                                     }
                                 }
                             }
@@ -157,3 +161,4 @@ public class ContractRemind extends AppCompatActivity {
         return true;
     }
 }
+

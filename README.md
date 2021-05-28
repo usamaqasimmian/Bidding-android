@@ -6,7 +6,7 @@ OMS_2 > app > src > main > java/com/example/oms_2 > OMSConstants.java > `myApiKe
   
 2. For the class diagram, the pdf should be downloaded in order to zoom in to view it properly.  
   
-3. Link to design rationale (google doc):  
+3. Link to design rationale assignment 2 (google doc):  
 https://docs.google.com/document/d/1vwdW4-qZ-Ub1SX015aXmQzHVgGgk9gl1NBeU5Ux71Kc/edit?usp=sharing  
   
 4. Link to class diagram (lucidspark):  
@@ -18,7 +18,10 @@ OMS_2 > app > src > main > res > layout
 6. The layout or .xml files for menu are provided in code in the folder:  
 OMS_2 > app > src > main > res > menu    
   
-### Steps  
+7. Link to design rationale assignment 3 (google doc):  
+https://docs.google.com/document/d/1nlBLDGIK6D7YV3nB8xzWXlyX7vbuObfxA-p91cQJQV0/edit?usp=sharing  
+  
+### Steps Assignment 2  
 1. Login as Student  
   
 The student is directed to a page where there are 4 buttons:  
@@ -63,4 +66,18 @@ The tutor is directed to a page where there are 2 buttons:
   
 (a) The user will be directed to a page to choose whether to continue as student or as tutor.  
 (b) The user is then directed to the appropriate home page either for student or tutor based on selection of user.  
+  
+### Steps Assignment 3  
+  
+1. Requirement 1  
+- When tutor views requests, he/she see only the active requests, that is the ones that have not been closed down(not signed contract).  
+- When tutor views all other tutor's offers on open requests, the page refreshes every N seconds depending on how N mentioned in the ViewAllOffers class.  
+- Tutor can choose to update their own current offers (click on button "view and edit my offers" on homepage).  
+  
+2. Requirement 2  
+- Student can now renew a contract with same tutor.  
+- Student and tutor are notified of contracts that about the expire when they log in.  
+  
+3. Requirement 3  
+- Student can reuse signed contract details to sign a different tutor.  
   
